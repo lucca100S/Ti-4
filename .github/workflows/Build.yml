@@ -113,7 +113,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        emails: [amandapnovelli3825@gmail.com, luccacatalan@gmail.com, lugo.bhz@gmail.com, rodrigomjcoelho@gmail.com, arthur.roque.pro@gmail.com]
+        emails: [amandapnovelli3825@gmail.com, luccacatalan@gmail.com, lugo.bhz@gmail.com, rodrigomjcoelho@gmail.com, arthur.roque.pro@gmail.com, Rodrigostehling92@gmail.com, luke.c.mendes@gmail.com]
         
     steps:
       
@@ -124,7 +124,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "New Release"
+          subject: "New Build - Ti 4"
           to: ${{ matrix.emails }}
           from: ${{ secrets.EMAIL_USERNAME }}
           body: ${{ needs.generate_email_body.outputs.email_body }}
