@@ -23,5 +23,15 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
         }
 
+        private void OnEnable()
+        {
+            _playerInput.OnMove += _playerMovement.ChangeDirection;
+        }
+
+        private void OnDisable()
+        {
+            _playerInput.OnMove -= _playerMovement.ChangeDirection;
+        }
+
     }
 }

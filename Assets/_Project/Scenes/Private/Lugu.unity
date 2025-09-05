@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &3528315 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2511779648495491713, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+  m_PrefabInstance: {fileID: 2881394068520892481}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330727854
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +233,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330727854}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1062370607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1062370609}
+  - component: {fileID: 1062370608}
+  m_Layer: 0
+  m_Name: DebugController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1062370608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062370607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39da61310996c6d4fabf20fa4a54dd35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_debugGroups:
+  - name: PlayerMovement
+    isEnabled: 1
+--- !u!4 &1062370609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062370607}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.2948604, y: 5.909505, z: -6.005269}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1636257353
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +655,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7504432662851777320, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504432662851777320, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504432662851777320, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7981632515128313069, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021984564350539577, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+      propertyPath: _maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021984564350539577, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+      propertyPath: _alignTarget
+      value: 
+      objectReference: {fileID: 3528315}
+    - target: {fileID: 9021984564350539577, guid: 499d64177103a014fbcfa2a7b8d740e0, type: 3}
+      propertyPath: _acceleration
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -616,3 +696,4 @@ SceneRoots:
   - {fileID: 1636257355}
   - {fileID: 1755000406}
   - {fileID: 2881394068520892481}
+  - {fileID: 1062370609}
