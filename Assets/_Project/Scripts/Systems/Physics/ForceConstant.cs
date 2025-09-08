@@ -3,52 +3,41 @@ using UnityEngine;
 
 namespace Physics
 {
-    [RequireComponent(typeof(IMovable))]
+    [RequireComponent(typeof(PhysicsController))]
     public class ForceConstant : MonoBehaviour
     {
-        protected IMovable _movable;
-        [SerializeField] protected float _force = 1;
-        [SerializeField] protected Vector3 _direction = Vector3.down;
-        [SerializeField] protected float _timeInterval = 0;
-
-        protected float _timeElapsed = 0;
+        private PhysicsController _physicsController;
+        [SerializeField] protected PhysicsForce _force;
 
         #region Properties
 
-        public IMovable Movable{ get => _movable; private set => _movable = value; }
-
-        public float Force { get => _force; set => _force = value; }
-        public Vector3 Direction { get => _direction; set => _direction = value; }
-        public float TimeInterval { get => _timeInterval; set => _timeInterval = Mathf.Max(value, 0); }
-        public float TimeElapsed { get => _timeElapsed; private set => _timeElapsed = value; }
+        public PhysicsForce Force { get => _force;}
 
         #endregion
 
         protected virtual void Awake()
         {
-            if (_movable == null) _movable = GetComponent<IMovable>();
+            _physicsController = GetComponent<PhysicsController>();
         }
 
-        protected virtual void Update()
+        private void OnEnable()
         {
-            if (_timeInterval > 0)
+            if (_force != null)
             {
-                _timeElapsed += Time.deltaTime;
-                if (_timeElapsed >= _timeInterval)
-                {
-                    ApplyForce();
-                    _timeElapsed = 0;
-                }
+                _physicsController.AddForce(_force);
             }
             else
             {
-                ApplyForce();
+                Debug.LogWarning($"No force assigned to {gameObject.name} ForceConstant component.");
             }
         }
 
-        protected virtual void ApplyForce()
+        private void OnDisable()
         {
-            _movable.AddForce(_direction * _force);
+            if (_force != null)
+            {
+                _physicsController.RemoveForce(_force);
+            }
         }
     }
 }

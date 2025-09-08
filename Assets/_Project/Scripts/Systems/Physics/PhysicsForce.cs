@@ -10,10 +10,13 @@ namespace Physics
         [SerializeField] private string _name = "Force";
         [SerializeField] private float _duration = 1;
         private float _timeElapsed = 0;
+        [SerializeField] private Transform _targetPoint = null;
 
         [SerializeField] private bool _resetOnActivate = false;
         [SerializeField] private bool _resetOnDeactivate = false;
         private bool _isActive = true;
+        private bool _isHitting = false;
+        [SerializeField] private Color _color = Color.white;
 
         [Header("Force")]
         [SerializeField] private float _forceMax = 1;
@@ -27,22 +30,34 @@ namespace Physics
         #region Properties
 
         public bool IsActive { get => _isActive; }
+        public bool IsHitting { get => _isHitting; }
         public Vector3 Direction { get => _direction;}
         public float ForceMax { get => _forceMax; set => _forceMax = value; }
         public Vector3 ForceCurrent { get => _forceCurrent; }
         public float ForceAcceleration { get => _forceAcceleration; set => _forceAcceleration = value; }
         public float ForceDeceleration { get => _forceDeceleration; set => _forceDeceleration = value; }
         public float Duration { get => _duration; set => _duration = value; }
+        public Transform TargetPoint { get => _targetPoint; set => _targetPoint = value; }
         public float TimeElapsed { get => _timeElapsed; }
         public string Name { get => _name; set => _name = value; }
         public bool ResetOnActivate { get => _resetOnActivate; set => _resetOnActivate = value; }
         public bool ResetOnDeactivate { get => _resetOnDeactivate; set => _resetOnDeactivate = value; }
+        public Color Color { get => _color; set => _color = value; }
 
-        public Action OnForceEnd;
 
         #endregion
 
-        public PhysicsForce(string name, Vector3 direction, float forceMax, float forceAcceleration, float forceDeceleration, float duration)
+        #region Actions
+
+        public Action OnForceEnd;
+        public Action<RaycastHit> OnHit;
+        public Action OnExitHit;
+        public Action OnForceActivate;
+        public Action OnForceDeactivate;
+
+        #endregion
+
+        public PhysicsForce(string name, Vector3 direction, float forceMax, float forceAcceleration, float forceDeceleration, float duration, bool resetOnActivate = false, bool resetOnDeactivate = false)
         {
             _name = name;
             _direction = direction;
@@ -53,6 +68,11 @@ namespace Physics
             _duration = duration;
             _timeElapsed = 0f;
             _isActive = true;
+            _resetOnActivate = resetOnActivate;
+            _resetOnDeactivate = resetOnDeactivate;
+
+            OnHit += (hit) => _isHitting = true;
+            OnExitHit += () => _isHitting = false;
         }
 
         public void Activate(bool resetCurrentForce = false)
@@ -60,6 +80,8 @@ namespace Physics
             _isActive = true;
             _timeElapsed = 0f;
             if(resetCurrentForce) SetForce(Vector3.zero);
+
+            OnForceActivate?.Invoke();
         }
 
         public void Deactivate(bool resetCurrentForce = false)
@@ -67,6 +89,8 @@ namespace Physics
             _isActive = false;
             _timeElapsed = 0f;
             if (resetCurrentForce) SetForce(Vector3.zero);
+
+            OnForceDeactivate?.Invoke();
         }
 
         public void Update(float time)
@@ -92,7 +116,17 @@ namespace Physics
 
         private void Accelerate(float time)
         {
-            _forceCurrent += _direction * _forceAcceleration * time;
+            
+
+            if(_forceAcceleration == -1)
+            {
+                _forceCurrent = _forceMax * _direction;
+            }
+            else
+            {
+                _forceCurrent += _direction * _forceAcceleration * time;
+            }
+
             _forceCurrent = Vector3.ClampMagnitude(_forceCurrent, _forceMax);
         }
 
@@ -100,11 +134,7 @@ namespace Physics
         {
             if (_forceCurrent.magnitude > 0)
             {
-                SetDirection(-_forceCurrent);
-
                 float addedMagnitude = _forceDeceleration * time;
-
-                Debug.Log(_forceCurrent.magnitude - addedMagnitude);
 
                 if (_forceCurrent.magnitude - addedMagnitude <= 0)
                 {
@@ -112,7 +142,7 @@ namespace Physics
                 }
                 else
                 {
-                    _forceCurrent += addedMagnitude * _direction;
+                    _forceCurrent += addedMagnitude * (-_forceCurrent);
                 }
                 _forceCurrent = Vector3.ClampMagnitude(_forceCurrent, _forceMax);
             }

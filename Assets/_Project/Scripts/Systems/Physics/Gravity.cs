@@ -4,7 +4,8 @@ namespace Physics
 {
     public class Gravity : ForceConstant
     {
-        private float _gravityFactor = 1f;
+        [SerializeField] private float _gravityFactor = 1f;
+        [SerializeField] private float _maxGravity = 50f;
 
         #region Properties
 
@@ -15,9 +16,18 @@ namespace Physics
         protected override void Awake()
         {
             base.Awake();
-            _force = 9.81f;
-            _direction = Vector3.down;
-            _timeInterval = 0;
+            _force = new PhysicsForce("Gravity", Vector3.down, _maxGravity, 9.81f * _gravityFactor, 0, -1, false, true);
         }
+
+        public void ChangeGravityFactor()
+        {
+            _force.ForceAcceleration = 9.81f * _gravityFactor;
+        }
+
+        private void OnCollisionStay(Collision collision)
+        {
+            _force.SetForce(Vector3.zero);
+        }
+
     }
 }

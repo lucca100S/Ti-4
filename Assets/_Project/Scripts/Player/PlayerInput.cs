@@ -10,6 +10,7 @@ namespace Player
         private InputActions.PlayerActions playerActions;
 
         public Action<Vector3> OnMove { get; set; }
+        public Action<bool> OnJump { get; set; }
 
         private void Awake()
         {
@@ -18,12 +19,21 @@ namespace Player
             playerActions.Enable();
             playerActions.Move.performed += MovePerformed;
             playerActions.Move.canceled += MovePerformed;
+
+            playerActions.Jump.performed += JumpPerformed;
+            playerActions.Jump.canceled += JumpPerformed;
         }
+
 
         private void MovePerformed(InputAction.CallbackContext context)
         {
             Vector2 moveInput = context.ReadValue<Vector2>();
             OnMove?.Invoke(new Vector3(moveInput.x, 0, moveInput.y));
+        }
+        private void JumpPerformed(InputAction.CallbackContext context)
+        {
+            float moveInput = context.ReadValue<float>();
+            OnJump?.Invoke(moveInput > 0);
         }
     }
 }

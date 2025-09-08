@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Physics
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(Collider))]
     public class PhysicsController : MonoBehaviour
     {
         private Rigidbody _rigidBody;
@@ -15,6 +15,7 @@ namespace Physics
         #region Properties
 
         public Rigidbody RigidBody { get => _rigidBody; }
+        public Dictionary<string, PhysicsForce> Forces { get => _forces; }
 
         #endregion
 
@@ -27,6 +28,7 @@ namespace Physics
         {
             UpdateForces();
             ApplyForces();
+            CheckCollisions();
         }
 
         private void UpdateForces()
@@ -43,6 +45,24 @@ namespace Physics
         {
             _rigidBody.linearVelocity = _accumulatedForces;
             DebugUtil.Log($"Accumulated Forces on {gameObject.name}: {_accumulatedForces}", "Physics");
+        }
+        private void CheckCollisions()
+        {
+            foreach (PhysicsForce force in _forces.Values)
+            {
+                Vector3 position = transform.position;
+                if(force.TargetPoint != null) position = force.TargetPoint.localPosition;
+
+                UnityEngine.Physics.Raycast(position, force.Direction, out RaycastHit hit, 0.1f);
+                if (hit.collider != null)
+                {
+                    force.OnHit?.Invoke(hit);
+                }
+                else if (force.IsHitting)
+                {
+                    force.OnExitHit?.Invoke();
+                }
+            }
         }
 
         public void AddForce(PhysicsForce force)

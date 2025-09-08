@@ -102,6 +102,8 @@ GameObject:
   - component: {fileID: 517502299629518760}
   - component: {fileID: 6181682526995136903}
   - component: {fileID: 2243092774978812214}
+  - component: {fileID: 4246035285510391857}
+  - component: {fileID: 9168614753024995874}
   m_Layer: 0
   m_Name: PlayerCharacter_Prefab
   m_TagString: Untagged
@@ -200,15 +202,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _alignTarget: {fileID: 0}
-  _force:
+  _forceMovement:
     _name: Movement
-    _duration: 0
+    _duration: -1
+    _targetPoint: {fileID: 0}
     _resetOnActivate: 0
     _resetOnDeactivate: 0
-    _forceMax: 1
-    _forceAcceleration: 1
-    _forceDeceleration: 1
+    _color: {r: 0.08962262, g: 1, b: 0.27275017, a: 1}
+    _forceMax: 10
+    _forceAcceleration: 50
+    _forceDeceleration: 50
     _direction: {x: 0, y: 0, z: 0}
+  _forceJump:
+    _name: Jump
+    _duration: 0.2
+    _targetPoint: {fileID: 0}
+    _resetOnActivate: 0
+    _resetOnDeactivate: 0
+    _color: {r: 0.4764151, g: 0.5431038, b: 1, a: 1}
+    _forceMax: 15
+    _forceAcceleration: -1
+    _forceDeceleration: 5
+    _direction: {x: 0, y: 1, z: 0}
 --- !u!114 &517502299629518760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +260,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5964aac480ba045a3b81820c1a9e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4246035285510391857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104987538879563415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f088df8be6631354cab10a3e0e371bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _force:
+    _name: 
+    _duration: 0
+    _targetPoint: {fileID: 0}
+    _resetOnActivate: 0
+    _resetOnDeactivate: 0
+    _color: {r: 0, g: 0, b: 0, a: 0}
+    _forceMax: 0
+    _forceAcceleration: 29.43
+    _forceDeceleration: 0
+    _direction: {x: 0, y: 0, z: 0}
+  _gravityFactor: 3
+  _maxGravity: 50
+--- !u!114 &9168614753024995874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104987538879563415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8274c5dcc89e4fe4ab9f35afa4420d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: 1
 --- !u!1 &7592929879339750548
 GameObject:
   m_ObjectHideFlags: 0

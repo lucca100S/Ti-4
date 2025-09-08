@@ -26,11 +26,13 @@ namespace Player
         private void OnEnable()
         {
             _playerInput.OnMove += _playerMovement.ChangeDirection;
+            _playerInput.OnJump += _playerMovement.Jump;
         }
 
         private void OnDisable()
         {
             _playerInput.OnMove -= _playerMovement.ChangeDirection;
+            _playerInput.OnJump -= _playerMovement.Jump;
         }
 
     }
