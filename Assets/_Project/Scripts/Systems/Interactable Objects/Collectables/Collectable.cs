@@ -3,8 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Define um coletável
 /// </summary>
-[RequireComponent(typeof(Collider))]
-public class Collectable : InteractableObjects
+public class Collectable : NonVoluntaryInteractable
 {
     [Header("Collectable Data")]
     [SerializeField] private CollectableData data;
@@ -21,6 +20,14 @@ public class Collectable : InteractableObjects
 
             // Desativa o objeto para evitar múltiplas interações
             gameObject.SetActive(false);
+        }
+    }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(targetTag))
+        {
+            Interaction(); // chama a interação automaticamente
         }
     }
 }
