@@ -7,6 +7,6 @@ using UnityEngine;
 /// </summary>
 public interface ICollisionFilterDetection
 {
-    LayerMask CollisionMask { get; set; }
-    HashSet<string> CollisionTags { get; set; }
+    LayerMask CollisionMask { get;}
+    HashSet<string> CollisionTags { get;}
 }
