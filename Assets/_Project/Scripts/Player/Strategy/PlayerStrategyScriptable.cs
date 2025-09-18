@@ -19,16 +19,16 @@ namespace Player.Strategy
 
         #region Properties
 
-        public abstract PlayerStrategyHandler.Strategy strategy { get; protected set; }
-        public abstract PlayerStrategyHandler.Strategy nextStrategy { get; protected set; }
+        public abstract PlayerStrategyHandler.Strategy Strategy { get; protected set; }
+        public abstract PlayerStrategyHandler.Strategy NextStrategy { get; protected set; }
 
-        public float speed { get { return _speed; } private set { _speed = value; } }
-        public float jumpForce { get { return _jumpForce; } private set { _jumpForce= value; } }
-        public float jumpCancelFactor { get { return _jumpCancelFactor; } }
-        public float gravity { get { return _gravity; } }
-        public float fallGravityFactor { get { return _fallGravityFactor; } }
+        public float Speed { get { return _speed; } private set { _speed = value; } }
+        public float JumpForce { get { return _jumpForce; } private set { _jumpForce= value; } }
+        public float JumpCancelFactor { get { return _jumpCancelFactor; } }
+        public float Gravity { get { return _gravity; } }
+        public float FallGravityFactor { get { return _fallGravityFactor; } }
 
-        public float height { get { return _height; } private set { _height = value; } }
+        public float Height { get { return _height; } private set { _height = value; } }
 
         #endregion
 

@@ -9,24 +9,21 @@ namespace Player.Strategy
         private PlayerStrategyHandler.Strategy _strategy = PlayerStrategyHandler.Strategy.Solid;
         private PlayerStrategyHandler.Strategy _nextStrategy = PlayerStrategyHandler.Strategy.Mud;
 
-        public override PlayerStrategyHandler.Strategy strategy { get => _strategy; protected set => _strategy = value; }
-        public override PlayerStrategyHandler.Strategy nextStrategy { get => _nextStrategy; protected set => _nextStrategy = value; }
+        public override PlayerStrategyHandler.Strategy Strategy { get => _strategy; protected set => _strategy = value; }
+        public override PlayerStrategyHandler.Strategy NextStrategy { get => _nextStrategy; protected set => _nextStrategy = value; }
 
         public override void Jump(PlayerMovement player)
         {
-            player.force = new Vector3(player.force.x, _jumpForce, player.force.z);
+            player.Force = new Vector3(player.Force.x, _jumpForce, player.Force.z);
         }
 
         public override void Move(PlayerMovement player)
         {
-            Vector3 movement = player.direction * _speed;
-            movement.y = _gravity;
+            Vector3 movement = player.Direction * _speed;
+            movement.y = 0;
 
-            player.HandleGravity();
+            player.Force = new Vector3(movement.x, player.Force.y, movement.z);
 
-            player.force = new Vector3(movement.x, player.force.y, movement.z);
-
-            player.characterController.Move(player.force * Time.deltaTime);
         }
 
         public override void Transform(PlayerMovement player)
@@ -43,13 +40,13 @@ namespace Player.Strategy
             Vector3 right = Camera.main.transform.right;
             right.y = 0;
             right.Normalize();
-            player.direction = forward * player.input.z + right * player.input.x;
-        }
+            player.Direction = forward * player.Input.z + right * player.Input.x;
+        }   
         public override void Rotate(PlayerMovement player)
         {
-            if (player.direction != Vector3.zero)
+            if (player.Direction != Vector3.zero)
             {
-                Quaternion toRotation = Quaternion.LookRotation(player.force, Vector3.up);
+                Quaternion toRotation = Quaternion.LookRotation(player.Force, Vector3.up);
                 toRotation = Quaternion.Euler(0, toRotation.eulerAngles.y, 0);
 
                 player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, toRotation, 720 * Time.deltaTime);

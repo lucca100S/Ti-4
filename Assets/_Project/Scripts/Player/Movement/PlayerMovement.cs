@@ -1,5 +1,6 @@
 using Player.Strategy;
 using System;
+using Systems.Input;
 using UnityEngine;
 
 namespace Player.Movement
@@ -15,79 +16,71 @@ namespace Player.Movement
             Falling,
             Climbing
         }
-        private State m_currentState = State.Idle;
+        private State _currentState = State.Idle;
 
-        [SerializeField] private PlayerStrategyHandler.Strategy m_startStrategy;
-        private PlayerStrategyScriptable m_currentStrategy;
+        [SerializeField] private PlayerStrategyHandler.Strategy _startStrategy;
+        private PlayerStrategyScriptable _currentStrategy;
 
-        private CharacterController m_characterController;
+        private CharacterController _characterController;
 
-        private Vector3 m_input;
-        private bool m_canCancelJump = false;
-        private bool m_isGrounded = false;
-        private bool m_canJump = false;
+        private Vector3 _input;
+        private bool _canCancelJump = false;
+        private bool _isGrounded = false;
+        private bool _canJump = false;
 
-        private Vector3 m_force;
-        private Vector3 m_direction;
+        private Vector3 _force;
+        private Vector3 _direction;
 
-        [SerializeField] private InputInfo m_jumpInput;
-        [SerializeField] private InputInfo m_transformInput;
-
-        //Strategy
-        private PlayerStrategyHandler m_strategyHandler;
+        #region Strategy Actions
+        private PlayerStrategyHandler _strategyHandler;
 
         private Action<PlayerMovement> JumpStrategy;
         private Action<PlayerMovement> MoveStrategy;
         private Action<PlayerMovement> TransformStrategy;
         private Action<PlayerMovement> DirectionStrategy;
         private Action<PlayerMovement> RotateStrategy;
+        #endregion
 
-
-
-        private float m_lastTimeOnGround;
+        private float _lastTimeOnGround;
 
         #region Properties
 
-        public Vector3 force
+        public Vector3 Input
         {
-            get { return m_force; }
-            internal set { m_force = value; }
+            get { return _input; }
+            private set { _input = value; }
+        }
+        public Vector3 Force
+        {
+            get { return _force; }
+            internal set { _force = value; }
+        }
+        public Vector3 Direction
+        {
+            get { return _direction; }
+            internal set { _direction = value; }
         }
 
-        public Vector3 direction
-        {
-            get { return m_direction; }
-            internal set { m_direction = value; }
-        }
+        public CharacterController CharacterController { get { return _characterController; } internal set { _characterController = value; } }
+        public State CurrentState { get { return _currentState; } internal set { _currentState = value; } }
 
-        public Vector3 input
-        {
-            get { return m_input; }
-            private set { m_input = value; }
-        }
-
-        public CharacterController characterController { get { return m_characterController; } internal set { m_characterController = value; } }
-        public State currentState { get { return m_currentState; } internal set { m_currentState = value; } }
-
-        public bool isGrounded { get { return m_isGrounded; } }
+        public bool IsGrounded { get { return _isGrounded; } }
 
         #endregion
 
         private void Awake()
         {
-            m_characterController = GetComponent<CharacterController>();
-            m_strategyHandler = GetComponent<PlayerStrategyHandler>();
+            _characterController = GetComponent<CharacterController>();
+            _strategyHandler = GetComponent<PlayerStrategyHandler>();
 
-            ChangeStrategy(m_startStrategy);
+            ChangeStrategy(_startStrategy);
             LockMouse();
         }
 
         // Update is called once per frame
         void Update()
         {
-            GetInputs();
             Move();
-            Jump();
             RotateStrategy?.Invoke(this);
         }
 
@@ -96,111 +89,116 @@ namespace Player.Movement
             CheckGround();
         }
 
+        #region Movement
         private void Move()
         {
+            HandleGravity();
+
             DirectionStrategy?.Invoke(this);
             MoveStrategy?.Invoke(this);
-        }
 
+            _characterController.Move(_force * Time.deltaTime);
+        }
         internal void HandleGravity()
         {
-            if (!m_isGrounded)
+            float gravity = _currentStrategy.Gravity;
+
+            if (_force.y < 0)
             {
-                float gravity = m_currentStrategy.gravity;
-
-                if (m_force.y < 0)
-                {
-                    gravity *= m_currentStrategy.fallGravityFactor;
-                }
-
-                if (!m_jumpInput.isPressed && m_force.y > 0 && m_canCancelJump)
-                {
-                    m_force.y *= m_currentStrategy.jumpCancelFactor;
-                    m_canCancelJump = false;
-                }
-                else
-                {
-                    m_force.y += gravity * Time.deltaTime;
-                }
+                gravity *= _currentStrategy.FallGravityFactor;
             }
-            else if (m_isGrounded)
+
+            _force.y += gravity * Time.deltaTime;
+
+            if (_isGrounded)
             {
-                m_lastTimeOnGround = Time.time;
+                _lastTimeOnGround = Time.time;
             }
         }
-
-        private void Jump()
-        {
-            bool coyoteTimeEnabled = m_jumpInput.GetDelayInput(m_lastTimeOnGround);
-            if ((m_isGrounded || coyoteTimeEnabled) && m_canJump)
-            {
-                if (m_jumpInput.isEnabled || coyoteTimeEnabled)
-                {
-                    m_canCancelJump = true;
-                    JumpStrategy?.Invoke(this);
-                    m_canJump = false;
-                }
-                else if (!m_jumpInput.isPressed)
-                {
-                    m_canCancelJump = false;
-                }
-            }
-        }
-
         private void CheckGround()
         {
-            m_isGrounded = m_characterController.isGrounded;
-            m_canJump = m_characterController.isGrounded;
+            _isGrounded = _characterController.isGrounded;
+            _canJump = _characterController.isGrounded;
 
-            if (m_isGrounded)
+            if (_isGrounded)
             {
                 ChangeState(State.Idle);
-                m_force.y = 0;
+                _force.y = 0;
             }
             else
             {
                 ChangeState(State.Jumping);
             }
         }
+        #endregion
 
-        private void GetInputs()
+        #region Inputs Handling
+
+        public void GetJumpInput(InputInfo jumpInput)
         {
-            m_jumpInput.GetInput();
-            m_transformInput.GetInput();
+            if (!jumpInput.IsPressed && _force.y > 0 && _canCancelJump)
+            {
+                _force.y *= _currentStrategy.JumpCancelFactor;
+                _canCancelJump = false;
+            }
 
-            if (m_transformInput.isDown)
+            bool coyoteTimeEnabled = jumpInput.GetDelayInput(_lastTimeOnGround);
+            if ((_isGrounded || coyoteTimeEnabled) && _canJump)
+            {
+                if (jumpInput.IsEnabled || coyoteTimeEnabled)
+                {
+                    _canCancelJump = true;
+                    JumpStrategy?.Invoke(this);
+                    _canJump = false;
+                }
+                else if (!jumpInput.IsPressed)
+                {
+                    _canCancelJump = false;
+                }
+            }
+        }
+        public void GetTransformInput(InputInfo transformInput)
+        {
+            if(transformInput.IsDown)
             {
                 TransformStrategy?.Invoke(this);
             }
-
-            m_input.x = Input.GetAxis("Horizontal");
-            m_input.z = Input.GetAxis("Vertical");
+        }
+        public void GetDirectionInput(Vector3 direction)
+        {
+            _input.x = direction.x;
+            _input.z = direction.z;
         }
 
+        #endregion
+
+        #region Strategy
+        internal void ChangeStrategy(PlayerStrategyHandler.Strategy nextStrategyEnum)
+        {
+            _currentStrategy = _strategyHandler.ChangeStrategy(nextStrategyEnum);
+
+            _characterController.height = _currentStrategy.Height;
+
+            JumpStrategy = _currentStrategy.Jump;
+            MoveStrategy = _currentStrategy.Move;
+            DirectionStrategy = _currentStrategy.GetDirection;
+            TransformStrategy = _currentStrategy.Transform;
+            RotateStrategy = _currentStrategy.Rotate;
+        }
+
+        public PlayerStrategyScriptable GetStrategy(PlayerStrategyHandler.Strategy strategy)
+        {
+            return _strategyHandler.ChangeStrategy(strategy);
+        }
+
+        private void ChangeState(State state)
+        {
+            _currentState = state;
+        }
+        #endregion
         public void LockMouse()
         {
             Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        internal void ChangeStrategy(PlayerStrategyHandler.Strategy nextStrategyEnum)
-        {
-            m_currentStrategy = m_strategyHandler.ChangeStrategy(nextStrategyEnum);
-
-            m_characterController.height = m_currentStrategy.height;
-
-            JumpStrategy = m_currentStrategy.Jump;
-            MoveStrategy = m_currentStrategy.Move;
-            DirectionStrategy = m_currentStrategy.GetDirection;
-            TransformStrategy = m_currentStrategy.Transform;
-            RotateStrategy = m_currentStrategy.Rotate;
-        }
-        public PlayerStrategyScriptable GetStrategy(PlayerStrategyHandler.Strategy strategy)
-        {
-            return m_strategyHandler.ChangeStrategy(strategy);
-        }
-        private void ChangeState(State state)
-        {
-            m_currentState = state;
         }
 
     }

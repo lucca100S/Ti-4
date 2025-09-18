@@ -1,13 +1,13 @@
-//using Player.Movement;
+using Player.Movement;
 using UnityEngine;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerMovement), typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
 
-        //private PlayerMovement _playerMovement;
+        private PlayerMovement _playerMovement;
         private PlayerInput _playerInput;
 
         #region Properties
@@ -19,20 +19,21 @@ namespace Player
 
         private void Awake()
         {
-            //_playerMovement = GetComponent<PlayerMovement>();
+            _playerMovement = GetComponent<PlayerMovement>();
             _playerInput = GetComponent<PlayerInput>();
         }
 
         private void OnEnable()
         {
-            //_playerInput.OnMove += _playerMovement.ChangeDirection;
-            //_playerInput.OnJump += _playerMovement.Jump;
+            _playerInput.OnMove += _playerMovement.GetDirectionInput;
+            _playerInput.JumpInput.OnInput += _playerMovement.GetJumpInput;
+            _playerInput.TransformInput.OnInput += _playerMovement.GetTransformInput;
         }
 
         private void OnDisable()
         {
-            //_playerInput.OnMove -= _playerMovement.ChangeDirection;
-            //_playerInput.OnJump -= _playerMovement.Jump;
+            _playerInput.OnMove -= _playerMovement.GetDirectionInput;
+            _playerInput.JumpInput.OnInput -= _playerMovement.GetJumpInput;
         }
 
     }
