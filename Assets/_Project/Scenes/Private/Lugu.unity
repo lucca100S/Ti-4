@@ -1348,7 +1348,12 @@ PrefabInstance:
       propertyPath: _force._forceAcceleration
       value: 29.43
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 650030254944431805, guid: b7a9b34fdbb2abc49b018d38fcf14231, type: 3}
+    - {fileID: 6181682526995136903, guid: b7a9b34fdbb2abc49b018d38fcf14231, type: 3}
+    - {fileID: 26272461154465350, guid: b7a9b34fdbb2abc49b018d38fcf14231, type: 3}
+    - {fileID: 4246035285510391857, guid: b7a9b34fdbb2abc49b018d38fcf14231, type: 3}
+    - {fileID: 9168614753024995874, guid: b7a9b34fdbb2abc49b018d38fcf14231, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
