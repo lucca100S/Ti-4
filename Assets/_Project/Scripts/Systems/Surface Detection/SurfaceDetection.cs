@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Lugu.Utils.Debug;
 
 /// <summary>
 /// Classe responsável por detectar superfícies ao redor do objeto, determinando tipo, material e prioridade.
@@ -138,7 +139,7 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
         }
         else if (CurrentSurface.HasValue)
         {
-            Debug.Log("[SurfaceDetector] Saiu de qualquer superfície detectável.");
+            DebugLogger.Log("[SurfaceDetector] Saiu de qualquer superfície detectável.", "SurfaceDetection");
             CurrentSurface = null;
         }
     }
@@ -171,7 +172,7 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
     #region SurfaceNotifier
     private void SurfaceNotifier(SurfaceHit surface)
     {
-        Debug.Log($"[OnSurfaceChange] Tipo: {surface.type}, Material: {surface.material}, Ponto: {surface.hit.point}, Normal: {surface.hit.normal}");
+        DebugLogger.Log($"[OnSurfaceChange] Tipo: {surface.type}, Material: {surface.material}, Ponto: {surface.hit.point}, Normal: {surface.hit.normal}", "SurfaceDetection");
     }
     #endregion
 
