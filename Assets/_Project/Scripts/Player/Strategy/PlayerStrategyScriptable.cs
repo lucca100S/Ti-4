@@ -14,6 +14,10 @@ namespace Player.Strategy
         [SerializeField] protected float _fallGravityFactor;
 
         [SerializeField] protected float _height = 1;
+        [SerializeField] protected Vector3 _center = Vector3.zero;
+
+        //TEMP DEBUG
+        [SerializeField] protected Vector3 _scale = Vector3.one;
 
 
 
@@ -29,6 +33,9 @@ namespace Player.Strategy
         public float FallGravityFactor { get { return _fallGravityFactor; } }
 
         public float Height { get { return _height; } private set { _height = value; } }
+        public Vector3 Center { get { return _center; } private set { _center = value; } }
+        public Vector3 Scale { get { return _scale; } private set { _scale = value; } }
+
 
         #endregion
 

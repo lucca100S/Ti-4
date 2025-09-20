@@ -1,3 +1,4 @@
+using Lugu.Utils.Debug;
 using Player.Strategy;
 using System;
 using Systems.Input;
@@ -8,17 +9,11 @@ namespace Player.Movement
     [RequireComponent(typeof(CharacterController), typeof(PlayerStrategyHandler))]
     public class PlayerMovement : MonoBehaviour
     {
-        public enum State
-        {
-            Idle,
-            Walking,
-            Jumping,
-            Falling,
-            Climbing
-        }
-        private State _currentState = State.Idle;
+        private PlayerController _controller;
 
         [SerializeField] private PlayerStrategyHandler.Strategy _startStrategy;
+        [SerializeField] private Transform _model;
+
         private PlayerStrategyScriptable _currentStrategy;
 
         private CharacterController _characterController;
@@ -60,11 +55,11 @@ namespace Player.Movement
             get { return _direction; }
             internal set { _direction = value; }
         }
-
         public CharacterController CharacterController { get { return _characterController; } internal set { _characterController = value; } }
-        public State CurrentState { get { return _currentState; } internal set { _currentState = value; } }
 
         public bool IsGrounded { get { return _isGrounded; } }
+
+        public PlayerController.State CurrentState { get { return _controller.CurrentState; } }
 
         #endregion
 
@@ -72,6 +67,7 @@ namespace Player.Movement
         {
             _characterController = GetComponent<CharacterController>();
             _strategyHandler = GetComponent<PlayerStrategyHandler>();
+            _controller = GetComponent<PlayerController>();
 
             ChangeStrategy(_startStrategy);
             LockMouse();
@@ -84,11 +80,6 @@ namespace Player.Movement
             RotateStrategy?.Invoke(this);
         }
 
-        private void LateUpdate()
-        {
-            CheckGround();
-        }
-
         #region Movement
         private void Move()
         {
@@ -99,6 +90,7 @@ namespace Player.Movement
 
             _characterController.Move(_force * Time.deltaTime);
         }
+
         internal void HandleGravity()
         {
             float gravity = _currentStrategy.Gravity;
@@ -115,21 +107,7 @@ namespace Player.Movement
                 _lastTimeOnGround = Time.time;
             }
         }
-        private void CheckGround()
-        {
-            _isGrounded = _characterController.isGrounded;
-            _canJump = _characterController.isGrounded;
-
-            if (_isGrounded)
-            {
-                ChangeState(State.Idle);
-                _force.y = 0;
-            }
-            else
-            {
-                ChangeState(State.Jumping);
-            }
-        }
+        
         #endregion
 
         #region Inputs Handling
@@ -142,11 +120,14 @@ namespace Player.Movement
                 _canCancelJump = false;
             }
 
+            DebugLogger.Log("[PlayerInput] Jump Input", "PlayerInput");
+
             bool coyoteTimeEnabled = jumpInput.GetDelayInput(_lastTimeOnGround);
             if ((_isGrounded || coyoteTimeEnabled) && _canJump)
             {
                 if (jumpInput.IsEnabled || coyoteTimeEnabled)
                 {
+                    DebugLogger.Log("[PlayerInput] Jumped", "PlayerInput");
                     _canCancelJump = true;
                     JumpStrategy?.Invoke(this);
                     _canJump = false;
@@ -178,6 +159,10 @@ namespace Player.Movement
             _currentStrategy = _strategyHandler.ChangeStrategy(nextStrategyEnum);
 
             _characterController.height = _currentStrategy.Height;
+            _characterController.center = _currentStrategy.Center;
+
+            _model.transform.localPosition = _currentStrategy.Center;
+            _model.transform.localScale = _currentStrategy.Scale;
 
             JumpStrategy = _currentStrategy.Jump;
             MoveStrategy = _currentStrategy.Move;
@@ -190,12 +175,21 @@ namespace Player.Movement
         {
             return _strategyHandler.ChangeStrategy(strategy);
         }
-
-        private void ChangeState(State state)
-        {
-            _currentState = state;
-        }
         #endregion
+
+        internal void Grounded(bool grounded)
+        {
+            if (grounded)
+            {
+                float gravity = _currentStrategy.Gravity * _currentStrategy.FallGravityFactor;
+                if (_force.y <= 0) _force.y = gravity;
+
+                _lastTimeOnGround = Time.time;
+            }
+            _canJump = grounded;
+            _isGrounded = grounded;
+        }
+
         public void LockMouse()
         {
             Cursor.lockState = CursorLockMode.Locked;

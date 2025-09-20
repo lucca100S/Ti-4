@@ -31,13 +31,12 @@ namespace Player.Strategy
 
             switch (player.CurrentState)
             {
-                case PlayerMovement.State.Jumping:
-                case PlayerMovement.State.Falling:
+                case PlayerController.State.Air:
                     movement = player.Direction * _launchSpeed;
                     break;
-                case PlayerMovement.State.Climbing:
+                case PlayerController.State.Wall:
                     break;
-                default:
+                case PlayerController.State.Ground:
                     movement = player.Direction * _speed;
                     break;
             }
@@ -70,13 +69,12 @@ namespace Player.Strategy
 
             switch (player.CurrentState)
             {
-                case PlayerMovement.State.Jumping:
-                case PlayerMovement.State.Falling:
+                case PlayerController.State.Air:
                     player.Direction = Vector3.Lerp(player.Direction, forward * player.Input.z + right * player.Input.x, _airTurnSpeed * Time.deltaTime);
                     break;
-                case PlayerMovement.State.Climbing:
+                case PlayerController.State.Wall:
                     break;
-                default:
+                case PlayerController.State.Ground:
 
                     player.Direction = forward * player.Input.z + right * player.Input.x;
                     break;
@@ -87,13 +85,7 @@ namespace Player.Strategy
             if (player.Direction != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(player.Force, Vector3.up);
-                toRotation = Quaternion.Euler(toRotation.eulerAngles.x, toRotation.eulerAngles.y, 0);
-
-                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, toRotation, 720 * Time.deltaTime);
-            }
-            else
-            {
-                Quaternion toRotation = Quaternion.Euler(0, player.transform.eulerAngles.y, 0);
+                toRotation = Quaternion.Euler(0, toRotation.eulerAngles.y, 0);
 
                 player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, toRotation, 720 * Time.deltaTime);
             }

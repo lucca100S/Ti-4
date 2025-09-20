@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Lugu.Utils.Debug;
+using System;
 
 /// <summary>
 /// Classe responsável por detectar superfícies ao redor do objeto, determinando tipo, material e prioridade.
@@ -26,9 +27,9 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
     [SerializeField]
     private RayDirectionConfig[] rayDirectionsConfig = new RayDirectionConfig[]
     {
-        new RayDirectionConfig { direction = Vector3.down, distance = 2f },
-        new RayDirectionConfig { direction = Vector3.up, distance = 2f },
-        new RayDirectionConfig { direction = Vector3.forward, distance = 2f },
+        new RayDirectionConfig { directionVector = RayDirectionConfig.Direction.Down, distance = 2f },
+        new RayDirectionConfig { directionVector = RayDirectionConfig.Direction.Up, distance = 2f },
+        new RayDirectionConfig { directionVector = RayDirectionConfig.Direction.Forward, distance = 2f },
     };
     #endregion
 
@@ -87,6 +88,10 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
     }
     #endregion
 
+    public Action<SurfaceHit> OnSurfaceChange;
+    public Action<SurfaceHit> OnSurfaceHit;
+    public Action OnSurfaceNull;
+
     #region SurfaceSensor
     private void CollectHits()
     {
@@ -129,6 +134,8 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
 
         if (priority.HasValue)
         {
+            OnSurfaceHit?.Invoke(priority.Value);
+
             if (!CurrentSurface.HasValue ||
                 priority.Value.type != CurrentSurface.Value.type ||
                 priority.Value.material != CurrentSurface.Value.material)
@@ -142,6 +149,8 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
             DebugLogger.Log("[SurfaceDetector] Saiu de qualquer superfície detectável.", "SurfaceDetection");
             CurrentSurface = null;
         }
+
+        if(CurrentSurface == null) OnSurfaceNull?.Invoke();
     }
 
     private SurfaceHit? GetHighestPrioritySurface()
@@ -172,6 +181,7 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
     #region SurfaceNotifier
     private void SurfaceNotifier(SurfaceHit surface)
     {
+        OnSurfaceChange?.Invoke(surface);
         DebugLogger.Log($"[OnSurfaceChange] Tipo: {surface.type}, Material: {surface.material}, Ponto: {surface.hit.point}, Normal: {surface.hit.normal}", "SurfaceDetection");
     }
     #endregion
