@@ -17,28 +17,34 @@ namespace Player
         private static PlayerMovement Movement { get { if (movement == null) { movement = GameObject.FindAnyObjectByType<PlayerMovement>(); } return movement; } }
         #endregion
 
-        [DebugMethod("tp")]
+        [DebugMethod("tp", "Teleports to points in a array")]
         public static void Teleport(int point)
         {
             Spawnpoint.TeleportPoint(point);
         }
 
-        [DebugMethod("spawn")]
+        [DebugMethod("spawn", "Teleports to SpawnPoint")]
         public static void GoToSpawn()
         {
             Spawnpoint.ReturnToSpawnpoint();
         }
 
-        [DebugMethod("spawn_set")]
+        [DebugMethod("spawn_set", "Sets SpawnPoint to current position")]
         public static void SetSpawn()
         {
             Spawnpoint.SetSpawnPoint(Controller.transform.position);
         }
 
-        [DebugMethod("spawn_reset")]
+        [DebugMethod("spawn_reset", "Resets SpawnPoint to original position")]
         public static void SetReset()
         {
             Spawnpoint.ResetSpawnPoint();
+        }
+
+        [DebugMethod("change_sens", "Changes the sensibility of the camera")]
+        public static void ChangeSensitivity(float sensitivity)
+        {
+            Controller.ChangeCameraSensitivity(sensitivity);
         }
 
     }

@@ -3,6 +3,7 @@ using Player.Movement;
 using Player.StateMachine;
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using static SurfaceDetection;
 
@@ -11,6 +12,8 @@ namespace Player
     [RequireComponent(typeof(PlayerMovement), typeof(PlayerInput), typeof(SurfaceDetection))]
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private CinemachineInputAxisController _cameraInputs;
+
         private SurfaceDetection _surfaceDetection;
         private PlayerMovement _playerMovement;
         private PlayerInput _playerInput;
@@ -143,6 +146,15 @@ namespace Player
         }
 
         #endregion
+
+        public void ChangeCameraSensitivity(float sensitivity)
+        {
+            sensitivity = Mathf.Abs(sensitivity);
+            foreach (var c in _cameraInputs.Controllers)
+            {
+                c.Input.Gain = sensitivity * Mathf.Sign(c.Input.Gain);
+            }
+        }
 
     }
 }

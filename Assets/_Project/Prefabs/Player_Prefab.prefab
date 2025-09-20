@@ -932,6 +932,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _killZoneY: -10
+  _teleportPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &713380879525923998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,6 +969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d9e104a5be0b2458501e20e5eaf63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraInputs: {fileID: 0}
   _statesList:
   - {fileID: 11400000, guid: b8e74cca033ca3e42b4378ae5423c04f, type: 2}
   - {fileID: 11400000, guid: 382e3782f670c1d42af3a268ac036555, type: 2}
