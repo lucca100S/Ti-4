@@ -1,21 +1,25 @@
 using UnityEngine;
 using Player.Movement;
+using System.Collections.Generic;
 
 namespace Player.Strategy
 {
     [System.Serializable]
     public abstract class PlayerStrategyScriptable : ScriptableObject
     {
-        [SerializeField] protected float _speed = 1;
-
+        protected float _speed = 1;
         [SerializeField] protected float _jumpForce;
         [SerializeField] protected float _jumpCancelFactor;
         [SerializeField] protected float _gravity;
         [SerializeField] protected float _fallGravityFactor;
 
         [SerializeField] protected float _height = 1;
+        [SerializeField] protected Vector3 _center = Vector3.zero;
 
+        //TEMP DEBUG
+        [SerializeField] protected Vector3 _scale = Vector3.one;
 
+        [SerializeField] protected List<StrategyMaterialStats> _materialStats;
 
         #region Properties
 
@@ -29,6 +33,9 @@ namespace Player.Strategy
         public float FallGravityFactor { get { return _fallGravityFactor; } }
 
         public float Height { get { return _height; } private set { _height = value; } }
+        public Vector3 Center { get { return _center; } private set { _center = value; } }
+        public Vector3 Scale { get { return _scale; } private set { _scale = value; } }
+
 
         #endregion
 
@@ -37,6 +44,21 @@ namespace Player.Strategy
         public abstract void Transform(PlayerMovement player);
         public abstract void GetDirection(PlayerMovement player);
         public abstract void Rotate(PlayerMovement player);
+
+        protected float GetWalkSpeed(PlayerMovement player)
+        {
+            return _materialStats[(int)player.CurrentMaterial].WalkSpeed;
+        }
+
+        protected float GetJumpSpeed(PlayerMovement player)
+        {
+            return _materialStats[(int)player.CurrentMaterial].JumpSpeed;
+        }
+
+        protected float GetClimbSpeed(PlayerMovement player)
+        {
+            return _materialStats[(int)player.CurrentMaterial].ClimbSpeed;
+        }
 
     }
 }

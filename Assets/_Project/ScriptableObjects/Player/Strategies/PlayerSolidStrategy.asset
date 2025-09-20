@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b13dac450e41004ca3664be17c82cc7, type: 3}
+  m_Name: PlayerSolidStrategy
+  m_EditorClassIdentifier: 
+  _jumpForce: 10
+  _jumpCancelFactor: 0
+  _gravity: -20
+  _fallGravityFactor: 3
+  _height: 1.8
+  _center: {x: 0, y: 0.8, z: 0}
+  _scale: {x: 1, y: 0.91, z: 1}
+  _materialStats:
+  - _material: 0
+    _walkSpeed: 5
+    _jumpSpeed: 5
+    _climbSpeed: 5
+    _canClimb: 0
+  - _material: 1
+    _walkSpeed: 10
+    _jumpSpeed: 10
+    _climbSpeed: 10
+    _canClimb: 0
+  - _material: 2
+    _walkSpeed: 10
+    _jumpSpeed: 10
+    _climbSpeed: 10
+    _canClimb: 1
+  - _material: 3
+    _walkSpeed: 10
+    _jumpSpeed: 10
+    _climbSpeed: 10
+    _canClimb: 0

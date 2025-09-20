@@ -3,7 +3,6 @@ using Player.Movement;
 
 namespace Player.Strategy
 {
-    //[CreateAssetMenu(fileName = "PlayerSolidStrategy", menuName = "ScriptableObjects/Strategy/Solid")]
     public class PlayerSolidStrategy : PlayerStrategyScriptable
     {
         private PlayerStrategyHandler.Strategy _strategy = PlayerStrategyHandler.Strategy.Solid;
@@ -16,21 +15,32 @@ namespace Player.Strategy
         {
             player.Force = new Vector3(player.Force.x, _jumpForce, player.Force.z);
         }
-
         public override void Move(PlayerMovement player)
         {
-            Vector3 movement = player.Direction * _speed;
+            Vector3 movement = player.Direction * GetWalkSpeed(player); ;
+            
+
+            switch (player.CurrentState)
+            {
+                case PlayerController.State.Air:
+                    movement = player.Direction * GetJumpSpeed(player);
+                    break;
+                case PlayerController.State.Wall:
+                    movement = player.Direction * GetClimbSpeed(player);
+                    break;
+                case PlayerController.State.Ground:
+                    movement = player.Direction * GetWalkSpeed(player);
+                    break;
+            }
             movement.y = 0;
 
             player.Force = new Vector3(movement.x, player.Force.y, movement.z);
 
         }
-
         public override void Transform(PlayerMovement player)
         {
             player.ChangeStrategy(_nextStrategy);
         }
-
         public override void GetDirection(PlayerMovement player)
         {
             Vector3 forward = Camera.main.transform.forward;

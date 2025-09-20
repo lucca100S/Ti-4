@@ -3,14 +3,12 @@ using Player.Movement;
 
 namespace Player.Strategy
 {
-    //[CreateAssetMenu(fileName = "PlayerMudStrategy", menuName = "ScriptableObjects/Strategy/Mud")]
     public class PlayerMudStrategy : PlayerStrategyScriptable
     {
         private PlayerStrategyHandler.Strategy _strategy = PlayerStrategyHandler.Strategy.Mud;
         private PlayerStrategyHandler.Strategy _nextStrategy = PlayerStrategyHandler.Strategy.Solid;
 
         [Header("MudStats")]
-        [SerializeField] private float _launchSpeed = 1;
         [SerializeField] private float _airTurnSpeed = 1;
 
         public override PlayerStrategyHandler.Strategy Strategy { get => _strategy; protected set => _strategy = value; }
@@ -19,7 +17,7 @@ namespace Player.Strategy
 
         public override void Jump(PlayerMovement player)
         {
-            Vector3 force = player.Direction * _launchSpeed;
+            Vector3 force = player.Direction * GetJumpSpeed(player);
 
             force.y = _jumpForce;
             player.Force = force;
@@ -29,20 +27,21 @@ namespace Player.Strategy
         {
             Vector3 movement = Vector3.one;
 
-            switch (player.CurrentState)
+            switch(player.CurrentState)
             {
-                case PlayerMovement.State.Jumping:
-                case PlayerMovement.State.Falling:
-                    movement = player.Direction * _launchSpeed;
+                case PlayerController.State.Air:
+                    movement = player.Direction * GetJumpSpeed(player);
                     break;
-                case PlayerMovement.State.Climbing:
+                case PlayerController.State.Wall:
+                    movement = player.Direction * GetClimbSpeed(player);
                     break;
-                default:
-                    movement = player.Direction * _speed;
+                case PlayerController.State.Ground:
+                    movement = player.Direction * GetWalkSpeed(player);
                     break;
             }
+            
 
-            movement.y = _gravity;
+            movement.y = 0;
             player.Force = new Vector3(movement.x, player.Force.y, movement.z);
 
             player.CharacterController.Move(player.Force * Time.deltaTime);
@@ -50,7 +49,7 @@ namespace Player.Strategy
 
         public override void Transform(PlayerMovement player)
         {
-            Physics.Raycast(player.transform.position, Vector3.up, out RaycastHit hitInfo, player.GetStrategy(_nextStrategy).Height);
+            Physics.Raycast(player.transform.position, Vector3.up, out RaycastHit hitInfo, player.GetStrategy(_nextStrategy).Height, LayerMask.GetMask("Map"));
             if (hitInfo.collider == null)
             {
                 player.ChangeStrategy(_nextStrategy);
@@ -70,13 +69,13 @@ namespace Player.Strategy
 
             switch (player.CurrentState)
             {
-                case PlayerMovement.State.Jumping:
-                case PlayerMovement.State.Falling:
-                    player.Direction = Vector3.Lerp(player.Direction, forward * player.Input.z + right * player.Input.x, _airTurnSpeed * Time.deltaTime);
+                case PlayerController.State.Air:
+                    if(player.Direction != Vector3.zero)
+                    player.Direction = Vector3.Lerp(player.Direction, forward * player.Input.z + right * player.Input.x, _airTurnSpeed * Time.deltaTime).normalized;
                     break;
-                case PlayerMovement.State.Climbing:
+                case PlayerController.State.Wall:
                     break;
-                default:
+                case PlayerController.State.Ground:
 
                     player.Direction = forward * player.Input.z + right * player.Input.x;
                     break;
@@ -87,13 +86,7 @@ namespace Player.Strategy
             if (player.Direction != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(player.Force, Vector3.up);
-                toRotation = Quaternion.Euler(toRotation.eulerAngles.x, toRotation.eulerAngles.y, 0);
-
-                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, toRotation, 720 * Time.deltaTime);
-            }
-            else
-            {
-                Quaternion toRotation = Quaternion.Euler(0, player.transform.eulerAngles.y, 0);
+                toRotation = Quaternion.Euler(0, toRotation.eulerAngles.y, 0);
 
                 player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, toRotation, 720 * Time.deltaTime);
             }
