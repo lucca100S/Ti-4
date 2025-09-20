@@ -12,6 +12,8 @@ namespace Player.StateMachine
                 force.y = 0;
                 player.PlayerMovement.Force = force;
             }
+
+            //player.ChangeMaterial(SurfaceMaterial.None);
         }
 
         public override void Exit(PlayerController player)

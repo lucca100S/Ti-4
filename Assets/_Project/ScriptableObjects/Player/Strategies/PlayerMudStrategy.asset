@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70cfc23723a875847bfb91fbdfe37bbd, type: 3}
   m_Name: PlayerMudStrategy
   m_EditorClassIdentifier: 
-  _speed: 2
   _jumpForce: 10
   _jumpCancelFactor: 1
   _gravity: -20
@@ -20,5 +19,25 @@ MonoBehaviour:
   _height: 0.2
   _center: {x: 0, y: 0.4, z: 0}
   _scale: {x: 1, y: 0.5, z: 1}
-  _launchSpeed: 15
+  _materialStats:
+  - _material: 0
+    _walkSpeed: 10
+    _jumpSpeed: 15
+    _climbSpeed: 10
+    _canClimb: 1
+  - _material: 1
+    _walkSpeed: 2
+    _jumpSpeed: 1
+    _climbSpeed: 2
+    _canClimb: 0
+  - _material: 2
+    _walkSpeed: 2
+    _jumpSpeed: 2
+    _climbSpeed: 2
+    _canClimb: 0
+  - _material: 3
+    _walkSpeed: 2
+    _jumpSpeed: 1
+    _climbSpeed: 2
+    _canClimb: 0
   _airTurnSpeed: 2

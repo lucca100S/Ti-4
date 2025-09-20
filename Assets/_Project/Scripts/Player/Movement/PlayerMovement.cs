@@ -3,6 +3,7 @@ using Player.Strategy;
 using System;
 using Systems.Input;
 using UnityEngine;
+using static Player.Strategy.PlayerStrategyHandler;
 
 namespace Player.Movement
 {
@@ -60,6 +61,8 @@ namespace Player.Movement
         public bool IsGrounded { get { return _isGrounded; } }
 
         public PlayerController.State CurrentState { get { return _controller.CurrentState; } }
+        public SurfaceMaterial CurrentMaterial { get { return _controller.CurrentMaterial; } }
+        public SurfaceMaterial PreviousMaterial { get { return _controller.PreviousMaterial; } }
 
         #endregion
 
@@ -156,8 +159,13 @@ namespace Player.Movement
         #region Strategy
         internal void ChangeStrategy(PlayerStrategyHandler.Strategy nextStrategyEnum)
         {
+            if(CurrentState == PlayerController.State.Air)
+                _controller.ChangeMaterial(SurfaceMaterial.None);
+
+
             _currentStrategy = _strategyHandler.ChangeStrategy(nextStrategyEnum);
 
+            #region Changing Stats
             _characterController.height = _currentStrategy.Height;
             _characterController.center = _currentStrategy.Center;
 
@@ -169,6 +177,9 @@ namespace Player.Movement
             DirectionStrategy = _currentStrategy.GetDirection;
             TransformStrategy = _currentStrategy.Transform;
             RotateStrategy = _currentStrategy.Rotate;
+            #endregion
+
+            ActionsManager.Instance.OnFormChanged?.Invoke(_currentStrategy.Strategy);
         }
 
         public PlayerStrategyScriptable GetStrategy(PlayerStrategyHandler.Strategy strategy)

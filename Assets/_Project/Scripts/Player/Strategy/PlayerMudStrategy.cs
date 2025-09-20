@@ -3,14 +3,12 @@ using Player.Movement;
 
 namespace Player.Strategy
 {
-    //[CreateAssetMenu(fileName = "PlayerMudStrategy", menuName = "ScriptableObjects/Strategy/Mud")]
     public class PlayerMudStrategy : PlayerStrategyScriptable
     {
         private PlayerStrategyHandler.Strategy _strategy = PlayerStrategyHandler.Strategy.Mud;
         private PlayerStrategyHandler.Strategy _nextStrategy = PlayerStrategyHandler.Strategy.Solid;
 
         [Header("MudStats")]
-        [SerializeField] private float _launchSpeed = 1;
         [SerializeField] private float _airTurnSpeed = 1;
 
         public override PlayerStrategyHandler.Strategy Strategy { get => _strategy; protected set => _strategy = value; }
@@ -19,7 +17,7 @@ namespace Player.Strategy
 
         public override void Jump(PlayerMovement player)
         {
-            Vector3 force = player.Direction * _launchSpeed;
+            Vector3 force = player.Direction * GetJumpSpeed(player);
 
             force.y = _jumpForce;
             player.Force = force;
@@ -29,19 +27,21 @@ namespace Player.Strategy
         {
             Vector3 movement = Vector3.one;
 
-            switch (player.CurrentState)
+            switch(player.CurrentState)
             {
                 case PlayerController.State.Air:
-                    movement = player.Direction * _launchSpeed;
+                    movement = player.Direction * GetJumpSpeed(player);
                     break;
                 case PlayerController.State.Wall:
+                    movement = player.Direction * GetClimbSpeed(player);
                     break;
                 case PlayerController.State.Ground:
-                    movement = player.Direction * _speed;
+                    movement = player.Direction * GetWalkSpeed(player);
                     break;
             }
+            
 
-            movement.y = _gravity;
+            movement.y = 0;
             player.Force = new Vector3(movement.x, player.Force.y, movement.z);
 
             player.CharacterController.Move(player.Force * Time.deltaTime);
@@ -49,7 +49,7 @@ namespace Player.Strategy
 
         public override void Transform(PlayerMovement player)
         {
-            Physics.Raycast(player.transform.position, Vector3.up, out RaycastHit hitInfo, player.GetStrategy(_nextStrategy).Height);
+            Physics.Raycast(player.transform.position, Vector3.up, out RaycastHit hitInfo, player.GetStrategy(_nextStrategy).Height, LayerMask.GetMask("Map"));
             if (hitInfo.collider == null)
             {
                 player.ChangeStrategy(_nextStrategy);
@@ -70,7 +70,8 @@ namespace Player.Strategy
             switch (player.CurrentState)
             {
                 case PlayerController.State.Air:
-                    player.Direction = Vector3.Lerp(player.Direction, forward * player.Input.z + right * player.Input.x, _airTurnSpeed * Time.deltaTime);
+                    if(player.Direction != Vector3.zero)
+                    player.Direction = Vector3.Lerp(player.Direction, forward * player.Input.z + right * player.Input.x, _airTurnSpeed * Time.deltaTime).normalized;
                     break;
                 case PlayerController.State.Wall:
                     break;

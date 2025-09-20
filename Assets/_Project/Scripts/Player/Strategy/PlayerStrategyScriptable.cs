@@ -1,13 +1,13 @@
 using UnityEngine;
 using Player.Movement;
+using System.Collections.Generic;
 
 namespace Player.Strategy
 {
     [System.Serializable]
     public abstract class PlayerStrategyScriptable : ScriptableObject
     {
-        [SerializeField] protected float _speed = 1;
-
+        protected float _speed = 1;
         [SerializeField] protected float _jumpForce;
         [SerializeField] protected float _jumpCancelFactor;
         [SerializeField] protected float _gravity;
@@ -19,7 +19,7 @@ namespace Player.Strategy
         //TEMP DEBUG
         [SerializeField] protected Vector3 _scale = Vector3.one;
 
-
+        [SerializeField] protected List<StrategyMaterialStats> _materialStats;
 
         #region Properties
 
@@ -44,6 +44,21 @@ namespace Player.Strategy
         public abstract void Transform(PlayerMovement player);
         public abstract void GetDirection(PlayerMovement player);
         public abstract void Rotate(PlayerMovement player);
+
+        protected float GetWalkSpeed(PlayerMovement player)
+        {
+            return _materialStats[(int)player.CurrentMaterial].WalkSpeed;
+        }
+
+        protected float GetJumpSpeed(PlayerMovement player)
+        {
+            return _materialStats[(int)player.CurrentMaterial].JumpSpeed;
+        }
+
+        protected float GetClimbSpeed(PlayerMovement player)
+        {
+            return _materialStats[(int)player.CurrentMaterial].ClimbSpeed;
+        }
 
     }
 }

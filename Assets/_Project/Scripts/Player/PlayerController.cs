@@ -18,6 +18,9 @@ namespace Player
         private State _previousState = State.Air;
         private State _currentState = State.Air;
 
+        private SurfaceMaterial _previousMaterial = SurfaceMaterial.None;
+        private SurfaceMaterial _currentMaterial = SurfaceMaterial.None;
+
         [SerializeField] private List<PlayerState> _statesList;
 
         public enum State
@@ -35,6 +38,9 @@ namespace Player
         public PlayerInput PlayerInput { get => _playerInput; private set => _playerInput = value; }
         public State PreviousState { get { return _previousState; } private set { _previousState = value; } }
         public State CurrentState { get { return _currentState; } private set { _currentState = value; } }
+
+        public SurfaceMaterial CurrentMaterial { get { return _currentMaterial; } private set { _currentMaterial = value; } }
+        public SurfaceMaterial PreviousMaterial { get { return _previousMaterial; } private set { _previousMaterial = value; } }
 
         #endregion
 
@@ -93,8 +99,17 @@ namespace Player
                     {
                         ChangeState(State.Air);
                     }
+
+                    if (_currentState != State.Air)
+                    {
+                        ChangeMaterial(hit.material);
+                    }
+                    break;
+                default:
+                    ChangeMaterial(hit.material);
                     break;
             }
+
         }
 
         private void OnSurfaceNull()
@@ -114,6 +129,16 @@ namespace Player
                 _statesList[(int)_currentState].Enter(this);
 
                 DebugLogger.Log($"[PlayerControllerState] {state}", "PlayerControllerState");
+            }
+        }
+
+        internal void ChangeMaterial(SurfaceMaterial material)
+        {
+            if (material != _currentMaterial)
+            {
+                _previousMaterial = _currentMaterial;
+                _currentMaterial = material;
+                DebugLogger.Log($"[PlayerMaterialChange] {material}", "PlayerMaterialChange");
             }
         }
 

@@ -155,9 +155,9 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
 
     private SurfaceHit? GetHighestPrioritySurface()
     {
+        if (detectedHits[SurfaceType.Floor].Count > 0) return GetClosestHit(detectedHits[SurfaceType.Floor]);
         if (detectedHits[SurfaceType.Wall].Count > 0) return GetClosestHit(detectedHits[SurfaceType.Wall]);
         if (detectedHits[SurfaceType.Ceiling].Count > 0) return GetClosestHit(detectedHits[SurfaceType.Ceiling]);
-        if (detectedHits[SurfaceType.Floor].Count > 0) return GetClosestHit(detectedHits[SurfaceType.Floor]);
         return null;
     }
 
