@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PlayerMudStrategy
   m_EditorClassIdentifier: 
   _jumpForce: 10
+  _wallJumpForceHeight: 4
+  _wallJumpForceDistance: 5
   _jumpCancelFactor: 1
   _gravity: -20
   _fallGravityFactor: 1
