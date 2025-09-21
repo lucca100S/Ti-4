@@ -16,7 +16,7 @@ namespace Player.StateMachine
 
         public override void StateUpdate(PlayerController player)
         {
-
+            player.PlayerMovement.Grounded(true, false);
         }
     }
 }

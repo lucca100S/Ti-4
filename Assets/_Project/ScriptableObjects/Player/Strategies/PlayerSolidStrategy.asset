@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PlayerSolidStrategy
   m_EditorClassIdentifier: 
   _jumpForce: 10
+  _wallJumpForceHeight: 8
+  _wallJumpForceDistance: 3
   _jumpCancelFactor: 0
   _gravity: -20
   _fallGravityFactor: 3

@@ -108,6 +108,17 @@ namespace Player
                         ChangeMaterial(hit.material);
                     }
                     break;
+                case SurfaceType.Wall:
+                    if (hit.hit.distance < _statesList[(int)State.Wall].DistanceTreshold)
+                    {
+                        ChangeState(State.Wall);
+                        ChangeMaterial(hit.material);
+                    }
+                    else
+                    {
+                        ChangeState(State.Air);
+                    }
+                    break;
                 default:
                     ChangeMaterial(hit.material);
                     break;
