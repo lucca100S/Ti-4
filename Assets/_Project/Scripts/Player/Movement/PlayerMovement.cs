@@ -23,6 +23,7 @@ namespace Player.Movement
         private bool _canCancelJump = false;
         private bool _isGrounded = false;
         private bool _canJump = false;
+        private bool _isWallJumping = false;
 
         private Vector3 _force;
         private Vector3 _direction;
@@ -56,13 +57,20 @@ namespace Player.Movement
             get { return _direction; }
             internal set { _direction = value; }
         }
+
+        public bool CanJump { get { return _canJump; } internal set { _canJump = value; } }
+
         public CharacterController CharacterController { get { return _characterController; } internal set { _characterController = value; } }
+        public SurfaceDetection SurfaceDetection { get { return _controller.SurfaceDetection; } }
 
         public bool IsGrounded { get { return _isGrounded; } }
+        public bool IsWallJumping { get { return _isWallJumping; } internal set { _isWallJumping = value; } }
 
         public PlayerController.State CurrentState { get { return _controller.CurrentState; } }
         public SurfaceMaterial CurrentMaterial { get { return _controller.CurrentMaterial; } }
         public SurfaceMaterial PreviousMaterial { get { return _controller.PreviousMaterial; } }
+
+        public PlayerController Controller { get { return _controller; } }
 
         #endregion
 
@@ -103,6 +111,23 @@ namespace Player.Movement
                 gravity *= _currentStrategy.FallGravityFactor;
             }
 
+            switch (CurrentState)
+            {
+                case PlayerController.State.Ground:
+                case PlayerController.State.Air:
+                    break;
+                case PlayerController.State.Wall:
+                    if (_currentStrategy.MaterialStats[(int)CurrentMaterial].CanClimb)
+                    {
+                        gravity = 0;
+                    }
+                    else if(_force.y < 0)
+                    {
+                        gravity /= 2;
+                    }
+                    break;
+            }
+
             _force.y += gravity * Time.deltaTime;
 
             if (_isGrounded)
@@ -110,7 +135,7 @@ namespace Player.Movement
                 _lastTimeOnGround = Time.time;
             }
         }
-        
+
         #endregion
 
         #region Inputs Handling
@@ -143,7 +168,7 @@ namespace Player.Movement
         }
         public void GetTransformInput(InputInfo transformInput)
         {
-            if(transformInput.IsDown)
+            if (transformInput.IsDown)
             {
                 TransformStrategy?.Invoke(this);
             }
@@ -159,7 +184,7 @@ namespace Player.Movement
         #region Strategy
         internal void ChangeStrategy(PlayerStrategyHandler.Strategy nextStrategyEnum)
         {
-            if(CurrentState == PlayerController.State.Air)
+            if (CurrentState == PlayerController.State.Air)
                 _controller.ChangeMaterial(SurfaceMaterial.None);
 
 
@@ -188,9 +213,9 @@ namespace Player.Movement
         }
         #endregion
 
-        internal void Grounded(bool grounded)
+        internal void Grounded(bool grounded, bool gravityCancel = true)
         {
-            if (grounded)
+            if (grounded && gravityCancel)
             {
                 float gravity = _currentStrategy.Gravity * _currentStrategy.FallGravityFactor;
                 if (_force.y <= 0) _force.y = gravity;

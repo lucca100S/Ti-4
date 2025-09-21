@@ -6,7 +6,7 @@ namespace Player.StateMachine
     {
         public override void Enter(PlayerController player)
         {
-
+            
         }
 
         public override void Exit(PlayerController player)
@@ -16,7 +16,7 @@ namespace Player.StateMachine
 
         public override void StateUpdate(PlayerController player)
         {
-
+            player.PlayerMovement.Grounded(true, false);
         }
     }
 }

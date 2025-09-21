@@ -9,6 +9,10 @@ namespace Player.Strategy
     {
         protected float _speed = 1;
         [SerializeField] protected float _jumpForce;
+        [Tooltip("The force converted to the height when jumping from a wall")] 
+        [SerializeField] protected float _wallJumpForceHeight;
+        [Tooltip("The force converted to the distance from the wall when jumping from a wall")]
+        [SerializeField] protected float _wallJumpForceDistance;
         [SerializeField] protected float _jumpCancelFactor;
         [SerializeField] protected float _gravity;
         [SerializeField] protected float _fallGravityFactor;
@@ -36,6 +40,8 @@ namespace Player.Strategy
         public Vector3 Center { get { return _center; } private set { _center = value; } }
         public Vector3 Scale { get { return _scale; } private set { _scale = value; } }
 
+
+        public List<StrategyMaterialStats> MaterialStats { get { return _materialStats; } private set { _materialStats = value; } }
 
         #endregion
 
