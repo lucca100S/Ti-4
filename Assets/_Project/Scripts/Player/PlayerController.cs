@@ -132,7 +132,7 @@ namespace Player
             ChangeState(State.Air);
         }
 
-        private void ChangeState(State state)
+        internal void ChangeState(State state)
         {
             if (state != _currentState)
             {

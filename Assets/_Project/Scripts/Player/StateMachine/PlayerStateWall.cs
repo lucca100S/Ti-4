@@ -6,7 +6,7 @@ namespace Player.StateMachine
     {
         public override void Enter(PlayerController player)
         {
-
+            
         }
 
         public override void Exit(PlayerController player)

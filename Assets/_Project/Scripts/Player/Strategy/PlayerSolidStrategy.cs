@@ -18,6 +18,12 @@ namespace Player.Strategy
                 case PlayerController.State.Wall:
                     Vector3 forceDirection = -player.SurfaceDetection.CurrentSurface.Value.hit.normal;
                     player.Force = forceDirection * _wallJumpForceDistance + player.transform.up * _wallJumpForceHeight;
+
+                    player.transform.rotation = Quaternion.LookRotation(-forceDirection, Vector3.up);
+                    player.IsWallJumping = true;
+
+                    player.Controller.ChangeState(PlayerController.State.Air);
+
                     break;
                 case PlayerController.State.Ground:
                 case PlayerController.State.Air:
@@ -85,7 +91,23 @@ namespace Player.Strategy
                     right = player.transform.right;
 
                     break;
-                default:
+                case PlayerController.State.Air:
+                    if(player.IsWallJumping)
+                    {
+                        forward *= 0;
+                        right *= 0;
+                    }
+                    else
+                    {
+                        forward.y = 0;
+                        forward.Normalize();
+
+
+                        right.y = 0;
+                        right.Normalize();
+                    }
+                    break;
+                case PlayerController.State.Ground:
                     forward.y = 0;
                     forward.Normalize();
 
@@ -121,8 +143,14 @@ namespace Player.Strategy
 
         private Vector3 MoveAir(PlayerMovement player, Vector3 movement)
         {
-            movement = player.Direction * GetJumpSpeed(player);
-            movement.y = 0;
+            if (player.IsWallJumping)
+            {
+                movement = player.Direction * GetJumpSpeed(player) + player.transform.forward * _wallJumpForceDistance;
+            }
+            else
+            {
+                movement = player.Direction * GetJumpSpeed(player);
+            }
 
             return new Vector3(movement.x, player.Force.y, movement.z);
         }

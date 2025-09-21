@@ -23,6 +23,7 @@ namespace Player.Movement
         private bool _canCancelJump = false;
         private bool _isGrounded = false;
         private bool _canJump = false;
+        private bool _isWallJumping = false;
 
         private Vector3 _force;
         private Vector3 _direction;
@@ -63,10 +64,13 @@ namespace Player.Movement
         public SurfaceDetection SurfaceDetection { get { return _controller.SurfaceDetection; } }
 
         public bool IsGrounded { get { return _isGrounded; } }
+        public bool IsWallJumping { get { return _isWallJumping; } internal set { _isWallJumping = value; } }
 
         public PlayerController.State CurrentState { get { return _controller.CurrentState; } }
         public SurfaceMaterial CurrentMaterial { get { return _controller.CurrentMaterial; } }
         public SurfaceMaterial PreviousMaterial { get { return _controller.PreviousMaterial; } }
+
+        public PlayerController Controller { get { return _controller; } }
 
         #endregion
 
@@ -117,7 +121,7 @@ namespace Player.Movement
                     {
                         gravity = 0;
                     }
-                    else
+                    else if(_force.y < 0)
                     {
                         gravity /= 2;
                     }
