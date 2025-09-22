@@ -6,12 +6,16 @@ using UnityEngine;
 /// </summary>
 public class Obstacles : MonoBehaviour, IColliderEnterCollision
 {
-    public LayerMask CollisionMask { get; set; }
     public HashSet<string> CollisionTags { get; set; }
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.LogWarning("Chamada indevida de OnTriggerEnter em Obstacles. " +
-                         "Implemente na classe concreta.");
+        if (other != null)
+        {
+            if (CollisionTags.Contains(other.tag))
+            {
+                //Rotina de "Morte"
+            }
+        }
     }
 }

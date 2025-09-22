@@ -5,7 +5,7 @@ using UnityEngine;
 
 /// <summary>
 /// Classe base para objetos interagíveis opcionais.
-/// Implementa detecção por esfera e lógica de interação genérica.
+/// Implementa detecção por trigger e lógica de interação genérica.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public abstract class OptionalInteractableObjects : MonoBehaviour, IInteractable
@@ -40,6 +40,12 @@ public abstract class OptionalInteractableObjects : MonoBehaviour, IInteractable
                     //Inscrever-se na lista de objetos interativos no momento no próprio other
                     agent.AddInteractable(this);
                 }
+                #if UNITY_EDITOR
+                else
+                {
+                    Debug.LogWarning($"O objeto {other.name} de tag: {other.tag}, não possui o componente InteractableAgent essencial para a execução de interações");
+                }
+                #endif
             }
         }
     }
