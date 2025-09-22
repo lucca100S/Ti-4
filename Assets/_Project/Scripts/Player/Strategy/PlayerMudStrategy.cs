@@ -41,8 +41,7 @@ namespace Player.Strategy
             }
             
 
-            movement.y = 0;
-            player.Force = new Vector3(movement.x, player.Force.y, movement.z);
+            player.Force = Vector3.Lerp(player.Force, new Vector3(movement.x, player.Force.y, movement.z), Time.deltaTime * 1);
 
             player.CharacterController.Move(player.Force * Time.deltaTime);
         }

@@ -73,7 +73,7 @@ namespace Player.Strategy
                     break;
             }
 
-            player.Force = force;
+            player.Force = Vector3.Lerp(player.Force, force, Time.deltaTime * 1);
         }
         public override void Transform(PlayerMovement player)
         {
