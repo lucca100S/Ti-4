@@ -39,9 +39,15 @@ namespace Player.Strategy
                     movement = player.Direction * GetWalkSpeed(player);
                     break;
             }
-            
 
-            player.Force = Vector3.Lerp(player.Force, new Vector3(movement.x, player.Force.y, movement.z), Time.deltaTime * 1);
+            if (player.CurrentState == PlayerController.State.Air)
+            { 
+                player.Force = Vector3.Lerp(player.Force, new Vector3(movement.x, player.Force.y, movement.z), Time.deltaTime);
+            }
+            else
+            {
+                player.Force = Vector3.Lerp(player.Force, new Vector3(movement.x, player.Force.y, movement.z), Time.deltaTime * GetDrag(player));
+            }
 
             player.CharacterController.Move(player.Force * Time.deltaTime);
         }

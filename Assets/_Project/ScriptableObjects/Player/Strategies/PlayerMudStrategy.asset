@@ -27,19 +27,23 @@ MonoBehaviour:
     _jumpSpeed: 15
     _climbSpeed: 10
     _canClimb: 1
+    _drag: 10
   - _material: 1
     _walkSpeed: 2
     _jumpSpeed: 1
     _climbSpeed: 2
     _canClimb: 0
+    _drag: 10
   - _material: 2
     _walkSpeed: 2
     _jumpSpeed: 2
     _climbSpeed: 2
     _canClimb: 0
+    _drag: 10
   - _material: 3
     _walkSpeed: 2
     _jumpSpeed: 1
     _climbSpeed: 2
     _canClimb: 0
+    _drag: 10
   _airTurnSpeed: 2

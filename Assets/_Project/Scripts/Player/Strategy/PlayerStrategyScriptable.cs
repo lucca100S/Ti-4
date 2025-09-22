@@ -66,5 +66,10 @@ namespace Player.Strategy
             return _materialStats[(int)player.CurrentMaterial].ClimbSpeed;
         }
 
+        protected float GetDrag(PlayerMovement player)
+        {
+            return _materialStats[(int)player.CurrentMaterial].Drag;
+        }
+
     }
 }

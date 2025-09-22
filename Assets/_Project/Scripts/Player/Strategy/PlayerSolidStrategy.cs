@@ -72,8 +72,14 @@ namespace Player.Strategy
                     force = new Vector3(movement.x, player.Force.y, movement.z);
                     break;
             }
-
-            player.Force = Vector3.Lerp(player.Force, force, Time.deltaTime * 1);
+            if(player.CurrentState == PlayerController.State.Air)
+            {
+                player.Force = Vector3.Lerp(player.Force, force, Time.deltaTime);
+            }
+            else
+            {
+                player.Force = Vector3.Lerp(player.Force, force, Time.deltaTime * GetDrag(player));
+            }
         }
         public override void Transform(PlayerMovement player)
         {

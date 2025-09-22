@@ -12,6 +12,7 @@ namespace Player.Strategy
         [Tooltip("Speed when jumping from this material")] [SerializeField] private float _jumpSpeed;
         [SerializeField] private float _climbSpeed;
         [SerializeField] private bool _canClimb = true;
+        [SerializeField] private float _drag;
 
 
         #region Properties
@@ -23,6 +24,8 @@ namespace Player.Strategy
         public float JumpSpeed { get { return _jumpSpeed; } private set { _jumpSpeed = value; } }
         public float ClimbSpeed { get { return _climbSpeed; } private set { _climbSpeed = value; } }
         public bool CanClimb { get { return _canClimb; } private set { _canClimb = value; } }
+
+        public float Drag { get { return _drag; } private set { _drag = value; } }
 
         #endregion
     }
