@@ -3,9 +3,8 @@ using UnityEngine;
 
 /// <summary>
 /// Classe base para obstáculos que detectam colisões via Trigger.
-/// Fornece implementação básica de filtros de colisão.
 /// </summary>
-public abstract class Obstacles : MonoBehaviour, IColliderEnterCollision
+public class Obstacles : MonoBehaviour, IColliderEnterCollision
 {
     public LayerMask CollisionMask { get; set; }
     public HashSet<string> CollisionTags { get; set; }

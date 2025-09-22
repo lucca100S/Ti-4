@@ -5,14 +5,14 @@ using UnityEngine;
 /// </summary>
 public class CheckPoint : OptionalInteractableObjects
 {
+    [SerializeField]
+    GameObject _spawnPoint;
+
     public override void Interaction()
     {
-        if (IsInteractable()) { /* Lógica de checkpoint */ }
-    }
-
-    public override void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(SphereOrigin, Radius);
+        #if UNITY_EDITOR
+        base.Interaction();
+        #endif
+        /* Lógica de checkpoint */
     }
 }

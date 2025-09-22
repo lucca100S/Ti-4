@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 /// <summary>
 /// Contrato para qualquer objeto que possa ser interagido.
@@ -7,12 +8,24 @@ using System;
 public interface IInteractable
 {
     /// <summary>
-    /// Função que indica se o objeto está em estado de ser interagido.
+    /// Define o comportamento do objeto quando pode ser interagido
     /// </summary>
-    Func<bool> IsInteractable { get; }
+    void OnIsIntereactable(); 
+
+    /// <summary>
+    /// Define o comportamento do objeto quando não pode ser interagido
+    /// </summary>
+    void OnIsNotIntereactable();
 
     /// <summary>
     /// Lógica de interação quando o jogador ou sistema chama o evento.
     /// </summary>
     void Interaction();
+
+    /// <summary>
+    /// Lógica de detecção para detectar se esta interativo ou não e inseri-lo e remove-lo da lista de interativos
+    /// </summary>
+    /// <param name="other"></param>
+    void OnTriggerEnter(Collider other);
+    void OnTriggerExit(Collider other);
 }

@@ -8,13 +8,11 @@ public class Collectables : OptionalInteractableObjects
 {
     public override void Interaction()
     {
-        if (IsInteractable())
-            CollectableObservable.Instance.NotifyListeners(this);
-    }
-
-    public override void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(SphereOrigin, Radius);
+        # if UNITY_EDITOR
+        base.Interaction();
+        #endif
+        //Rotina de interação : SFX,VFX,etc
+        //Notificar listeners
+        CollectableObservable.Instance.NotifyListeners(this);
     }
 }
