@@ -8,6 +8,11 @@ using UnityEngine;
 public interface IInteractable
 {
     /// <summary>
+    /// Define se um objeto sofreu interação previamente
+    /// </summary>
+    bool PreviouslyInteracted { get; set; }
+
+    /// <summary>
     /// Define o comportamento do objeto quando pode ser interagido
     /// </summary>
     void OnIsIntereactable(); 

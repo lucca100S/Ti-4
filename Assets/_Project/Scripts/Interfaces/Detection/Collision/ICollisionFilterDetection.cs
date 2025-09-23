@@ -7,5 +7,5 @@ using UnityEngine;
 /// </summary>
 public interface ICollisionFilterDetection
 {
-    HashSet<string> CollisionTags { get;}
+    HashSet<string> CollisionTags { get; set; }
 }

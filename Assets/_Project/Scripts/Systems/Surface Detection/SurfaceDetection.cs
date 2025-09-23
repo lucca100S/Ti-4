@@ -8,17 +8,14 @@ using System;
 /// </summary>
 public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
 {
-    #region Interface (ICollisionFilterDetection)
     [Header("Interface (ICollisionFilterDetection)")]
     public LayerMask CollisionMask => raycastMask;
-    public HashSet<string> CollisionTags => collisionTagsSet;
+    public HashSet<string> CollisionTags { get; set; }
 
     [SerializeField] private LayerMask raycastMask;
     [SerializeField] private List<string> collisionTagsList;
     private HashSet<string> collisionTagsSet;
-    #endregion
 
-    #region Configurações de Raycast
     [Header("Raycast Settings")]
     [SerializeField, Range(0f, 1f)] private float tolerance = 0.7f;
     [SerializeField] private bool drawDebug = true;
@@ -31,9 +28,7 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
         new RayDirectionConfig { directionVector = RayDirectionConfig.Direction.Up, distance = 2f },
         new RayDirectionConfig { directionVector = RayDirectionConfig.Direction.Forward, distance = 2f },
     };
-    #endregion
 
-    #region Estruturas de Dados
     public struct SurfaceHit
     {
         public SurfaceType type;
@@ -51,9 +46,7 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
     private readonly Dictionary<SurfaceType, List<SurfaceHit>> detectedHits = new();
     public SurfaceHit? CurrentSurface { get; private set; } = null;
     private readonly Dictionary<string, SurfaceMaterial> materialMap = new();
-    #endregion
 
-    #region Unity Callbacks
     private void Awake()
     {
         InitializeDetectedHits();
@@ -66,9 +59,7 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
         CollectHits();
         ProcessSurface();
     }
-    #endregion
 
-    #region Initialization
     private void InitializeDetectedHits()
     {
         foreach (SurfaceType t in System.Enum.GetValues(typeof(SurfaceType)))
@@ -86,13 +77,10 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
         materialMap.Add("stone", SurfaceMaterial.Stone);
         materialMap.Add("vines", SurfaceMaterial.Vines);
     }
-    #endregion
 
     public Action<SurfaceHit> OnSurfaceChange;
     public Action<SurfaceHit> OnSurfaceHit;
     public Action OnSurfaceNull;
-
-    #region SurfaceSensor
     private void CollectHits()
     {
         foreach (var list in detectedHits.Values)
@@ -125,9 +113,6 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
             }
         }
     }
-    #endregion
-
-    #region SurfaceProcessor
     private void ProcessSurface()
     {
         SurfaceHit? priority = GetHighestPrioritySurface();
@@ -176,17 +161,12 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
         }
         return closest;
     }
-    #endregion
 
-    #region SurfaceNotifier
     private void SurfaceNotifier(SurfaceHit surface)
     {
         OnSurfaceChange?.Invoke(surface);
         DebugLogger.Log($"[OnSurfaceChange] Tipo: {surface.type}, Material: {surface.material}, Ponto: {surface.hit.point}, Normal: {surface.hit.normal}", "SurfaceDetection");
     }
-    #endregion
-
-    #region Helpers
     private SurfaceType ClassifySurface(Vector3 normal)
     {
         if (normal.y > tolerance) return SurfaceType.Floor;
@@ -203,5 +183,4 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
 
         return SurfaceMaterial.None;
     }
-    #endregion
 }

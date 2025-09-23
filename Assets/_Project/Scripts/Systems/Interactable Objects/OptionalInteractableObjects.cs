@@ -8,9 +8,14 @@ using UnityEngine;
 /// Implementa detecção por trigger e lógica de interação genérica.
 /// </summary>
 [RequireComponent(typeof(Collider))]
-public abstract class OptionalInteractableObjects : MonoBehaviour, IInteractable
+public abstract class OptionalInteractableObjects : MonoBehaviour, IInteractable, IVisualEffects, ISoundEffects
 {
     public HashSet<string> CollisionTags { get; set; }
+    public bool VFXIsPlaying { get; set; }
+    public bool VFXIsPaused { get; set; }
+    public bool SFXIsPlaying { get; set; }
+    public bool SFXIsPaused { get; set; }
+    public bool PreviouslyInteracted { get; set; }
 
     public virtual void Interaction()
     {
@@ -65,4 +70,36 @@ public abstract class OptionalInteractableObjects : MonoBehaviour, IInteractable
             }
         }
     }
+
+    public virtual void VFXPause()
+    {
+        Debug.Log($"VFX pausado de: {this.gameObject.name}");
+    }
+
+    public virtual void VFXPlay()
+    {
+        Debug.Log($"VFX tocando de: {this.gameObject.name}");
+    }
+
+    public virtual void VFXStop()
+    {
+        Debug.Log($"VFX parado de: {this.gameObject.name}");
+    }
+
+    public virtual void SFXPause()
+    {
+        Debug.Log($"SFX pausado de: {this.gameObject.name}");
+    }
+
+    public virtual void SFXPlay()
+    {
+        Debug.Log($"SFX tocando de: {this.gameObject.name}");
+    }
+
+    public virtual void SFXStop()
+    {
+        Debug.Log($"SFX parado de: {this.gameObject.name}");
+    }
+
+    public virtual void InitializeInteractableState() => Debug.Log($"Inicializando o estado do interativo {this.gameObject.name}");
 }
