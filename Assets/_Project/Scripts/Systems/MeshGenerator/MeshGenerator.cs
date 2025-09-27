@@ -14,12 +14,16 @@ namespace ProjectMud.Systems.MeshGenerator
         GameObject _childMesh;
         private SplineContainer _splineContainer;
 
-        [SerializeField] private List<Vector3> _points = new List<Vector3>();
+        private List<Vector3> _points = new List<Vector3>();
         private List<Vector3> _tans = new List<Vector3>();
+        [SerializeField, Min(1)]private int _height = 1;
+        [SerializeField] private float _topHeight = 0;
+        [SerializeField, Range(0f,1f)] private float _topEdgePoint;
 
+        [SerializeField] private List<Material> _materials = new List<Material>();
         [SerializeField] private List<MeshData> _wallMeshs;
         [Tooltip("Layer Assinged to the generated Mesh")]
-        [SerializeField] private int _layer = 7;
+        private int _layer = 6;
         [SerializeField] private bool _isConvex = true;
 
         private float _distanceMesh;
@@ -31,6 +35,10 @@ namespace ProjectMud.Systems.MeshGenerator
 
         private void OnEnable()
         {
+            if(_childMesh == null && transform.childCount > 0)
+            {
+                _childMesh = transform.GetChild(0)?.gameObject;
+            }
             Spline.Changed += OnSplineChanged;
         }
 
@@ -41,7 +49,7 @@ namespace ProjectMud.Systems.MeshGenerator
 
         private void OnSplineChanged(Spline spline, int value, SplineModification modification)
         {
-            if(spline == _splineContainer.Spline && modification == SplineModification.KnotModified)
+            if (spline == _splineContainer.Spline && modification == SplineModification.KnotModified)
             {
                 CalculatePoints();
                 GenerateMesh();
@@ -55,6 +63,7 @@ namespace ProjectMud.Systems.MeshGenerator
             if (_wallMeshs[0].Mesh == null) return;
 
             _distanceMesh = _wallMeshs[0].Mesh.bounds.size.x;
+
         }
 
         private void CalculatePoints()
@@ -92,6 +101,7 @@ namespace ProjectMud.Systems.MeshGenerator
             return _wallMeshs[index];
         }
 
+        [ContextMenu("Update")]
         private void GenerateMesh()
         {
             CreateGameObject();
@@ -103,50 +113,62 @@ namespace ProjectMud.Systems.MeshGenerator
             Matrix4x4 offsetMatrix;
             CombineInstance combineInstance;
 
-            for (int i = 0; i < _points.Count; i++)
+            Dictionary<MeshData, Mesh> meshVariants = new Dictionary<MeshData, Mesh>();
+
+            for (int i = 0; i < _wallMeshs.Count; i++)
             {
-                MeshData meshData = GetRandomMeshData();
-                Mesh meshInstance = Instantiate(meshData.Mesh);
-                
+                Mesh m = Instantiate(_wallMeshs[i].Mesh);
+                meshVariants.Add(_wallMeshs[i], m);
+            }
 
 
-                Vector3 dir;
-                Vector3 scale = Vector3.one + Vector3.up * 5;
-                float dist;
+            Mesh meshInstance = meshVariants[_wallMeshs[0]];
 
-                if (i == _points.Count - 1)
+            for (int h = 0; h < _height; h++)
+            {
+                for (int i = 0; i < _points.Count; i++)
                 {
-                    dist = Vector3.Distance(_points[0], _points[_points.Count - 1]);
+                    MeshData meshData = GetRandomMeshData();
+                    meshInstance = meshVariants[meshData];
+                    Vector3 dir;
+                    Vector3 scale = Vector3.one;
+                    float dist;
 
-                    if (dist < 0.01f) { return; }
-
-                    dir = _points[i] - _points[0];
-                    scale.x = dist / meshInstance.bounds.size.x;
-                }
-                else
-                {
-                    dist = Vector3.Distance(_points[i], _points[i + 1]);
-                    scale.x = dist / meshInstance.bounds.size.x;
-
-                    dir = _points[i] - _points[i + 1];
-                }
-
-                position = _points[i];
-
-                Vector3 lookDir = new Vector3(-dir.z, dir.y, dir.x);
-                offsetMatrix = Matrix4x4.TRS(position, Quaternion.LookRotation(lookDir), scale);
-
-                for (int j = 0; j < meshInstance.subMeshCount; j++)
-                {
-                    combineInstance = new CombineInstance
+                    if (i == _points.Count - 1)
                     {
-                        mesh = meshInstance,
-                        transform = offsetMatrix,
-                        subMeshIndex = j,
-                    };
-                    instances.Add(combineInstance);
+                        dist = Vector3.Distance(_points[0], _points[_points.Count - 1]);
+
+                        if (dist < 0.01f) { return; }
+
+                        dir = _points[i] - _points[0];
+                        scale.x = dist / meshInstance.bounds.size.x;
+                    }
+                    else
+                    {
+                        dist = Vector3.Distance(_points[i], _points[i + 1]);
+                        scale.x = dist / meshInstance.bounds.size.x;
+
+                        dir = _points[i] - _points[i + 1];
+                    }
+
+                    position = _points[i] + new Vector3(0, h * meshInstance.bounds.size.y);
+
+                    Vector3 lookDir = new Vector3(-dir.z, dir.y, dir.x);
+                    offsetMatrix = Matrix4x4.TRS(position, Quaternion.LookRotation(lookDir), scale);
+
+                    for (int j = 0; j < meshInstance.subMeshCount; j++)
+                    {
+                        combineInstance = new CombineInstance();
+
+                        combineInstance.mesh = meshInstance;
+                        combineInstance.transform = offsetMatrix;
+                        combineInstance.subMeshIndex = j;
+                        instances.Add(combineInstance);
+                    }
                 }
             }
+
+            BuildTopMeshData(instances);
 
             instances = CombineBySubmeshIndex(instances);
             List<SubMeshDescriptor> subMeshes = InstancesToSubMeshData(instances);
@@ -164,13 +186,85 @@ namespace ProjectMud.Systems.MeshGenerator
             filter.sharedMesh = finalMesh;
 
             MeshRenderer renderer = _childMesh.GetComponent<MeshRenderer>();
-            //CHANGE LATER
-            renderer.materials = _wallMeshs[0].Materials;
+            renderer.materials = _materials.ToArray();
 
             MeshCollider meshCollider = _childMesh.GetComponent<MeshCollider>();
             meshCollider.sharedMesh = finalMesh;
             meshCollider.convex = _isConvex;
             #endregion
+        }
+
+        private void BuildTopMeshData(List<CombineInstance> instances)
+        {
+            Vector3 center = new Vector3();
+            foreach (Vector3 point in _points)
+            {
+                center += point;
+            }
+            center = center / _points.Count;
+            center.y += _topHeight;
+
+            float tileHeight = _wallMeshs[0].Mesh.bounds.size.y;
+
+            Vector3 height = new Vector3(0, tileHeight * _height, 0);
+
+            List<Quad> faces = new List<Quad>();
+            for (int i = 1; i <= _points.Count; i++)
+            {
+                Vector3 p1 = _points[i - 1];
+                Vector3 p2 = (i == _points.Count) ? _points[0] : _points[i];
+                Vector3 p3 = Vector3.Lerp(p1, center, _topEdgePoint);
+                Vector3 p4 = Vector3.Lerp(p2, center, _topEdgePoint);
+
+                p1 += height;
+                p2 += height;
+                p3 += height;
+                p4 += height;
+
+                Quad q = new Quad((i - 1) * 4, new Vector3[] { p1, p3, p4, p2 });
+                faces.Add(q);
+            }
+
+            Mesh mesh = GetMeshFromQuads(faces);
+
+            CombineInstance topMeshData = new CombineInstance();
+
+            topMeshData.transform = Matrix4x4.identity;
+            topMeshData.mesh = mesh;
+            topMeshData.subMeshIndex = 0;
+
+            instances.Add(topMeshData);
+        }
+
+        private Mesh GetMeshFromQuads(List<Quad> faces)
+        {
+            List<Vector3> verts = new List<Vector3>();
+            List<int> tris = new List<int>();
+            List<Vector2> uvs = new List<Vector2>();
+
+            float distance = 0f;
+            int count = 0;
+
+            foreach (Quad quad in faces)
+            {
+                tris.AddRange(quad.Triangles);
+                verts.AddRange(quad.GetVertices());
+
+                if(count > 0)
+                {
+                    distance += Vector3.Distance(faces[count - 1].Vertices[0].Position, quad.Vertices[0].Position);
+                }
+
+                count++;
+                uvs.AddRange(quad.GetUVs());
+            }
+
+            Mesh mesh = new Mesh();
+            mesh.vertices = verts.ToArray();
+            mesh.triangles = tris.ToArray();
+            mesh.uv = uvs.ToArray();
+
+            return mesh;
         }
 
         private List<SubMeshDescriptor> InstancesToSubMeshData(List<CombineInstance> instances)
@@ -179,11 +273,10 @@ namespace ProjectMud.Systems.MeshGenerator
 
             int triangleOffset = 0;
 
-            foreach (var c1 in instances)
+            foreach (CombineInstance c1 in instances)
             {
                 Mesh mesh = c1.mesh;
                 Matrix4x4 transform = c1.transform;
-
                 int[] meshTris = mesh.GetTriangles(0);
                 descriptors.Add(new SubMeshDescriptor(triangleOffset, meshTris.Length));
                 triangleOffset += meshTris.Length;
@@ -213,7 +306,7 @@ namespace ProjectMud.Systems.MeshGenerator
             {
                 List<CombineInstance> combinedInstances = valueSet;
                 Mesh m = new Mesh();
-                m.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+                m.indexFormat = IndexFormat.UInt32;
                 m.CombineMeshes(combinedInstances.ToArray(), true);
 
                 CombineInstance c = new CombineInstance();

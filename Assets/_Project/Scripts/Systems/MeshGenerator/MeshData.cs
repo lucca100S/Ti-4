@@ -7,7 +7,6 @@ namespace ProjectMud.Systems.MeshGenerator
     public class MeshData
     {
         [SerializeField] private Mesh _mesh;
-        [SerializeField] private Material[] _materials = new Material[] {};
         [SerializeField] private float _weight;
 
         #region Properties
@@ -21,25 +20,6 @@ namespace ProjectMud.Systems.MeshGenerator
         {
             get => _weight;
             set => _weight = value;
-        }
-        public Material[] Materials
-        {
-            get => _materials;
-            set => _materials = value;
-        }
-        public Material Material
-        {
-            get => _materials[0];
-            set
-            {
-                if (_materials.Length == 0)
-                {
-                    Array.Resize(ref _materials, 1);
-                }
-
-                _materials[0] = value;
-                
-            }
         }
 
         #endregion
