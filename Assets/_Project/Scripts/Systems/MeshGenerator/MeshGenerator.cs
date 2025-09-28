@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Splines;
 using ProjectMud.Utils;
-using static UnityEngine.Mesh;
 using System;
 
 namespace ProjectMud.Systems.MeshGenerator
@@ -14,17 +13,28 @@ namespace ProjectMud.Systems.MeshGenerator
         GameObject _childMesh;
         private SplineContainer _splineContainer;
 
+        private enum PossibleTags
+        {
+            Earth,
+            Stone,
+            Vines,
+            Untagged
+        }
+
         private List<Vector3> _points = new List<Vector3>();
         private List<Vector3> _tans = new List<Vector3>();
-        [SerializeField, Min(1)]private int _height = 1;
-        [SerializeField] private float _topHeight = 0;
-        [SerializeField, Range(0f,1f)] private float _topEdgePoint;
+        [SerializeField, Min(1)] private int _height = 1;
+        private float _topHeight = 0;
+        [SerializeField, Range(0f, 1f)] private float _edgePoint;
 
         [SerializeField] private List<Material> _materials = new List<Material>();
         [SerializeField] private List<MeshData> _wallMeshs;
+
         [Tooltip("Layer Assinged to the generated Mesh")]
         private int _layer = 6;
+        [SerializeField] private PossibleTags _tag = PossibleTags.Untagged;
         [SerializeField] private bool _isConvex = true;
+        [SerializeField] private bool _isStatic = true;
 
         private float _distanceMesh;
 
@@ -35,7 +45,7 @@ namespace ProjectMud.Systems.MeshGenerator
 
         private void OnEnable()
         {
-            if(_childMesh == null && transform.childCount > 0)
+            if (_childMesh == null && transform.childCount > 0)
             {
                 _childMesh = transform.GetChild(0)?.gameObject;
             }
@@ -64,10 +74,19 @@ namespace ProjectMud.Systems.MeshGenerator
 
             _distanceMesh = _wallMeshs[0].Mesh.bounds.size.x;
 
+            CalculatePoints();
+            GenerateMesh();
+
         }
 
         private void CalculatePoints()
         {
+
+            if(_splineContainer == null)
+            {
+                _splineContainer = GetComponent<SplineContainer>();
+            }
+
             _points = new List<Vector3>();
             _tans = new List<Vector3>();
 
@@ -168,7 +187,8 @@ namespace ProjectMud.Systems.MeshGenerator
                 }
             }
 
-            BuildTopMeshData(instances);
+            BuildHeightMeshData(instances, true);
+            BuildHeightMeshData(instances, false);
 
             instances = CombineBySubmeshIndex(instances);
             List<SubMeshDescriptor> subMeshes = InstancesToSubMeshData(instances);
@@ -186,7 +206,8 @@ namespace ProjectMud.Systems.MeshGenerator
             filter.sharedMesh = finalMesh;
 
             MeshRenderer renderer = _childMesh.GetComponent<MeshRenderer>();
-            renderer.materials = _materials.ToArray();
+            //renderer.materials = _materials.ToArray();
+            renderer.material = _materials[(int)_tag];
 
             MeshCollider meshCollider = _childMesh.GetComponent<MeshCollider>();
             meshCollider.sharedMesh = finalMesh;
@@ -194,7 +215,7 @@ namespace ProjectMud.Systems.MeshGenerator
             #endregion
         }
 
-        private void BuildTopMeshData(List<CombineInstance> instances)
+        private void BuildHeightMeshData(List<CombineInstance> instances, bool isTop)
         {
             Vector3 center = new Vector3();
             foreach (Vector3 point in _points)
@@ -206,22 +227,26 @@ namespace ProjectMud.Systems.MeshGenerator
 
             float tileHeight = _wallMeshs[0].Mesh.bounds.size.y;
 
-            Vector3 height = new Vector3(0, tileHeight * _height, 0);
+            float baseHeight = isTop ? _height : 0;
+
+            Vector3 height = new Vector3(0, tileHeight * baseHeight, 0);
 
             List<Quad> faces = new List<Quad>();
             for (int i = 1; i <= _points.Count; i++)
             {
                 Vector3 p1 = _points[i - 1];
                 Vector3 p2 = (i == _points.Count) ? _points[0] : _points[i];
-                Vector3 p3 = Vector3.Lerp(p1, center, _topEdgePoint);
-                Vector3 p4 = Vector3.Lerp(p2, center, _topEdgePoint);
+                Vector3 p3 = Vector3.Lerp(p1, center, _edgePoint);
+                Vector3 p4 = Vector3.Lerp(p2, center, _edgePoint);
 
                 p1 += height;
                 p2 += height;
                 p3 += height;
                 p4 += height;
 
-                Quad q = new Quad((i - 1) * 4, new Vector3[] { p1, p3, p4, p2 });
+
+                Quad q = isTop ? new Quad((i - 1) * 4, new Vector3[] { p1, p3, p4, p2 }) : new Quad((i - 1) * 4, new Vector3[] { p2, p4, p3, p1 });
+
                 faces.Add(q);
             }
 
@@ -250,7 +275,7 @@ namespace ProjectMud.Systems.MeshGenerator
                 tris.AddRange(quad.Triangles);
                 verts.AddRange(quad.GetVertices());
 
-                if(count > 0)
+                if (count > 0)
                 {
                     distance += Vector3.Distance(faces[count - 1].Vertices[0].Position, quad.Vertices[0].Position);
                 }
@@ -321,14 +346,21 @@ namespace ProjectMud.Systems.MeshGenerator
 
         private void CreateGameObject()
         {
-            if (_childMesh != null)
+            if (_childMesh == null)
             {
-                DestroyImmediate(_childMesh);
+                _childMesh = new GameObject("Wall", typeof(MeshRenderer), typeof(MeshFilter), typeof(MeshCollider));
+                _childMesh.transform.SetParent(transform, false);
             }
-
-            _childMesh = new GameObject("Wall", typeof(MeshRenderer), typeof(MeshFilter), typeof(MeshCollider));
-            _childMesh.transform.SetParent(transform, false);
             _childMesh.layer = _layer;
+            try
+            {
+                _childMesh.tag = _tag.ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("The tag " + _tag + " does not exist. Please insert a tag that exists");
+            }
+            _childMesh.isStatic = _isStatic;
         }
     }
 }
