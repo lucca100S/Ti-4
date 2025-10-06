@@ -20,16 +20,22 @@ public class SolidClimbState : IState
 
     public void Update()
     {
-        
-        if (player.DirectionInput != Vector3.zero)
+        switch (player.PlayerController.CurrentMaterial)
         {
-            
-            Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
-            player?.SetMovement(move);
-        }
-        else
-        {
-            // Se soltar W, retornar ao macro (macro decide transição)
+            case SurfaceMaterial.Vines:
+                player.SetGravityDirection(Vector3.zero);
+                if (player.DirectionInput != Vector3.zero)
+                {
+                    Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
+                    player?.SetMovement(move);
+                }
+                break;
+            case SurfaceMaterial.Earth:
+                player.SetGravityDirection(Vector3.up);
+                break;
+            case SurfaceMaterial.Stone:
+                player.SetGravityDirection(Vector3.zero);
+                break;
         }
     }
 

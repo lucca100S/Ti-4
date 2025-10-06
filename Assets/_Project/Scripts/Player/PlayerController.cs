@@ -55,6 +55,8 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
             _surfaceDetection = GetComponent<SurfaceDetection>();
             _rigidBody = GetComponentInChildren<Rigidbody>();
+
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnEnable()
