@@ -49,10 +49,13 @@ public class LiquidoState : IState
     {
         if (surface.CurrentSurface.HasValue)
         {
+            
+
             switch (surface.CurrentSurface.Value.type)
             {
+                case SurfaceType.Wall:
                 case SurfaceType.Floor:
-                    if (player.CurrentVelocity.y <= 0)
+                    if (player.VerticalVelocity <= 0)
                     {
                         Vector3 dir = player.DirectionInput;
                         if (dir.magnitude > 0.01f)
@@ -66,10 +69,6 @@ public class LiquidoState : IState
                     }
                     break;
 
-                case SurfaceType.Wall:
-                   
-                    break;
-
                 default:
                     subStateMachine.ChangeState(IdleState);
                     break;
@@ -77,6 +76,8 @@ public class LiquidoState : IState
 
             Vector3 normal = surface.CurrentSurface.Value.hit.normal;
             _normalDirection = Vector3.ProjectOnPlane(player.DirectionInput, normal).normalized;
+
+            player.SetGravityDirection(normal);
 
             if (player.DirectionInput != Vector3.zero)
             {
@@ -95,6 +96,7 @@ public class LiquidoState : IState
     public void Exit()
     {
         Debug.Log("[Macro] Saiu de Líquido");
+        player.SetGravityDirection(Vector3.up);
     }
     #endregion
 

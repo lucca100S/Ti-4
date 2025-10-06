@@ -24,6 +24,8 @@ public class LiquidJumpState : IState
 
     public void Enter()
     {
+        jumpExecuted = false;
+
         _originalDirection = player.DirectionInput;
         Debug.Log("[LiquidJump] Enter");
         if (player.CanJump)
@@ -35,25 +37,29 @@ public class LiquidJumpState : IState
 
     public void Update()
     {
-        Vector3 move = _originalDirection * player.LiquidSpeed + player.DirectionInput * (player.LiquidSpeed * 0.2f);
-        player.SetMovement(move);
+        player.SetGravityDirection(Vector3.up);
 
-        if (player.IsGrounded &&
-            jumpExecuted)
+        Vector3 move = _originalDirection * player.LiquidSpeed + player.DirectionInput * (player.LiquidSpeed * 0.2f);
+        if (jumpExecuted)
         {
-            Debug.Log("[LiquidJump] Detectado chão - macro fará transição.");
-            jumpExecuted = false;
+            player.SetVelocity(move);
+        }
+
+        if (_originalDirection != Vector3.zero)
+        {
+            player.PlayerController.RotateModelTowards(move.normalized);
         }
     }
 
     public void Exit()
     {
         Debug.Log("[LiquidJump] Exit");
+        jumpExecuted = false;
     }
 
     public void OnJumpInput(InputInfo input)
     {
-        
+
     }
 }
 #endregion

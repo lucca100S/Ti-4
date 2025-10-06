@@ -10,7 +10,6 @@ using UnityEngine;
 /// - Possui CharacterController para mover o personagem.
 /// - Permite que subestados controlem movimento via SetMovement / AddJump.
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
 public class PlayerStateMachine : MonoBehaviour
 {
     #region Inspector Fields
@@ -18,10 +17,19 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private SurfaceDetection surfaceDetection;
 
     [Header("Movement Settings")]
+    [Header("Solid Speeds")]
     [Tooltip("Velocidade no modo sólido (unidades/s)")]
-    [SerializeField] public float solidMoveSpeed = 6f;
+    [SerializeField] private float solidMoveSpeedVines = 6f;
+    [SerializeField] private float solidMoveSpeedStone = 6f;
+    [SerializeField] private float solidMoveSpeedEarth = 6f;
+
+    [Header("Liquid Speeds")]
     [Tooltip("Velocidade no modo líquido (unidades/s)")]
-    [SerializeField] public float liquidMoveSpeed = 4f;
+    [SerializeField] private float liquidMoveSpeedVines = 6f;
+    [SerializeField] private float liquidMoveSpeedStone = 6f;
+    [SerializeField] private float liquidMoveSpeedEarth = 6f;
+
+    [Header("Jumping")]
     [Tooltip("Força de pulo sólido")]
     [SerializeField] public float solidJumpForce = 8f;
     [Tooltip("Força de pulo líquido")]
@@ -31,7 +39,7 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
     #region Internal State
-    private CharacterController controller;
+    private Rigidbody _rigidBody;
     private PlayerController playerController;
     private StateMachine macroStateMachine;
     private SolidoState solidoState;
@@ -41,6 +49,7 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 accumulatedHorizontalMovement = Vector3.zero;
     private float verticalVelocity = 0f;
     private const float terminalVelocity = -50f;
+    private Vector3 _gravityDirection = Vector3.up;
 
     #endregion
 
@@ -50,12 +59,13 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 _currentVelocity = Vector3.zero;
     [SerializeField] private float _acceleration = 10f;
     [SerializeField] private float _deceleration = 10f;
+    [SerializeField] private float _airDeceleration = 10f;
 
     #region Unity Callbacks
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        controller = GetComponent<CharacterController>();
+        _rigidBody = GetComponentInChildren<Rigidbody>();
         macroStateMachine = new StateMachine();
 
         // criar macros e passar dependências
@@ -77,13 +87,11 @@ public class PlayerStateMachine : MonoBehaviour
         macroStateMachine.Update();
 
         // Move CharacterController com o movimento acumulado
-        Vector3 totalMove = transform.forward * accumulatedHorizontalMovement.z +
-            transform.right * accumulatedHorizontalMovement.x +
-            transform.up * accumulatedHorizontalMovement.y;
+        Vector3 totalMove = accumulatedHorizontalMovement;
 
-        _currentVelocity = Vector3.MoveTowards(_currentVelocity, totalMove, (totalMove.magnitude > _currentVelocity.magnitude ? _acceleration : _deceleration) * Time.deltaTime);
+        _currentVelocity = Vector3.MoveTowards(_currentVelocity, totalMove, (totalMove.magnitude > _currentVelocity.magnitude ? _acceleration : IsGrounded ? _deceleration : _airDeceleration) * Time.deltaTime);
 
-        controller.Move((_currentVelocity + (Vector3.up * verticalVelocity)) * Time.deltaTime);
+        _rigidBody.linearVelocity = (_currentVelocity + (_gravityDirection * verticalVelocity));
 
         // Reset horizontal for next frame (vertical is persistent)
         accumulatedHorizontalMovement = Vector3.zero;
@@ -97,6 +105,15 @@ public class PlayerStateMachine : MonoBehaviour
     public void SetMovement(Vector3 worldMovement)
     {
         accumulatedHorizontalMovement += worldMovement;
+    }
+    public void SetVelocity(Vector3 worldVelocity)
+    {
+        _currentVelocity = worldVelocity;
+    }
+
+    public void SetGravityDirection(Vector3 direction)
+    {
+        _gravityDirection = direction.normalized;
     }
 
     /// <summary>
@@ -130,7 +147,7 @@ public class PlayerStateMachine : MonoBehaviour
     public string CurrentMacroName => macroStateMachine.CurrentState?.GetType().Name ?? "None";
     #endregion
 
-    private void ApplyGravity()
+    internal void ApplyGravity()
     {
         // Se está sobre piso detectável e indo para baixo, zera vertical
         if (surfaceDetection != null && surfaceDetection.CurrentSurface.HasValue &&
@@ -172,15 +189,50 @@ public class PlayerStateMachine : MonoBehaviour
 
     #region Accessors (para estados)
     public SurfaceDetection SurfaceDetection => surfaceDetection;
-    public CharacterController CharacterController => controller;
+    public Rigidbody RigidBody => _rigidBody;
     public PlayerController PlayerController => playerController;
-    public float SolidSpeed => solidMoveSpeed;
-    public float LiquidSpeed => liquidMoveSpeed;
+    public float SolidSpeed
+    {
+        get
+        {
+            switch (playerController.CurrentMaterial)
+            {
+                case SurfaceMaterial.Vines:
+                    return solidMoveSpeedVines;
+                case SurfaceMaterial.Stone:
+                    return solidMoveSpeedStone;
+                case SurfaceMaterial.Earth:
+                    return solidMoveSpeedEarth;
+                default:
+                    return solidMoveSpeedStone;
+            }
+        }
+    } 
+        
+    public float LiquidSpeed
+    {
+        get
+        {
+            switch (playerController.CurrentMaterial)
+            {
+                case SurfaceMaterial.Vines:
+                    return liquidMoveSpeedVines;
+                case SurfaceMaterial.Stone:
+                    return liquidMoveSpeedStone;
+                case SurfaceMaterial.Earth:
+                    return liquidMoveSpeedEarth;
+                default:
+                    return liquidMoveSpeedStone;
+            }
+        }
+    }
     public float SolidJump => solidJumpForce;
     public float LiquidJump => liquidJumpForce;
     public float LastTimeOnGround => playerController.LastTimeOnGround;
     public bool IsGrounded => (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor);
-    public Vector3 CurrentVelocity => controller.velocity;
+    public float VerticalVelocity => verticalVelocity;
+    public Vector3 CurrentVelocity => _rigidBody.linearVelocity;
+    public Vector3 GravityDirection => _gravityDirection;
     public Vector3 DirectionInput
     {
         get {

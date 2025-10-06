@@ -17,6 +17,7 @@ namespace Player
         private SurfaceDetection _surfaceDetection;
         private PlayerStateMachine _playerStateMachine;
         private PlayerInput _playerInput;
+        private Rigidbody _rigidBody;
 
         private State _previousState = State.Air;
         private State _currentState = State.Air;
@@ -53,6 +54,7 @@ namespace Player
             _playerStateMachine = GetComponent<PlayerStateMachine>();
             _playerInput = GetComponent<PlayerInput>();
             _surfaceDetection = GetComponent<SurfaceDetection>();
+            _rigidBody = GetComponentInChildren<Rigidbody>();
         }
 
         private void OnEnable()
@@ -99,10 +101,10 @@ namespace Player
                         ChangeState(State.Air);
                     }*/
 
-                    if (_currentState != State.Air)
-                    {
+                    //if (_currentState != State.Air)
+                    //{
                         ChangeMaterial(hit.material);
-                    }
+                    //}
                     LastTimeOnGround = Time.time;
                     break;
                 case SurfaceType.Wall:
@@ -151,6 +153,7 @@ namespace Player
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
             _orientation.rotation = Quaternion.Lerp(_orientation.rotation, targetRotation, Time.deltaTime * 10f);
+            //_rigidBody.MoveRotation(_orientation.rotation);
         }
     }
 }

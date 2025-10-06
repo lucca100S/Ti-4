@@ -47,6 +47,7 @@ public class SolidoState : IState
 
     public void Update()
     {
+
         // Decide transições primárias por superfície + input
         if (surface.CurrentSurface.HasValue)
         {

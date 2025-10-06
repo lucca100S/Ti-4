@@ -21,7 +21,7 @@ public class RotateGroupSpeed : MonoBehaviour
     {
         if (_target != null)
         {
-            Vector3 force = _target.CharacterController.velocity;
+            Vector3 force = _target.RigidBody.linearVelocity;
             Vector3 movement = (_target.transform.right * force.x) + 
                 (_target.transform.up * -force.y) + 
                 (_target.transform.forward * force.z);
