@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - Walk
@@ -19,13 +20,16 @@ public class SolidWalkState : IState
 
     public void Update()
     {
-        // Ler input e mandar para o PlayerStateMachine mover
-        float h = Input.GetAxis("Horizontal");
-        Vector3 move = new Vector3(h, 0f, 0f) * (player != null ? player.SolidSpeed : 6f);
+        Vector3 move = player.DirectionInput * (player != null ? player.SolidSpeed : 6f);
         player?.SetMovement(move);
     }
 
     public void Exit() => Debug.Log("[SolidWalk] Exit");
+
+    public void OnJumpInput(InputInfo input)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 #endregion
 

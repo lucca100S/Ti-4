@@ -1,3 +1,6 @@
+using Player;
+using System;
+using Systems.Input;
 using UnityEngine;
 
 #region Player - State Machine (Root)
@@ -29,6 +32,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     #region Internal State
     private CharacterController controller;
+    private PlayerController playerController;
     private StateMachine macroStateMachine;
     private SolidoState solidoState;
     private LiquidoState liquidoState;
@@ -37,11 +41,20 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 accumulatedHorizontalMovement = Vector3.zero;
     private float verticalVelocity = 0f;
     private const float terminalVelocity = -50f;
+
     #endregion
+
+    private Vector3 _directionInput = Vector3.zero;
+    private InputInfo _jumpInput = new InputInfo { };
+    private InputInfo _transformInput = new InputInfo { };
+    private Vector3 _currentVelocity = Vector3.zero;
+    [SerializeField] private float _acceleration = 10f;
+    [SerializeField] private float _deceleration = 10f;
 
     #region Unity Callbacks
     private void Awake()
     {
+        playerController = GetComponent<PlayerController>();
         controller = GetComponent<CharacterController>();
         macroStateMachine = new StateMachine();
 
@@ -57,12 +70,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        // Toggle macro state
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ToggleMacroState();
-        }
-
         // Gravity & movement commit (reseta accumulated horizontal a cada frame)
         ApplyGravity();
 
@@ -70,8 +77,13 @@ public class PlayerStateMachine : MonoBehaviour
         macroStateMachine.Update();
 
         // Move CharacterController com o movimento acumulado
-        Vector3 totalMove = accumulatedHorizontalMovement + Vector3.up * verticalVelocity;
-        controller.Move(totalMove * Time.deltaTime);
+        Vector3 totalMove = transform.forward * accumulatedHorizontalMovement.z +
+            transform.right * accumulatedHorizontalMovement.x +
+            transform.up * accumulatedHorizontalMovement.y;
+
+        _currentVelocity = Vector3.MoveTowards(_currentVelocity, totalMove, (totalMove.magnitude > _currentVelocity.magnitude ? _acceleration : _deceleration) * Time.deltaTime);
+
+        controller.Move((_currentVelocity + (Vector3.up * verticalVelocity)) * Time.deltaTime);
 
         // Reset horizontal for next frame (vertical is persistent)
         accumulatedHorizontalMovement = Vector3.zero;
@@ -118,7 +130,6 @@ public class PlayerStateMachine : MonoBehaviour
     public string CurrentMacroName => macroStateMachine.CurrentState?.GetType().Name ?? "None";
     #endregion
 
-    #region Gravity Helpers
     private void ApplyGravity()
     {
         // Se está sobre piso detectável e indo para baixo, zera vertical
@@ -135,15 +146,65 @@ public class PlayerStateMachine : MonoBehaviour
                 verticalVelocity = terminalVelocity;
         }
     }
+
+    #region Inputs
+    internal void GetDirectionInput(Vector3 direction)
+    {
+        _directionInput = direction;
+    }
+
+    internal void GetJumpInput(InputInfo info)
+    {
+        _jumpInput = info;
+        macroStateMachine.JumpInput(info);
+    }
+
+    internal void GetTransformInput(InputInfo info)
+    {
+        _transformInput = info;
+        if (info.IsDown)
+        {
+            ToggleMacroState();
+        }
+    }
+
     #endregion
 
     #region Accessors (para estados)
     public SurfaceDetection SurfaceDetection => surfaceDetection;
     public CharacterController CharacterController => controller;
+    public PlayerController PlayerController => playerController;
     public float SolidSpeed => solidMoveSpeed;
     public float LiquidSpeed => liquidMoveSpeed;
     public float SolidJump => solidJumpForce;
     public float LiquidJump => liquidJumpForce;
+    public float LastTimeOnGround => playerController.LastTimeOnGround;
+    public bool IsGrounded => (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor);
+    public Vector3 CurrentVelocity => controller.velocity;
+    public Vector3 DirectionInput
+    {
+        get {
+            Vector3 direction = _directionInput;
+            direction = Camera.main.transform.forward * direction.z +
+                    Camera.main.transform.right * direction.x;
+            direction.y = 0;
+            return direction.normalized;
+        }
+    }
+    public Vector3 DirectionInputClimb
+    {
+        get
+        {
+            Vector3 up = _directionInput.z * Orientation.up;
+            Vector3 right = _directionInput.x * Orientation.right;
+            return (up + right).normalized;
+        }
+    }
+    public InputInfo JumpInput => _jumpInput;
+    public InputInfo TransformInput => _transformInput;
+    public Transform Orientation => playerController.Orientation;
+
+    public bool CanJump { get { return JumpInput.GetDelayInput(LastTimeOnGround) || IsGrounded; } private set { } }
     #endregion
 }
 #endregion

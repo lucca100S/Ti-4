@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Core - Interfaces
@@ -14,5 +15,7 @@ public interface IState
 
     /// <summary>Executado ao sair do estado.</summary>
     void Exit();
+
+    void OnJumpInput(InputInfo input);
 }
 #endregion

@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Liquid - WallJump
@@ -41,6 +42,11 @@ public class LiquidWallJumpState : IState
     public void Exit()
     {
         Debug.Log("[LiquidWallJump] Exit");
+    }
+
+    public void OnJumpInput(InputInfo input)
+    {
+        throw new System.NotImplementedException();
     }
 }
 #endregion

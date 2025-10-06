@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Macros - Liquido
@@ -6,15 +7,19 @@ using UnityEngine;
 /// </summary>
 public class LiquidoState : IState
 {
+
     #region Fields
     private PlayerStateMachine player;
     private SurfaceDetection surface;
     private StateMachine subStateMachine;
 
+    Vector3 _normalDirection = Vector3.forward;
+
     public LiquidIdleState IdleState { get; private set; }
     public LiquidWalkState WalkState { get; private set; }
     public LiquidJumpState JumpState { get; private set; }
     public LiquidWallJumpState WallJumpState { get; private set; }
+    public Vector3 NormalDirection => _normalDirection;
     #endregion
 
     #region Constructor
@@ -47,24 +52,35 @@ public class LiquidoState : IState
             switch (surface.CurrentSurface.Value.type)
             {
                 case SurfaceType.Floor:
-                    float h = Input.GetAxis("Horizontal");
-                    if (Mathf.Abs(h) > 0.01f)
-                        subStateMachine.ChangeState(WalkState);
-                    else
-                        subStateMachine.ChangeState(IdleState);
-
-                    if (Input.GetKeyDown(KeyCode.Space))
-                        subStateMachine.ChangeState(JumpState);
+                    if (player.CurrentVelocity.y <= 0)
+                    {
+                        Vector3 dir = player.DirectionInput;
+                        if (dir.magnitude > 0.01f)
+                        {
+                            subStateMachine.ChangeState(WalkState);
+                        }
+                        else
+                        {
+                            subStateMachine.ChangeState(IdleState);
+                        }
+                    }
                     break;
 
                 case SurfaceType.Wall:
-                    if (Input.GetKeyDown(KeyCode.Space))
-                        subStateMachine.ChangeState(WallJumpState);
+                   
                     break;
 
                 default:
                     subStateMachine.ChangeState(IdleState);
                     break;
+            }
+
+            Vector3 normal = surface.CurrentSurface.Value.hit.normal;
+            _normalDirection = Vector3.ProjectOnPlane(player.DirectionInput, normal).normalized;
+
+            if (player.DirectionInput != Vector3.zero)
+            {
+                player.PlayerController.RotateModelTowards(_normalDirection);
             }
         }
         else
@@ -84,6 +100,27 @@ public class LiquidoState : IState
 
     #region Utilities para subestados
     public void ChangeSubState(IState newState) => subStateMachine.ChangeState(newState);
+
+    public void OnJumpInput(InputInfo input)
+    {
+        if (surface.CurrentSurface.HasValue)
+        {
+            switch (surface.CurrentSurface.Value.type)
+            {
+                case SurfaceType.Floor:
+                    if (input.IsDown)
+                        subStateMachine.ChangeState(JumpState);
+                    break;
+                case SurfaceType.Wall:
+                    if (input.IsDown)
+                        subStateMachine.ChangeState(WallJumpState);
+                    break;
+                case SurfaceType.Ceiling:
+
+                    break;
+            }
+        }
+    }
     #endregion
 }
 #endregion

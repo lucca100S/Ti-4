@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - WallJump
@@ -43,5 +44,10 @@ public class SolidWallJumpState : IState
     }
 
     public void Exit() => Debug.Log("[SolidWallJump] Exit");
+
+    public void OnJumpInput(InputInfo input)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 #endregion

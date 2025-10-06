@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Player.Movement;
+using Player;
 
 public class RotateGroupSpeed : MonoBehaviour
 {
 
     [SerializeField] private List<GameObject> _objects;
-    [SerializeField] private PlayerMovement _target;
+    [SerializeField] private PlayerStateMachine _target;
 
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private Vector3 _minAngle = Vector3.zero;

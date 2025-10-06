@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Liquid - Walk
@@ -25,14 +26,18 @@ public class LiquidWalkState : IState
 
     public void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        Vector3 move = new Vector3(h, 0f, 0f) * player.LiquidSpeed;
+        Vector3 move = parent.NormalDirection * player.LiquidSpeed;
         player.SetMovement(move);
     }
 
     public void Exit()
     {
         Debug.Log("[LiquidWalk] Exit");
+    }
+
+    public void OnJumpInput(InputInfo input)
+    {
+        throw new System.NotImplementedException();
     }
 }
 #endregion

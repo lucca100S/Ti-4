@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Macros - Solido
@@ -53,27 +54,29 @@ public class SolidoState : IState
             {
                 case SurfaceType.Floor:
                     // andar/idle/pular
-                    float h = Input.GetAxis("Horizontal");
-                    if (Mathf.Abs(h) > 0.01f)
+                    if (player.CurrentVelocity.y <= 0)
                     {
-                        subStateMachine.ChangeState(WalkState);
+                        Vector3 dir = player.DirectionInput;
+                        if (dir.magnitude > 0.01f)
+                        {
+                            player.PlayerController.RotateModelTowards(dir);
+                            subStateMachine.ChangeState(WalkState);
+                        }
+                        else
+                        {
+                            subStateMachine.ChangeState(IdleState);
+                        }
                     }
-                    else
-                    {
-                        subStateMachine.ChangeState(IdleState);
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.Space))
-                        subStateMachine.ChangeState(JumpState);
                     break;
 
                 case SurfaceType.Wall:
+                    Vector3 hitNormal = surface.CurrentSurface.Value.hit.normal;
                     // escalar e walljump
-                    if (Input.GetKey(KeyCode.W))
+                    float DOTProduct = Vector3.Dot(player.DirectionInput.normalized, -hitNormal);
+                    if (DOTProduct > 0.8f)
                         subStateMachine.ChangeState(ClimbState);
 
-                    if (Input.GetKeyDown(KeyCode.Space))
-                        subStateMachine.ChangeState(WallJumpState);
+                    player.PlayerController.RotateModelTowards(-hitNormal);
                     break;
 
                 case SurfaceType.Ceiling:
@@ -84,6 +87,10 @@ public class SolidoState : IState
         }
         else
         {
+            if (player.DirectionInput != Vector3.zero)
+            {
+                player.PlayerController.RotateModelTowards(player.DirectionInput);
+            }
             // Em "ar" sem superfície detectável — deixar um fallback
             subStateMachine.ChangeState(JumpState);
         }
@@ -95,10 +102,33 @@ public class SolidoState : IState
     {
         Debug.Log("[Macro] Saiu de Sólido");
     }
+
+    public void OnJumpInput(InputInfo input)
+    {
+        if (surface.CurrentSurface.HasValue)
+        {
+            switch (surface.CurrentSurface.Value.type)
+            {
+                case SurfaceType.Floor:
+                    if (input.IsDown)
+                        subStateMachine.ChangeState(JumpState);
+                    break;
+                case SurfaceType.Wall:
+                    if(input.IsDown)
+                        subStateMachine.ChangeState(WallJumpState);
+                    break;
+                case SurfaceType.Ceiling:
+
+                    break;
+            }
+        }
+    }
     #endregion
 
     #region Utilities para subestados
     public void ChangeSubState(IState newState) => subStateMachine.ChangeState(newState);
+
+    
     #endregion
 }
 #endregion

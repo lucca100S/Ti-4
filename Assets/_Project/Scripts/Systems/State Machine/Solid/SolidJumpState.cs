@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - Jump
@@ -18,23 +19,30 @@ public class SolidJumpState : IState
     public void Enter()
     {
         Debug.Log("[SolidJump] Enter");
-        player?.AddJump(player.SolidJump);
+        if (player.CanJump)
+        {
+            player?.AddJump(player.SolidJump);
+        }
     }
 
     public void Update()
     {
         // Durante o pulo, permitir controle horizontal reduzido
-        float h = Input.GetAxis("Horizontal");
-        Vector3 move = new Vector3(h, 0f, 0f) * (player != null ? player.SolidSpeed : 6f);
+        Vector3 move = player.DirectionInput * (player != null ? player.SolidSpeed : 6f);
         player?.SetMovement(move);
 
         // quando tocar chão novamente, voltar para Idle/Walk (macro decide isso)
-        if (surface.CurrentSurface.HasValue && surface.CurrentSurface.Value.type == SurfaceType.Floor)
+        if (player.IsGrounded)
         {
             Debug.Log("[SolidJump] Detectado chão -> transição será feita pela macro Sólido.");
         }
     }
 
     public void Exit() => Debug.Log("[SolidJump] Exit");
+
+    public void OnJumpInput(InputInfo input)
+    {
+        
+    }
 }
 #endregion

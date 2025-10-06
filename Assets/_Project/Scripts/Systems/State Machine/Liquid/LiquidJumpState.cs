@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Liquid - Jump
@@ -12,6 +13,8 @@ public class LiquidJumpState : IState
     private readonly SurfaceDetection surface;
     private bool jumpExecuted;
 
+    private Vector3 _originalDirection;
+
     public LiquidJumpState(LiquidoState parent, PlayerStateMachine player, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -21,19 +24,21 @@ public class LiquidJumpState : IState
 
     public void Enter()
     {
+        _originalDirection = player.DirectionInput;
         Debug.Log("[LiquidJump] Enter");
-        player.AddJump(player.LiquidJump);
-        jumpExecuted = true;
+        if (player.CanJump)
+        {
+            player.AddJump(player.LiquidJump);
+            jumpExecuted = true;
+        }
     }
 
     public void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        Vector3 move = new Vector3(h, 0f, 0f) * (player.LiquidSpeed * 0.8f);
+        Vector3 move = _originalDirection * player.LiquidSpeed + player.DirectionInput * (player.LiquidSpeed * 0.2f);
         player.SetMovement(move);
 
-        if (surface.CurrentSurface.HasValue &&
-            surface.CurrentSurface.Value.type == SurfaceType.Floor &&
+        if (player.IsGrounded &&
             jumpExecuted)
         {
             Debug.Log("[LiquidJump] Detectado chão - macro fará transição.");
@@ -44,6 +49,11 @@ public class LiquidJumpState : IState
     public void Exit()
     {
         Debug.Log("[LiquidJump] Exit");
+    }
+
+    public void OnJumpInput(InputInfo input)
+    {
+        
     }
 }
 #endregion

@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - Climb
@@ -19,11 +20,12 @@ public class SolidClimbState : IState
 
     public void Update()
     {
-        // Subir ao longo da parede enquanto W pressionado
-        if (Input.GetKey(KeyCode.W))
+        
+        if (player.DirectionInput != Vector3.zero)
         {
-            Vector3 up = Vector3.up * (player != null ? player.SolidSpeed * 0.6f : 3f);
-            player?.SetMovement(up);
+            
+            Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
+            player?.SetMovement(move);
         }
         else
         {
@@ -32,5 +34,10 @@ public class SolidClimbState : IState
     }
 
     public void Exit() => Debug.Log("[SolidClimb] Exit");
+
+    public void OnJumpInput(InputInfo input)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 #endregion

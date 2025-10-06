@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Liquid - Idle
@@ -31,6 +32,11 @@ public class LiquidIdleState : IState
     public void Exit()
     {
         Debug.Log("[LiquidIdle] Exit");
+    }
+
+    public void OnJumpInput(InputInfo input)
+    {
+        throw new System.NotImplementedException();
     }
 }
 #endregion

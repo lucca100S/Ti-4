@@ -1,3 +1,4 @@
+using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - Idle
@@ -22,5 +23,10 @@ public class SolidIdleState : IState
     }
 
     public void Exit() => Debug.Log("[SolidIdle] Exit");
+
+    public void OnJumpInput(InputInfo input)
+    {
+        
+    }
 }
 #endregion
