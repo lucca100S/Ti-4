@@ -75,11 +75,12 @@ public class LiquidoState : IState
             }
 
             Vector3 normal = surface.CurrentSurface.Value.hit.normal;
+            //_normalDirection = Vector3.ProjectOnPlane(player.DirectionInput, normal).normalized;
             _normalDirection = Vector3.ProjectOnPlane(player.DirectionInput, normal).normalized;
 
             player.SetGravityDirection(normal);
 
-            if (player.DirectionInput != Vector3.zero)
+            if (_normalDirection != Vector3.zero)
             {
                 player.PlayerController.RotateModelTowards(_normalDirection);
             }

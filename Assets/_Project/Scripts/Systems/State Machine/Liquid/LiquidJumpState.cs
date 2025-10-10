@@ -47,7 +47,7 @@ public class LiquidJumpState : IState
             player.SetVelocity(move);
         }
 
-        if (_originalDirection != Vector3.zero)
+        if (_originalDirection != Vector3.zero && !player.SurfaceDetection.CurrentSurface.HasValue)
         {
             player.PlayerController.RotateModelTowards(move.normalized);
         }

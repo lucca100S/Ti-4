@@ -39,7 +39,10 @@ public class SolidJumpState : IState
         lookDirection.y = 0;
         lookDirection.Normalize();
 
-        player.PlayerController.RotateModelTowards(lookDirection);
+        if (lookDirection != Vector3.zero)
+        {
+            player.PlayerController.RotateModelTowards(lookDirection);
+        }
 
         // quando tocar chão novamente, voltar para Idle/Walk (macro decide isso)
         if (player.IsGrounded)

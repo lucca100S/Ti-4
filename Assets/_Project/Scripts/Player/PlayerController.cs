@@ -157,5 +157,11 @@ namespace Player
             _orientation.rotation = Quaternion.Lerp(_orientation.rotation, targetRotation, Time.deltaTime * 10f);
             //_rigidBody.MoveRotation(_orientation.rotation);
         }
+
+        internal void RotateModelTowardsInstant(Vector3 direction)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            _orientation.rotation = targetRotation;
+        }
     }
 }
