@@ -36,7 +36,7 @@ public class LiquidIdleState : IState
 
     public void OnJumpInput(InputInfo input)
     {
-        throw new System.NotImplementedException();
+
     }
 }
 #endregion

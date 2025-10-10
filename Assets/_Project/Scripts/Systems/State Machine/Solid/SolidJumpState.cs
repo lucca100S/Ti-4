@@ -9,6 +9,8 @@ public class SolidJumpState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
+    private bool _didJump = false;
+
     public SolidJumpState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -22,7 +24,9 @@ public class SolidJumpState : IState
         if (player.CanJump)
         {
             player?.AddJump(player.SolidJump);
+            _didJump = true;
         }
+        player.SetGravityDirection(Vector3.up);
     }
 
     public void Update()
@@ -31,6 +35,12 @@ public class SolidJumpState : IState
         Vector3 move = player.DirectionInput * (player != null ? player.SolidSpeed : 6f);
         player?.SetMovement(move);
 
+        Vector3 lookDirection = player.CurrentVelocity;
+        lookDirection.y = 0;
+        lookDirection.Normalize();
+
+        player.PlayerController.RotateModelTowards(lookDirection);
+
         // quando tocar chão novamente, voltar para Idle/Walk (macro decide isso)
         if (player.IsGrounded)
         {
@@ -38,11 +48,23 @@ public class SolidJumpState : IState
         }
     }
 
-    public void Exit() => Debug.Log("[SolidJump] Exit");
+    public void Exit()
+    {
+        _didJump = false;
+        Debug.Log("[SolidJump] Exit");
+    }
 
     public void OnJumpInput(InputInfo input)
     {
-        
+        if (_didJump && input.IsUp)
+        {
+            if (player.VerticalVelocity > 0)
+            {
+                player.AddJump(player.VerticalVelocity * 0.5f);
+                Debug.Log("[SolidJump] Jump Cancel");
+            }
+            _didJump = false;
+        }
     }
 }
 #endregion

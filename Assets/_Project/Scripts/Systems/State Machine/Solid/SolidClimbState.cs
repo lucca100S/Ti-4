@@ -23,6 +23,7 @@ public class SolidClimbState : IState
         switch (player.PlayerController.CurrentMaterial)
         {
             case SurfaceMaterial.Vines:
+                player.AddJump(0);
                 player.SetGravityDirection(Vector3.zero);
                 if (player.DirectionInput != Vector3.zero)
                 {
@@ -31,6 +32,7 @@ public class SolidClimbState : IState
                 }
                 break;
             case SurfaceMaterial.Earth:
+                player.AddJump(player.gravity * 0.1f);
                 player.SetGravityDirection(Vector3.up);
                 break;
             case SurfaceMaterial.Stone:
@@ -43,7 +45,7 @@ public class SolidClimbState : IState
 
     public void OnJumpInput(InputInfo input)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
 #endregion

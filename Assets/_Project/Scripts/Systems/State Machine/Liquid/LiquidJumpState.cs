@@ -12,6 +12,7 @@ public class LiquidJumpState : IState
     private readonly PlayerStateMachine player;
     private readonly SurfaceDetection surface;
     private bool jumpExecuted;
+    private bool _canCancelJump = false;
 
     private Vector3 _originalDirection;
 
@@ -32,6 +33,7 @@ public class LiquidJumpState : IState
         {
             player.AddJump(player.LiquidJump);
             jumpExecuted = true;
+            _canCancelJump = true;
         }
     }
 
@@ -59,7 +61,15 @@ public class LiquidJumpState : IState
 
     public void OnJumpInput(InputInfo input)
     {
-
+        if (_canCancelJump && input.IsUp)
+        {
+            if (player.VerticalVelocity > 0)
+            {
+                player.AddJump(player.VerticalVelocity * 0.5f);
+                Debug.Log("[LiquidJump] Jump Cancel");
+            }
+            _canCancelJump = false;
+        }
     }
 }
 #endregion

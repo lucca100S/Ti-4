@@ -123,6 +123,7 @@ public class SolidoState : IState
                     break;
             }
         }
+        subStateMachine.CurrentState?.OnJumpInput(input);
     }
     #endregion
 

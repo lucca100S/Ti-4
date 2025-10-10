@@ -122,6 +122,9 @@ public class LiquidoState : IState
                     break;
             }
         }
+
+        subStateMachine.CurrentState?.OnJumpInput(input);
+
     }
     #endregion
 }
