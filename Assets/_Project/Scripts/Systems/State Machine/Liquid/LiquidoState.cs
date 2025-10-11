@@ -1,9 +1,9 @@
-using Systems.Input;
+ï»¿using Systems.Input;
 using UnityEngine;
 
 #region Macros - Liquido
 /// <summary>
-/// Macroestado Líquido — contém subestados Idle / Walk / Jump / WallJump.
+/// Macroestado LÃ­quido â€” contÃ©m subestados Idle / Walk / Jump / WallJump.
 /// </summary>
 public class LiquidoState : IState
 {
@@ -41,7 +41,7 @@ public class LiquidoState : IState
     #region IState
     public void Enter()
     {
-        Debug.Log("[Macro] Entrou em Líquido");
+        Debug.Log("[Macro] Entrou em LÃ­quido");
         subStateMachine.ChangeState(IdleState);
     }
 
@@ -75,15 +75,28 @@ public class LiquidoState : IState
             }
 
             Vector3 normal = surface.CurrentSurface.Value.hit.normal;
-            //_normalDirection = Vector3.ProjectOnPlane(player.DirectionInput, normal).normalized;
-            _normalDirection = Vector3.ProjectOnPlane(player.DirectionInput, normal).normalized;
+
+            Vector3 surfaceForward = Vector3.ProjectOnPlane(player.transform.forward, normal).normalized;
+            Vector3 surfaceRight = Vector3.ProjectOnPlane(player.transform.right, normal).normalized;
+
+            Vector3 moveDir = (surfaceForward * player.DirectionInputClimb.z + surfaceRight * player.DirectionInputClimb.x);
+            moveDir.Normalize();
+
+            _normalDirection = moveDir;
+
+            if (moveDir.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDir, normal);
+                player.PlayerController.RotateModelTowards(targetRotation);
+            }
+            else
+            {
+                Quaternion alignRotation = Quaternion.FromToRotation(player.transform.up, normal) * player.transform.rotation;
+                player.PlayerController.RotateModelTowards(alignRotation);
+            }
+
 
             player.SetGravityDirection(normal);
-
-            if (_normalDirection != Vector3.zero)
-            {
-                player.PlayerController.RotateModelTowards(_normalDirection);
-            }
         }
         else
         {
@@ -96,7 +109,7 @@ public class LiquidoState : IState
 
     public void Exit()
     {
-        Debug.Log("[Macro] Saiu de Líquido");
+        Debug.Log("[Macro] Saiu de LÃ­quido");
         player.SetGravityDirection(Vector3.up);
     }
     #endregion
