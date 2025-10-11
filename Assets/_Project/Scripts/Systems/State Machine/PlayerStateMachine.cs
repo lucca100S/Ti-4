@@ -148,10 +148,9 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
     internal void ApplyGravity()
-    {
+    { 
         // Se está sobre piso detectável e indo para baixo, zera vertical
-        if (surfaceDetection != null && surfaceDetection.CurrentSurface.HasValue &&
-            surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor && verticalVelocity <= 0f)
+        if (IsGrounded && verticalVelocity <= 0f)
         {
             // Mantém levemente negativo para garantir contato com CharacterController
             verticalVelocity = -2f;
@@ -229,7 +228,9 @@ public class PlayerStateMachine : MonoBehaviour
     public float SolidJump => solidJumpForce;
     public float LiquidJump => liquidJumpForce;
     public float LastTimeOnGround => playerController.LastTimeOnGround;
-    public bool IsGrounded => (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor);
+    public bool IsGrounded => (
+        (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor) ||
+        (macroStateMachine.CurrentState == liquidoState) && surfaceDetection.CurrentSurface.HasValue);
     public float VerticalVelocity => verticalVelocity;
     public Vector3 CurrentVelocity => _rigidBody.linearVelocity;
     public Vector3 GravityDirection => _gravityDirection;
@@ -250,6 +251,28 @@ public class PlayerStateMachine : MonoBehaviour
             Vector3 up = _directionInput.z * Orientation.up;
             Vector3 right = _directionInput.x * Orientation.right;
             return (up + right).normalized;
+        }
+    }
+    public Vector3 DirectionInputNormal
+    {
+        get
+        {
+            Vector3 normal = playerController.SurfaceDetection.CurrentSurface.Value.hit.normal;
+            Vector3 camForward = Camera.main.transform.forward;
+            Vector3 camRight = Camera.main.transform.right;
+
+            // Remove componente na direção da normal da superfície
+            camForward = Vector3.ProjectOnPlane(camForward, normal).normalized;
+            camRight = Vector3.ProjectOnPlane(camRight, normal).normalized;
+
+            // Input relativo à câmera, mas em plano da superfície
+            Vector3 moveDir = camForward * _directionInput.z + camRight * _directionInput.x;
+
+            // Normaliza para evitar valores maiores que 1
+            if (moveDir.sqrMagnitude > 0.001f)
+                moveDir.Normalize();
+
+            return moveDir;
         }
     }
     public InputInfo JumpInput => _jumpInput;

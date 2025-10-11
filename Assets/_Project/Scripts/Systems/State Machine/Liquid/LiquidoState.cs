@@ -75,13 +75,7 @@ public class LiquidoState : IState
             }
 
             Vector3 normal = surface.CurrentSurface.Value.hit.normal;
-
-            Vector3 surfaceForward = Vector3.ProjectOnPlane(player.transform.forward, normal).normalized;
-            Vector3 surfaceRight = Vector3.ProjectOnPlane(player.transform.right, normal).normalized;
-
-            Vector3 moveDir = (surfaceForward * player.DirectionInputClimb.z + surfaceRight * player.DirectionInputClimb.x);
-            moveDir.Normalize();
-
+            Vector3 moveDir = player.DirectionInputNormal;
             _normalDirection = moveDir;
 
             if (moveDir.sqrMagnitude > 0.001f)
@@ -91,12 +85,21 @@ public class LiquidoState : IState
             }
             else
             {
+                // Sem input, apenas alinhamento com a superfície
                 Quaternion alignRotation = Quaternion.FromToRotation(player.transform.up, normal) * player.transform.rotation;
                 player.PlayerController.RotateModelTowards(alignRotation);
             }
+            
+            switch(player.PlayerController.CurrentMaterial)
+            {
+                case SurfaceMaterial.Earth:
+                    player.SetGravityDirection(normal);
+                    break;
+                case SurfaceMaterial.Stone:
+                    player.SetGravityDirection(Vector3.up);
+                    break;
+            }
 
-
-            player.SetGravityDirection(normal);
         }
         else
         {
