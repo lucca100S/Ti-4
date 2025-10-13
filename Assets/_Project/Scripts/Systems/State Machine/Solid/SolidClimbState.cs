@@ -37,6 +37,7 @@ public class SolidClimbState : IState
                 break;
             case SurfaceMaterial.Stone:
                 player.SetGravityDirection(Vector3.zero);
+                player.AddJump(0);
                 break;
         }
     }

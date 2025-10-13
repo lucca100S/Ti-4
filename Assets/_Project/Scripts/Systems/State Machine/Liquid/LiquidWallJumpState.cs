@@ -24,19 +24,26 @@ public class LiquidWallJumpState : IState
     {
         Debug.Log("[LiquidWallJump] Enter");
         executed = false;
+
+        if (!executed && player.IsGrounded)
+        {
+            Vector3 normal = parent.NormalDirection;
+            Vector3 push = (normal).normalized;
+            player.AddJump(player.LiquidJump);
+            Debug.Log($"[LiquidWallJump] Executado com push {push}");
+            executed = true;
+        }
+
+        if(executed)
+        {
+            Vector3 move = player.DirectionInputNormal * player.LiquidSpeed;
+            player.SetVelocity(move);
+        }
     }
 
     public void Update()
     {
-        if (!executed && surface.CurrentSurface.HasValue && surface.CurrentSurface.Value.type == SurfaceType.Wall)
-        {
-            Vector3 normal = surface.CurrentSurface.Value.hit.normal;
-            Vector3 push = (normal + Vector3.up * 0.6f).normalized;
-            player.SetVelocity(push * player.LiquidSpeed);
-            player.AddJump(player.LiquidJump * 0.9f);
-            Debug.Log($"[LiquidWallJump] Executado com push {push}");
-            executed = true;
-        }
+        
     }
 
     public void Exit()

@@ -25,16 +25,15 @@ namespace Surfaces
             ActionsManager.Instance.OnFormChanged -= OnFormChanged;
         }
 
-        private void OnFormChanged(PlayerStrategyHandler.Strategy strategy)
+        private void OnFormChanged(IState state)
         {
-            switch(strategy)
+            if(state is SolidoState)
             {
-                case PlayerStrategyHandler.Strategy.Mud:
-                    _collider.enabled = !_isPasstrough;
-                    break;
-                case PlayerStrategyHandler.Strategy.Solid:
-                    _collider.enabled = true;
-                    break;
+                _collider.enabled = true;
+            }
+            else if(state is LiquidoState)
+            {
+                _collider.enabled = !_isPasstrough;
             }
         }
     }

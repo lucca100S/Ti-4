@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 
 namespace Player
 {
@@ -13,6 +14,11 @@ namespace Player
     {
         [SerializeField] private CinemachineInputAxisController _cameraInputs;
         [SerializeField] private Transform _orientation;
+
+        [SerializeField] private GameObject _solidModel;
+        [SerializeField] private Collider _solidCollider;
+        [SerializeField] private GameObject _liquidModel;
+        [SerializeField] private Collider _liquidCollider;
 
         private SurfaceDetection _surfaceDetection;
         private PlayerStateMachine _playerStateMachine;
@@ -68,6 +74,8 @@ namespace Player
             _surfaceDetection.OnSurfaceChange += OnSurfaceChange;
             _surfaceDetection.OnSurfaceNull += OnSurfaceNull;
             _surfaceDetection.OnSurfaceHit += OnSurfaceHit;
+
+            ActionsManager.Instance.OnFormChanged += ChangeForm;
         }
 
         private void OnDisable()
@@ -79,6 +87,8 @@ namespace Player
             _surfaceDetection.OnSurfaceChange -= OnSurfaceChange;
             _surfaceDetection.OnSurfaceNull -= OnSurfaceNull;
             _surfaceDetection.OnSurfaceHit -= OnSurfaceHit;
+
+            ActionsManager.Instance.OnFormChanged -= ChangeForm;
         }
 
         #region StateMachine
@@ -122,7 +132,7 @@ namespace Player
 
         private void OnSurfaceNull()
         {
-            DebugLogger.Log($"[PlayerOnAir]", "PlayerControllerDetection");
+
         }
 
         internal void ChangeMaterial(SurfaceMaterial material)
@@ -133,6 +143,16 @@ namespace Player
                 _currentMaterial = material;
                 DebugLogger.Log($"[PlayerMaterialChange] {material}", "PlayerMaterialChange");
             }
+        }
+
+        private void ChangeForm(IState state)
+        {
+            bool isLiquid = state is LiquidoState;
+            _liquidCollider.enabled = isLiquid;
+            _liquidModel.SetActive(isLiquid);
+
+            _solidCollider.enabled = !isLiquid;
+            _solidModel.SetActive(!isLiquid);
         }
 
         #endregion

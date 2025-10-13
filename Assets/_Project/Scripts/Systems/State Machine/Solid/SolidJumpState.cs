@@ -61,9 +61,9 @@ public class SolidJumpState : IState
     {
         if (_didJump && input.IsUp)
         {
-            if (player.VerticalVelocity > 0)
+            if (!player.IsGoingDown)
             {
-                player.AddJump(player.VerticalVelocity * 0.5f);
+                player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
                 Debug.Log("[SolidJump] Jump Cancel");
             }
             _didJump = false;

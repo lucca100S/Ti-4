@@ -138,7 +138,8 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
 
             if (!CurrentSurface.HasValue ||
                 priority.Value.type != CurrentSurface.Value.type ||
-                priority.Value.material != CurrentSurface.Value.material)
+                priority.Value.material != CurrentSurface.Value.material ||
+                priority.Value.hit.normal != CurrentSurface.Value.hit.normal)
             {
                 CurrentSurface = priority;
                 SurfaceNotifier(CurrentSurface.Value);

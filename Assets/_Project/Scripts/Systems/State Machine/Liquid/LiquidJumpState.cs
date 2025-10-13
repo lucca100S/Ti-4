@@ -39,8 +39,6 @@ public class LiquidJumpState : IState
 
     public void Update()
     {
-        player.SetGravityDirection(Vector3.up);
-
         Vector3 move = _originalDirection * player.LiquidSpeed + player.DirectionInput * (player.LiquidSpeed * 0.2f);
         if (jumpExecuted)
         {
@@ -63,9 +61,9 @@ public class LiquidJumpState : IState
     {
         if (_canCancelJump && input.IsUp)
         {
-            if (player.VerticalVelocity > 0)
+            if (!player.IsGoingDown)
             {
-                player.AddJump(player.VerticalVelocity * 0.5f);
+                player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
                 Debug.Log("[LiquidJump] Jump Cancel");
             }
             _canCancelJump = false;

@@ -55,9 +55,12 @@ public class LiquidoState : IState
             {
                 case SurfaceType.Wall:
                 case SurfaceType.Floor:
-                    if (player.VerticalVelocity <= 0)
+                case SurfaceType.Ceiling:
+                    Debug.Log("IsGoingDown here: " + player.IsGoingDown);
+                    if (player.IsGoingDown)
                     {
-                        Vector3 dir = player.DirectionInput;
+                        Vector3 dir = player.DirectionInputNormal;
+                        Debug.Log("Dir here: " + dir);
                         if (dir.magnitude > 0.01f)
                         {
                             subStateMachine.ChangeState(WalkState);
@@ -103,6 +106,7 @@ public class LiquidoState : IState
         }
         else
         {
+            player.SetGravityDirection(Vector3.up);
             // fallback: ficar em jump enquanto no ar
             subStateMachine.ChangeState(JumpState);
         }

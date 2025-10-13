@@ -47,9 +47,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     // Movement composition (os subestados definem este vetor cada frame)
     private Vector3 accumulatedHorizontalMovement = Vector3.zero;
-    private float verticalVelocity = 0f;
     private const float terminalVelocity = -50f;
     private Vector3 _gravityDirection = Vector3.up;
+    private Vector3 verticalVelocity = Vector3.up;
 
     #endregion
 
@@ -91,7 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         _currentVelocity = Vector3.MoveTowards(_currentVelocity, totalMove, (totalMove.magnitude > _currentVelocity.magnitude ? _acceleration : IsGrounded ? _deceleration : _airDeceleration) * Time.deltaTime);
 
-        _rigidBody.linearVelocity = (_currentVelocity + (_gravityDirection * verticalVelocity));
+        _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
 
         // Reset horizontal for next frame (vertical is persistent)
         accumulatedHorizontalMovement = Vector3.zero;
@@ -121,9 +121,15 @@ public class PlayerStateMachine : MonoBehaviour
     /// </summary>
     public void AddJump(float jumpForce)
     {
-        verticalVelocity = jumpForce;
+        verticalVelocity = jumpForce * _gravityDirection;
         Debug.Log($"[Player] Jump applied: {jumpForce}");
     }
+    public void AddJump(float jumpForce, Vector3 direction)
+    {
+        verticalVelocity = jumpForce * direction;
+        Debug.Log($"[Player] Jump applied: {jumpForce}");
+    }
+
     #endregion
 
     #region Macro State Control
@@ -137,6 +143,8 @@ public class PlayerStateMachine : MonoBehaviour
         {
             macroStateMachine.ChangeState(solidoState);
         }
+
+        ActionsManager.Instance.OnFormChanged?.Invoke(macroStateMachine.CurrentState);
     }
 
     /// <summary>Permite a outros scripts consultarem o macroestado atual.</summary>
@@ -148,18 +156,22 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
     internal void ApplyGravity()
-    { 
+    {
+        float magnitude = verticalVelocity.magnitude;
+        Vector3 directionChange = Vector3.Lerp(VerticalVelocity.normalized, -_gravityDirection.normalized, Time.deltaTime * 2).normalized;
+
+        verticalVelocity = directionChange * magnitude;
         // Se está sobre piso detectável e indo para baixo, zera vertical
-        if (IsGrounded && verticalVelocity <= 0f)
+        if (IsGrounded && IsGoingDown)
         {
             // Mantém levemente negativo para garantir contato com CharacterController
-            verticalVelocity = -2f;
+            verticalVelocity = -2f * _gravityDirection;
         }
         else
         {
-            verticalVelocity += gravity * Time.deltaTime;
-            if (verticalVelocity < terminalVelocity)
-                verticalVelocity = terminalVelocity;
+            verticalVelocity += gravity * _gravityDirection * Time.deltaTime;
+            if (verticalVelocity.magnitude < terminalVelocity)
+                verticalVelocity = verticalVelocity.normalized * terminalVelocity;
         }
     }
 
@@ -231,7 +243,11 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsGrounded => (
         (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor) ||
         (macroStateMachine.CurrentState == liquidoState) && surfaceDetection.CurrentSurface.HasValue);
-    public float VerticalVelocity => verticalVelocity;
+    public bool IsGoingDown
+    {
+        get { return Vector3.Dot(verticalVelocity.normalized, _gravityDirection) <= 0.2f; }
+    }
+    public Vector3 VerticalVelocity => verticalVelocity;
     public Vector3 CurrentVelocity => _rigidBody.linearVelocity;
     public Vector3 GravityDirection => _gravityDirection;
     public Vector3 DirectionInput
