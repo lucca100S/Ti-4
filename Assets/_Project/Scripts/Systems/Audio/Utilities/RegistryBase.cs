@@ -12,24 +12,6 @@ using UnityEngine;
 public abstract class RegistryBase<T, U> : MonoBehaviour, IRegistry<T, U> where U : Enum
 {
     // ----------------------
-    // Singleton
-    // ----------------------
-    private static RegistryBase<T, U> _instance;
-    public static RegistryBase<T, U> Instance => _instance;
-
-    protected virtual void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    // ----------------------
     // Internal storage
     // ----------------------
     protected Dictionary<U, T> registry = new Dictionary<U, T>();
