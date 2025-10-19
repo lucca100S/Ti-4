@@ -42,6 +42,7 @@ public class LiquidoState : IState
     public void Enter()
     {
         Debug.Log("[Macro] Entrou em Líquido");
+        AudioPlayer.Play(AudioRegistry.Instance.Get(AudioId.Liquid));
         subStateMachine.ChangeState(IdleState);
     }
 

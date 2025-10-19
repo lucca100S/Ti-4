@@ -64,6 +64,7 @@ public class SolidJumpState : IState
             if (!player.IsGoingDown)
             {
                 player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
+                AudioPlayer.Play(AudioRegistry.Instance.Get(AudioId.Jump));
                 Debug.Log("[SolidJump] Jump Cancel");
             }
             _didJump = false;
