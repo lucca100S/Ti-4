@@ -18,6 +18,7 @@ public class SolidWalkState : IState
 
     public void Enter() 
     {
+        player.GetComponent<Animator>().SetBool("Running",true);
         AudioPlayer.Play(AudioId.Walk, PlaybackForce.Normal);
         Debug.Log("[SolidWalk] Enter");
     }
@@ -30,7 +31,8 @@ public class SolidWalkState : IState
     }
 
     public void Exit() { 
-        AudioPlayer.Stop(AudioId.Walk); 
+        AudioPlayer.Stop(AudioId.Walk);
+        player.GetComponent<Animator>().SetBool("Running", false);
         Debug.Log("[SolidWalk] Exit"); 
     }
 

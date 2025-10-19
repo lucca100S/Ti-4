@@ -150,7 +150,7 @@ namespace Player
             bool isLiquid = state is LiquidoState;
             _liquidCollider.enabled = isLiquid;
             _liquidModel.SetActive(isLiquid);
-
+          
             _solidCollider.enabled = !isLiquid;
             _solidModel.SetActive(!isLiquid);
         }

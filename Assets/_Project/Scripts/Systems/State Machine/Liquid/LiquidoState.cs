@@ -43,6 +43,8 @@ public class LiquidoState : IState
     {
         Debug.Log("[Macro] Entrou em Líquido");
         AudioPlayer.Play(AudioRegistry.Instance.Get(AudioId.Liquid));
+        player.GetComponent<Animator>().SetBool("Liquid", true);
+        player.GetComponent<Animator>().SetBool("OnIdle", true);
         subStateMachine.ChangeState(IdleState);
     }
 
@@ -118,6 +120,7 @@ public class LiquidoState : IState
     public void Exit()
     {
         Debug.Log("[Macro] Saiu de Líquido");
+        player.GetComponent<Animator>().SetBool("Liquid", false);
         player.SetGravityDirection(Vector3.up);
     }
     #endregion
