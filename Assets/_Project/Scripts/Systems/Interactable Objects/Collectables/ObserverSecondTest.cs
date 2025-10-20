@@ -9,19 +9,17 @@ public class ObserverSecondTest : CollectableObserver
 {
     [SerializeField]
     public TMP_Text TextMeshPro;
-    int _quantity;
-
+    List<string> collectableNames = new List<string>();
     private void Start()
     {
-        _quantity = 10;
-        TextMeshPro.text = _quantity.ToString();
+        TextMeshPro.text = string.Empty;
         CollectableObservable.Instance?.SubscribeListeners(this);
     }
 
     public override void OnCollectable(Collectables item)
     {
-        _quantity -= 1;
-        TextMeshPro.text = _quantity.ToString();
+        collectableNames.Add(item.name);
+        TextMeshPro.text += $"{item.name}\n";
     }
 
     public override void SetCollectedCollectables(List<Collectables> itens)
