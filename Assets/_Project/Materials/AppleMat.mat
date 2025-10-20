@@ -126,17 +126,18 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Falloff_Highlight_Threshold: 3.62
-    - _Falloff_Shadow_Threshold: 2.6
+    - _Falloff_Shadow_Threshold: 2.74
     - _Falloff_Threshold: 3.4
     - _Float: 23.34
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Halftone_Highlight_Smoothness: 1.77
-    - _Halftone_Shadow_Smoothness: 0.96
+    - _Halftone_Highlight_Smoothness: 1.41
+    - _Halftone_Shadow_Smoothness: 0.68
     - _Halftone_Smoothness: 0.135
+    - _Highlight_Hue_Shift: 0
     - _Lit_Highlight_Threshold: 1
-    - _Lit_Shadow_Threshold: 0.9
+    - _Lit_Shadow_Threshold: 1.25
     - _Lit_Threshold: 1.2
     - _Metallic: 0
     - _OcclusionStrength: 1
@@ -144,7 +145,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 20
+    - _Shadow_Hue_Shift: 0
+    - _Smoothness: 16
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
