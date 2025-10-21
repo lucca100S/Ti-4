@@ -278,8 +278,9 @@ public class PlayerStateMachine : MonoBehaviour
             Vector3 camRight = Camera.main.transform.right;
 
             // Remove componente na direção da normal da superfície
-            camForward = Vector3.ProjectOnPlane(camForward, normal).normalized;
             camRight = Vector3.ProjectOnPlane(camRight, normal).normalized;
+            //camForward = Vector3.ProjectOnPlane(camForward, normal).normalized;
+            camForward = Vector3.Cross(camRight, normal).normalized;
 
             // Input relativo à câmera, mas em plano da superfície
             Vector3 moveDir = camForward * _directionInput.z + camRight * _directionInput.x;
