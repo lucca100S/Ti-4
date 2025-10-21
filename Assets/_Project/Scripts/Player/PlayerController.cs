@@ -5,26 +5,31 @@ using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
-using static SurfaceDetection;
+using UnityEngine.ProBuilder;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerMovement), typeof(PlayerInput), typeof(SurfaceDetection))]
+    [RequireComponent(typeof(PlayerStateMachine), typeof(PlayerInput), typeof(SurfaceDetection))]
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private CinemachineInputAxisController _cameraInputs;
+        [SerializeField] private Transform _orientation;
+
+        [SerializeField] private GameObject _solidModel;
+        [SerializeField] private Collider _solidCollider;
+        [SerializeField] private GameObject _liquidModel;
+        [SerializeField] private Collider _liquidCollider;
 
         private SurfaceDetection _surfaceDetection;
-        private PlayerMovement _playerMovement;
+        private PlayerStateMachine _playerStateMachine;
         private PlayerInput _playerInput;
+        private Rigidbody _rigidBody;
 
         private State _previousState = State.Air;
         private State _currentState = State.Air;
 
         private SurfaceMaterial _previousMaterial = SurfaceMaterial.None;
         private SurfaceMaterial _currentMaterial = SurfaceMaterial.None;
-
-        [SerializeField] private List<PlayerState> _statesList;
 
         public enum State
         {
@@ -37,7 +42,7 @@ namespace Player
         #region Properties
 
         public SurfaceDetection SurfaceDetection { get { return _surfaceDetection; } private set { _surfaceDetection = value; } }
-        public PlayerMovement PlayerMovement { get => _playerMovement; private set => _playerMovement = value; }
+        public PlayerStateMachine PlayerStateMachine { get => _playerStateMachine; private set => _playerStateMachine = value; }
         public PlayerInput PlayerInput { get => _playerInput; private set => _playerInput = value; }
         public State PreviousState { get { return _previousState; } private set { _previousState = value; } }
         public State CurrentState { get { return _currentState; } private set { _currentState = value; } }
@@ -45,40 +50,45 @@ namespace Player
         public SurfaceMaterial CurrentMaterial { get { return _currentMaterial; } private set { _currentMaterial = value; } }
         public SurfaceMaterial PreviousMaterial { get { return _previousMaterial; } private set { _previousMaterial = value; } }
 
+        public float LastTimeOnGround { get; private set; }
+        public Transform Orientation { get { return _orientation; } private set { _orientation = value; } }
+
         #endregion
 
         private void Awake()
         {
-            _playerMovement = GetComponent<PlayerMovement>();
+            _playerStateMachine = GetComponent<PlayerStateMachine>();
             _playerInput = GetComponent<PlayerInput>();
             _surfaceDetection = GetComponent<SurfaceDetection>();
-        }
+            _rigidBody = GetComponentInChildren<Rigidbody>();
 
-        private void Update()
-        {
-            _statesList[(int)_currentState].StateUpdate(this);
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnEnable()
         {
-            _playerInput.OnMove += _playerMovement.GetDirectionInput;
-            _playerInput.JumpInput.OnInput += _playerMovement.GetJumpInput;
-            _playerInput.TransformInput.OnInput += _playerMovement.GetTransformInput;
+            _playerInput.OnMove += _playerStateMachine.GetDirectionInput;
+            _playerInput.JumpInput.OnInput += _playerStateMachine.GetJumpInput;
+            _playerInput.TransformInput.OnInput += _playerStateMachine.GetTransformInput;
 
             _surfaceDetection.OnSurfaceChange += OnSurfaceChange;
             _surfaceDetection.OnSurfaceNull += OnSurfaceNull;
             _surfaceDetection.OnSurfaceHit += OnSurfaceHit;
+
+            ActionsManager.Instance.OnFormChanged += ChangeForm;
         }
 
         private void OnDisable()
         {
-            _playerInput.OnMove -= _playerMovement.GetDirectionInput;
-            _playerInput.JumpInput.OnInput -= _playerMovement.GetJumpInput;
-            _playerInput.TransformInput.OnInput -= _playerMovement.GetTransformInput;
+            _playerInput.OnMove -= _playerStateMachine.GetDirectionInput;
+            _playerInput.JumpInput.OnInput -= _playerStateMachine.GetJumpInput;
+            _playerInput.TransformInput.OnInput -= _playerStateMachine.GetTransformInput;
 
             _surfaceDetection.OnSurfaceChange -= OnSurfaceChange;
             _surfaceDetection.OnSurfaceNull -= OnSurfaceNull;
             _surfaceDetection.OnSurfaceHit -= OnSurfaceHit;
+
+            ActionsManager.Instance.OnFormChanged -= ChangeForm;
         }
 
         #region StateMachine
@@ -94,30 +104,24 @@ namespace Player
             switch (hit.type)
             {
                 case SurfaceType.Floor:
-                    if (hit.hit.distance < _statesList[(int)State.Ground].DistanceTreshold && _playerMovement.Force.y <= 0)
+                    /* if (hit.hit.distance < _statesList[(int)State.Ground].DistanceTreshold && _playerMovement.Force.y <= 0)
                     {
                         ChangeState(State.Ground);
                     }
                     else
                     {
                         ChangeState(State.Air);
-                    }
+                    }*/
 
-                    if (_currentState != State.Air)
-                    {
+                    //if (_currentState != State.Air)
+                    //{
                         ChangeMaterial(hit.material);
-                    }
+                    //}
+                    LastTimeOnGround = Time.time;
                     break;
                 case SurfaceType.Wall:
-                    if (hit.hit.distance < _statesList[(int)State.Wall].DistanceTreshold)
-                    {
-                        ChangeState(State.Wall);
-                        ChangeMaterial(hit.material);
-                    }
-                    else
-                    {
-                        ChangeState(State.Air);
-                    }
+                    //ChangeState(State.Wall);
+                    ChangeMaterial(hit.material);
                     break;
                 default:
                     ChangeMaterial(hit.material);
@@ -128,22 +132,7 @@ namespace Player
 
         private void OnSurfaceNull()
         {
-            DebugLogger.Log($"[PlayerOnAir]", "PlayerControllerDetection");
-            ChangeState(State.Air);
-        }
 
-        internal void ChangeState(State state)
-        {
-            if (state != _currentState)
-            {
-                _previousState = _currentState;
-                _statesList[(int)_previousState].Exit(this);
-
-                _currentState = state;
-                _statesList[(int)_currentState].Enter(this);
-
-                DebugLogger.Log($"[PlayerControllerState] {state}", "PlayerControllerState");
-            }
         }
 
         internal void ChangeMaterial(SurfaceMaterial material)
@@ -154,6 +143,16 @@ namespace Player
                 _currentMaterial = material;
                 DebugLogger.Log($"[PlayerMaterialChange] {material}", "PlayerMaterialChange");
             }
+        }
+
+        private void ChangeForm(IState state)
+        {
+            bool isLiquid = state is LiquidoState;
+            _liquidCollider.enabled = isLiquid;
+            _liquidModel.SetActive(isLiquid);
+          
+            _solidCollider.enabled = !isLiquid;
+            _solidModel.SetActive(!isLiquid);
         }
 
         #endregion
@@ -167,5 +166,36 @@ namespace Player
             }
         }
 
+        internal void ChangeState(State air)
+        {
+            
+        }
+
+        internal void RotateModelTowards(Vector3 direction)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            _orientation.rotation = Quaternion.Lerp(_orientation.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+
+        public void RotateModelTowards(Quaternion targetRotation)
+        {
+            _orientation.rotation = Quaternion.Slerp(
+                _orientation.rotation,
+                targetRotation,
+                10f * Time.deltaTime
+            );
+        }
+
+        internal void RotateModelTowardsInstant(Vector3 direction)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            _orientation.rotation = targetRotation;
+        }
+
+        internal void RotateModelTowardsInstant(Quaternion direction)
+        {
+            Quaternion targetRotation = direction;
+            _orientation.rotation = targetRotation;
+        }
     }
 }
