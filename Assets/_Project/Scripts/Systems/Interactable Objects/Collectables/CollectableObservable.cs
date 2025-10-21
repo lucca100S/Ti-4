@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Lugu.Utils;
 
 /// <summary>
 /// Classe observável para coletáveis, usando Singleton.
 /// Compatível com C# 9.0.
 /// </summary>
-public class CollectableObservable : MonoBehaviour, ISingleton<CollectableObservable>, IObservable<Collectables>
+public class CollectableObservable : SingletonMono<CollectableObservable>, IObservable<Collectables>
 {
-    public static CollectableObservable Instance { get; private set; }
 
     // Lista dos observers que serão notificados
     public List<Action<Collectables>> Observers { get; set; } = new();
@@ -16,17 +16,7 @@ public class CollectableObservable : MonoBehaviour, ISingleton<CollectableObserv
     // Mapeia cada observer ao delegate que criamos para ele
     private readonly Dictionary<IObserver<Collectables>, Action<Collectables>> _observerMap = new();
 
-    public void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
     public void SubscribeListeners(IObserver<Collectables> observer)
     {
         if (_observerMap.ContainsKey(observer))

@@ -10,6 +10,7 @@ namespace Systems.Input
     public class InputInfo
     {
 
+
         [SerializeField] private float _bufferTime;
         [SerializeField] private float _delayTime;
 

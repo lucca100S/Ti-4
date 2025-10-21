@@ -204,7 +204,7 @@ namespace Player.Movement
             RotateStrategy = _currentStrategy.Rotate;
             #endregion
 
-            ActionsManager.Instance.OnFormChanged?.Invoke(_currentStrategy.Strategy);
+            //ActionsManager.Instance.OnFormChanged?.Invoke(_currentStrategy.Strategy);
         }
 
         public PlayerStrategyScriptable GetStrategy(PlayerStrategyHandler.Strategy strategy)
