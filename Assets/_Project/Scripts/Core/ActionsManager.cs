@@ -8,5 +8,5 @@ using UnityEngine;
 
 public class ActionsManager : Singleton<ActionsManager>
 {
-    public Action<PlayerStrategyHandler.Strategy> OnFormChanged;
+    public Action<IState> OnFormChanged;
 }
