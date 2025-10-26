@@ -16,7 +16,13 @@ public class SolidWalkState : IState
         this.player = parent is SolidoState s ? (SolidoStateAccessor.GetPlayer(s)) : null;
     }
 
-    public void Enter() => Debug.Log("[SolidWalk] Enter");
+    public void Enter() 
+    {
+        player.GetComponent<Animator>().SetBool("Running",true);
+        AudioPlayer.Play(AudioId.Walk, PlaybackForce.Normal);
+        Debug.Log("[SolidWalk] Enter");
+    }
+    
 
     public void Update()
     {
@@ -24,7 +30,11 @@ public class SolidWalkState : IState
         player?.SetMovement(move);
     }
 
-    public void Exit() => Debug.Log("[SolidWalk] Exit");
+    public void Exit() { 
+        AudioPlayer.Stop(AudioId.Walk);
+        player.GetComponent<Animator>().SetBool("Running", false);
+        Debug.Log("[SolidWalk] Exit"); 
+    }
 
     public void OnJumpInput(InputInfo input)
     {

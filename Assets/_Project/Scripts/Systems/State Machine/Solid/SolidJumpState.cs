@@ -54,7 +54,10 @@ public class SolidJumpState : IState
     public void Exit()
     {
         _didJump = false;
+        player.GetComponent<Animator>().SetBool("Grounded", true);
+        player.GetComponent<Animator>().SetBool("Jumping", false);
         Debug.Log("[SolidJump] Exit");
+        
     }
 
     public void OnJumpInput(InputInfo input)
@@ -64,6 +67,8 @@ public class SolidJumpState : IState
             if (!player.IsGoingDown)
             {
                 player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
+                AudioPlayer.Play(AudioRegistry.Instance.Get(AudioId.Jump));
+                player.GetComponent<Animator>().SetBool("Jumping", true);
                 Debug.Log("[SolidJump] Jump Cancel");
             }
             _didJump = false;
