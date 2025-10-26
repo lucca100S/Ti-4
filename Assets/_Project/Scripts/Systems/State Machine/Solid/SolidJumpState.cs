@@ -9,8 +9,6 @@ public class SolidJumpState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
-    private bool _didJump = false;
-
     public SolidJumpState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -24,9 +22,18 @@ public class SolidJumpState : IState
         if (player.CanJump)
         {
             player?.AddJump(player.SolidJump);
-            _didJump = true;
+            player.DidJump = true;
         }
-        player.SetGravityDirection(Vector3.up);
+        else if(parent.LastState == parent.WallJumpState)
+        {
+            player.DidJump = true;
+        }
+
+        if (player.DidJump)
+        {
+            player.LastJumpInputOnGround = -Mathf.Infinity;
+        }
+            player.SetGravityDirection(Vector3.up);
     }
 
     public void Update()
@@ -53,7 +60,7 @@ public class SolidJumpState : IState
 
     public void Exit()
     {
-        _didJump = false;
+        player.DidJump = false;
         player.GetComponent<Animator>().SetBool("Grounded", true);
         player.GetComponent<Animator>().SetBool("Jumping", false);
         Debug.Log("[SolidJump] Exit");
@@ -62,7 +69,7 @@ public class SolidJumpState : IState
 
     public void OnJumpInput(InputInfo input)
     {
-        if (_didJump && input.IsUp)
+        if (player.DidJump && input.IsUp)
         {
             if (!player.IsGoingDown)
             {
@@ -71,7 +78,12 @@ public class SolidJumpState : IState
                 player.GetComponent<Animator>().SetBool("Jumping", true);
                 Debug.Log("[SolidJump] Jump Cancel");
             }
-            _didJump = false;
+            player.DidJump = false;
+        }
+        else if(player.CanJump && input.IsDown && !player.DidJump)
+        {
+            player?.AddJump(player.SolidJump);
+            player.DidJump = true;
         }
     }
 }

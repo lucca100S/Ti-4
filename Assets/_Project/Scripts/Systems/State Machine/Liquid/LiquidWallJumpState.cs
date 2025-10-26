@@ -29,7 +29,7 @@ public class LiquidWallJumpState : IState
         {
             Vector3 normal = parent.NormalDirection;
             Vector3 push = (normal).normalized;
-            player.AddJump(player.LiquidJump);
+            player.AddJump(player.liquidWallJumpForce);
             Debug.Log($"[LiquidWallJump] Executado com push {push}");
             executed = true;
         }
@@ -48,6 +48,8 @@ public class LiquidWallJumpState : IState
 
     public void Exit()
     {
+        player.SetGravityDirection(Vector3.up);
+
         Debug.Log("[LiquidWallJump] Exit");
     }
 

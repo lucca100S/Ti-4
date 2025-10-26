@@ -32,8 +32,12 @@ public class PlayerStateMachine : MonoBehaviour
     [Header("Jumping")]
     [Tooltip("Força de pulo sólido")]
     [SerializeField] public float solidJumpForce = 8f;
+    [SerializeField] public float solidWallJumpForce = 8f;
+    [SerializeField] public float solidWallJumpHeight = 2f;
     [Tooltip("Força de pulo líquido")]
     [SerializeField] public float liquidJumpForce = 6f;
+    [SerializeField] public float liquidWallJumpForce = 8f;
+
     [Tooltip("Gravidade aplicada ao player (negativo)")]
     [SerializeField] public float gravity = -20f;
     #endregion
@@ -60,6 +64,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _acceleration = 10f;
     [SerializeField] private float _deceleration = 10f;
     [SerializeField] private float _airDeceleration = 10f;
+    private float _lastJumpInputOnGround = -Mathf.Infinity;
+    private bool _didJump = false;
 
     #region Unity Callbacks
     private void Awake()
@@ -160,6 +166,12 @@ public class PlayerStateMachine : MonoBehaviour
         float magnitude = verticalVelocity.magnitude;
         Vector3 directionChange = Vector3.Lerp(VerticalVelocity.normalized, -_gravityDirection.normalized, Time.deltaTime * 2).normalized;
 
+        if (CoyoteTime && !IsGrounded && IsGoingDown && !_didJump)
+        {
+            verticalVelocity = Vector3.zero;
+            return;
+        }
+
         verticalVelocity = directionChange * magnitude;
         // Se está sobre piso detectável e indo para baixo, zera vertical
         if (IsGrounded && IsGoingDown)
@@ -175,6 +187,21 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
+    public void ResetForces()
+    {
+        verticalVelocity = Vector3.zero;
+        _currentVelocity = Vector3.zero;
+        accumulatedHorizontalMovement = Vector3.zero;
+        _rigidBody.linearVelocity = Vector3.zero;
+        _directionInput = Vector3.zero;
+
+        if (macroStateMachine.CurrentState == liquidoState)
+        {
+            ToggleMacroState();
+        }
+        solidoState.ChangeSubState(solidoState.IdleState);
+    }
+
     #region Inputs
     internal void GetDirectionInput(Vector3 direction)
     {
@@ -183,6 +210,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     internal void GetJumpInput(InputInfo info)
     {
+        if(IsGrounded)
+        {
+            _lastJumpInputOnGround = Time.time;
+        }
         _jumpInput = info;
         macroStateMachine.JumpInput(info);
     }
@@ -240,6 +271,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float SolidJump => solidJumpForce;
     public float LiquidJump => liquidJumpForce;
     public float LastTimeOnGround => playerController.LastTimeOnGround;
+    public float LastJumpInputOnGround { get { return _lastJumpInputOnGround; } set { _lastJumpInputOnGround = value; } }
     public bool IsGrounded => (
         (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor) ||
         (macroStateMachine.CurrentState == liquidoState) && surfaceDetection.CurrentSurface.HasValue);
@@ -278,8 +310,9 @@ public class PlayerStateMachine : MonoBehaviour
             Vector3 camRight = Camera.main.transform.right;
 
             // Remove componente na direção da normal da superfície
-            camForward = Vector3.ProjectOnPlane(camForward, normal).normalized;
+            //camForward = Vector3.ProjectOnPlane(camForward, normal).normalized;
             camRight = Vector3.ProjectOnPlane(camRight, normal).normalized;
+            camForward = Vector3.Cross(camRight, normal);
 
             // Input relativo à câmera, mas em plano da superfície
             Vector3 moveDir = camForward * _directionInput.z + camRight * _directionInput.x;
@@ -294,8 +327,9 @@ public class PlayerStateMachine : MonoBehaviour
     public InputInfo JumpInput => _jumpInput;
     public InputInfo TransformInput => _transformInput;
     public Transform Orientation => playerController.Orientation;
-
-    public bool CanJump { get { return JumpInput.GetDelayInput(LastTimeOnGround) || IsGrounded; } private set { } }
+    public bool CoyoteTime => LastTimeOnGround + JumpInput.BufferTime > Time.time;
+    public bool CanJump { get { return JumpInput.GetDelayInput(LastJumpInputOnGround) || IsGrounded || (CoyoteTime && _jumpInput.IsDown); } private set { } }
+    public bool DidJump { get { return _didJump; } set { _didJump = value; } }
     #endregion
 }
 #endregion

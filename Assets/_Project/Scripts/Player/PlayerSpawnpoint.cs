@@ -8,6 +8,7 @@ public class PlayerSpawnpoint : MonoBehaviour
     [SerializeField] private float _killZoneY;
 
     [SerializeField] private List<Transform> _teleportPoints;
+    private PlayerStateMachine _playerStateMachine;
 
     #region Properties
 
@@ -21,6 +22,8 @@ public class PlayerSpawnpoint : MonoBehaviour
 
     private void Awake()
     {
+        _playerStateMachine = GetComponent<PlayerStateMachine>();
+
         _originalSpawnPoint = transform.position;
         _spawnPoint = _originalSpawnPoint;
     }
@@ -41,6 +44,7 @@ public class PlayerSpawnpoint : MonoBehaviour
     private void Teleport(Vector3 position)
     {
         transform.position = position;
+        _playerStateMachine.ResetForces();
     }
 
     public void TeleportPoint(int point)
