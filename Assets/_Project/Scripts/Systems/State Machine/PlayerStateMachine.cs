@@ -129,12 +129,17 @@ public class PlayerStateMachine : MonoBehaviour
         verticalVelocity = jumpForce * direction;
         Debug.Log($"[Player] Jump applied: {jumpForce}");
     }
-
+    private void OnJumpApex()
+    {
+        Debug.Log("[Player] Reached jump apex");
+        this.GetComponent<Animator>().SetTrigger("Falling");
+    }
     #endregion
 
     #region Macro State Control
     private void ToggleMacroState()
     {
+        this.GetComponent<Animator>().SetBool("KeepAtState", false);
         if (macroStateMachine.CurrentState == solidoState)
         {
             macroStateMachine.ChangeState(liquidoState);

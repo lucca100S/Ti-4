@@ -18,8 +18,12 @@ public class SolidWalkState : IState
 
     public void Enter() 
     {
-        player.GetComponent<Animator>().SetBool("Running",true);
-        AudioPlayer.Play(AudioId.Walk, PlaybackForce.Normal);
+        player.GetComponent<Animator>().SetTrigger("Walk");
+        if (player.IsGrounded) 
+        { 
+            AudioPlayer.Play(AudioId.SolidStep); 
+        }
+        
         Debug.Log("[SolidWalk] Enter");
     }
     
@@ -31,9 +35,12 @@ public class SolidWalkState : IState
     }
 
     public void Exit() { 
-        AudioPlayer.Stop(AudioId.Walk);
-        player.GetComponent<Animator>().SetBool("Running", false);
-        Debug.Log("[SolidWalk] Exit"); 
+        Debug.Log("[SolidWalk] Exit");
+        if (player.IsGrounded)
+        {
+            AudioPlayer.Stop(AudioId.SolidStep);
+        }
+        player.GetComponent<Animator>().SetTrigger("Idle");
     }
 
     public void OnJumpInput(InputInfo input)

@@ -18,16 +18,20 @@ public class SolidIdleState : IState
     public void Enter() 
     {
         Debug.Log("[SolidIdle] Enter");
-        player.GetComponent<Animator>().SetBool("Liquid", false);
-        player.GetComponent<Animator>().SetBool("OnIdle", true);
-        
+        player.GetComponent<Animator>().ResetTrigger("Jump");
+        player.GetComponent<Animator>().ResetTrigger("MeetGround");
+        player.GetComponent<Animator>().ResetTrigger("Falling");
+        player.GetComponent<Animator>().ResetTrigger("Walk");
+        if (!player.IsGrounded)
+        {
+            player.GetComponent<Animator>().SetTrigger("MeetGround");
+        }
     }
         
 
     public void Update()
     {
-        // nada além de manter posição — mas podemos tocar animação aqui
-        // Ex: parent.Player.Animator.Play("Idle");
+
     }
 
     public void Exit() 

@@ -21,10 +21,11 @@ public class SolidJumpState : IState
     public void Enter()
     {
         Debug.Log("[SolidJump] Enter");
+        AudioPlayer.Stop(AudioId.SolidStep);
         if (player.CanJump)
         {
-            AudioPlayer.Play(AudioRegistry.Instance.Get(AudioId.Jump));
-            player.GetComponent<Animator>().SetBool("Jumping", true);
+            player.GetComponent<Animator>().SetTrigger("Jump");
+            AudioPlayer.Play(AudioId.SolidJump);
             player?.AddJump(player.SolidJump);
             _didJump = true;
         }
@@ -56,8 +57,6 @@ public class SolidJumpState : IState
     public void Exit()
     {
         _didJump = false;
-        player.GetComponent<Animator>().SetBool("Grounded", true);
-        player.GetComponent<Animator>().SetBool("Jumping", false);
         Debug.Log("[SolidJump] Exit");
         
     }

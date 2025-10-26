@@ -1,10 +1,10 @@
 // AUTO-GENERATED FILE - DO NOT EDIT MANUALLY
-// Generated on 2025-10-19 09:19:16
+// Generated on 2025-10-26 18:21:23
 
 public enum AudioId
 {
     None,
-    Jump,
-    Liquid,
-    Walk
+    LiquidTransformation,
+    SolidJump,
+    SolidStep
 }
