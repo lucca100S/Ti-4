@@ -1,6 +1,7 @@
 using System.Linq;
 using Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InteractWithInteractable : MonoBehaviour
 {
@@ -8,9 +9,14 @@ public class InteractWithInteractable : MonoBehaviour
     public float maxPickupDistance = 20f;
     public LayerMask pickupMask = ~0;
 
-    private void Awake()
+
+    private void Update()
     {
-        ActionsManager.Instance.Interact += Interact;
+        // Apenas para teste: pressionar a tecla E para interagir
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            Interact();
+        }
     }
     public void Interact()
     {
