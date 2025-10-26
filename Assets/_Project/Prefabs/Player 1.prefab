@@ -178,14 +178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surfaceDetection: {fileID: 8323385459518967831}
-  solidMoveSpeedVines: 7
-  solidMoveSpeedStone: 7
+  solidMoveSpeedVines: 10
+  solidMoveSpeedStone: 10
   solidMoveSpeedEarth: 3
   liquidMoveSpeedVines: 6
   liquidMoveSpeedStone: 1.8
   liquidMoveSpeedEarth: 14
   solidJumpForce: 12
-  solidWallJumpForce: 12
+  solidWallJumpForce: 6
   solidWallJumpHeight: 8
   liquidJumpForce: 8
   liquidWallJumpForce: 8
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpInput:
-    _bufferTime: 0.1
+    _bufferTime: 0.15
     _delayTime: 0.1
   _transformInput:
     _bufferTime: 0.1
