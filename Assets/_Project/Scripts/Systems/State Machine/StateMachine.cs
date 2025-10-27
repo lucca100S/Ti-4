@@ -1,6 +1,5 @@
 using Systems.Input;
 using UnityEngine;
-using static UnityEditorInternal.VersionControl.ListControl;
 
 #region Core - StateMachine
 /// <summary>
