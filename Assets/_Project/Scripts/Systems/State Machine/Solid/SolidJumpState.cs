@@ -2,7 +2,7 @@ using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - Jump
-/// <summary>Pulo no modo SÛlido.</summary>
+/// <summary>Pulo no modo S√≥lido.</summary>
 public class SolidJumpState : IState
 {
     private SolidoState parent;
@@ -19,8 +19,11 @@ public class SolidJumpState : IState
     public void Enter()
     {
         Debug.Log("[SolidJump] Enter");
+        AudioPlayer.Stop(AudioId.SolidStep);
         if (player.CanJump)
         {
+            player.GetComponent<Animator>().SetTrigger("Jump");
+            AudioPlayer.Play(AudioId.SolidJump);
             player?.AddJump(player.SolidJump);
             player.DidJump = true;
         }
@@ -51,18 +54,16 @@ public class SolidJumpState : IState
             player.PlayerController.RotateModelTowards(lookDirection);
         }
 
-        // quando tocar ch„o novamente, voltar para Idle/Walk (macro decide isso)
+        // quando tocar ch√£o novamente, voltar para Idle/Walk (macro decide isso)
         if (player.IsGrounded)
         {
-            Debug.Log("[SolidJump] Detectado ch„o -> transiÁ„o ser· feita pela macro SÛlido.");
+            Debug.Log("[SolidJump] Detectado ch√£o -> transi√ß√£o ser√° feita pela macro S√≥lido.");
         }
     }
 
     public void Exit()
     {
-        player.DidJump = false;
-        player.GetComponent<Animator>().SetBool("Grounded", true);
-        player.GetComponent<Animator>().SetBool("Jumping", false);
+        _didJump = false;
         Debug.Log("[SolidJump] Exit");
         
     }
@@ -74,8 +75,6 @@ public class SolidJumpState : IState
             if (!player.IsGoingDown)
             {
                 player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
-                AudioPlayer.Play(AudioRegistry.Instance.Get(AudioId.Jump));
-                player.GetComponent<Animator>().SetBool("Jumping", true);
                 Debug.Log("[SolidJump] Jump Cancel");
             }
             player.DidJump = false;

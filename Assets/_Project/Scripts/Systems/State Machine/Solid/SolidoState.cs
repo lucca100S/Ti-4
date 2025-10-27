@@ -44,7 +44,8 @@ public class SolidoState : IState
     {
         //Change later to maintin relative forward direction
         player.PlayerController.RotateModelTowardsInstant(Vector3.forward);
-
+        player.GetComponent<Animator>().SetBool("IsSolid", true);
+        player.GetComponent<Animator>().SetBool("KeepAtState", true);
         Debug.Log("[Macro] Entrou em Sólido");
         subStateMachine.ChangeState(IdleState);
     }
@@ -65,10 +66,12 @@ public class SolidoState : IState
                         if (dir.magnitude > 0.01f)
                         {
                             player.PlayerController.RotateModelTowards(dir);
+                            player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(WalkState);
                         }
                         else
                         {
+                            player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(IdleState);
                         }
                     }
@@ -106,6 +109,7 @@ public class SolidoState : IState
     public void Exit()
     {
         Debug.Log("[Macro] Saiu de Sólido");
+        AudioPlayer.Stop(AudioId.SolidStep);
     }
 
     public void OnJumpInput(InputInfo input)
