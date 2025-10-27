@@ -21,10 +21,7 @@ public class SolidWallJumpState : IState
     {
         Debug.Log("[SolidWallJump] Enter");
         executed = false;
-    }
 
-    public void Update()
-    {
         if (!executed)
         {
             Debug.Log("Executed");
@@ -32,16 +29,18 @@ public class SolidWallJumpState : IState
             if (surface.CurrentSurface.HasValue && surface.CurrentSurface.Value.type == SurfaceType.Wall)
             {
                 Vector3 normal = surface.CurrentSurface.Value.hit.normal;
-                Vector3 push = (normal + Vector3.up * 0.8f).normalized;
                 // aplicar jump com componente para cima
-                player?.SetVelocity(push * player.SolidSpeed * 2f);
-                player?.AddJump(player.SolidJump * 0.3f);
-                Debug.Log($"[SolidWallJump] Executando walljump com push {push}");
+                player?.SetVelocity(normal * player.solidWallJumpForce);
+                player.SetGravityDirection(Vector3.up);
+                player?.AddJump(player.solidWallJumpHeight);
+                Debug.Log($"[SolidWallJump] Executando walljump com push {normal}");
             }
             executed = true;
         }
+    }
 
-        // Após execução, a macro Sólido detectará o que fazer (provavelmente JumpState -> Idle).
+    public void Update()
+    {
     }
 
     public void Exit() => Debug.Log("[SolidWallJump] Exit");

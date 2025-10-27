@@ -11,8 +11,6 @@ public class LiquidJumpState : IState
     private readonly LiquidoState parent;
     private readonly PlayerStateMachine player;
     private readonly SurfaceDetection surface;
-    private bool jumpExecuted;
-    private bool _canCancelJump = false;
 
     private Vector3 _originalDirection;
 
@@ -25,22 +23,24 @@ public class LiquidJumpState : IState
 
     public void Enter()
     {
-        jumpExecuted = false;
-
         _originalDirection = player.DirectionInput;
         Debug.Log("[LiquidJump] Enter");
         if (player.CanJump)
         {
             player.AddJump(player.LiquidJump);
-            jumpExecuted = true;
-            _canCancelJump = true;
+            player.DidJump = true;
+        }
+
+        if (player.DidJump)
+        {
+            player.LastJumpInputOnGround = -Mathf.Infinity;
         }
     }
 
     public void Update()
     {
         Vector3 move = _originalDirection * player.LiquidSpeed + player.DirectionInput * (player.LiquidSpeed * 0.2f);
-        if (jumpExecuted)
+        if (player.DidJump)
         {
             player.SetVelocity(move);
         }
@@ -54,19 +54,24 @@ public class LiquidJumpState : IState
     public void Exit()
     {
         Debug.Log("[LiquidJump] Exit");
-        jumpExecuted = false;
+        player.DidJump = false;
     }
 
     public void OnJumpInput(InputInfo input)
     {
-        if (_canCancelJump && input.IsUp)
+        if (player.DidJump && input.IsUp)
         {
             if (!player.IsGoingDown)
             {
                 player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
                 Debug.Log("[LiquidJump] Jump Cancel");
             }
-            _canCancelJump = false;
+            player.DidJump = false;
+        }
+        else if (player.CanJump && input.IsDown && !player.DidJump)
+        {
+            player?.AddJump(player.SolidJump);
+            player.DidJump = true;
         }
     }
 }

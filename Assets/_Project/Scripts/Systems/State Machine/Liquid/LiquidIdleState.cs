@@ -22,7 +22,6 @@ public class LiquidIdleState : IState
     public void Enter()
     {
         Debug.Log("[LiquidIdle] Enter");
-        player.GetComponent<Animator>().SetBool("Liquid", false);
     }
 
     public void Update()
