@@ -19,6 +19,7 @@ public class SolidoState : IState
     public SolidJumpState JumpState { get; private set; }
     public SolidWallJumpState WallJumpState { get; private set; }
     public SolidClimbState ClimbState { get; private set; }
+    public IState LastState => subStateMachine.LastState;
     #endregion
 
     #region Constructor

@@ -2,14 +2,12 @@ using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - Jump
-/// <summary>Pulo no modo SÛlido.</summary>
+/// <summary>Pulo no modo S√≥lido.</summary>
 public class SolidJumpState : IState
 {
     private SolidoState parent;
     private SurfaceDetection surface;
     private PlayerStateMachine player;
-
-    private bool _didJump = false;
 
     public SolidJumpState(SolidoState parent, SurfaceDetection surface)
     {
@@ -27,9 +25,18 @@ public class SolidJumpState : IState
             player.GetComponent<Animator>().SetTrigger("Jump");
             AudioPlayer.Play(AudioId.SolidJump);
             player?.AddJump(player.SolidJump);
-            _didJump = true;
+            player.DidJump = true;
         }
-        player.SetGravityDirection(Vector3.up);
+        else if(parent.LastState == parent.WallJumpState)
+        {
+            player.DidJump = true;
+        }
+
+        if (player.DidJump)
+        {
+            player.LastJumpInputOnGround = -Mathf.Infinity;
+        }
+            player.SetGravityDirection(Vector3.up);
     }
 
     public void Update()
@@ -47,10 +54,10 @@ public class SolidJumpState : IState
             player.PlayerController.RotateModelTowards(lookDirection);
         }
 
-        // quando tocar ch„o novamente, voltar para Idle/Walk (macro decide isso)
+        // quando tocar ch√£o novamente, voltar para Idle/Walk (macro decide isso)
         if (player.IsGrounded)
         {
-            Debug.Log("[SolidJump] Detectado ch„o -> transiÁ„o ser· feita pela macro SÛlido.");
+            Debug.Log("[SolidJump] Detectado ch√£o -> transi√ß√£o ser√° feita pela macro S√≥lido.");
         }
     }
 
@@ -63,14 +70,19 @@ public class SolidJumpState : IState
 
     public void OnJumpInput(InputInfo input)
     {
-        if (_didJump && input.IsUp)
+        if (player.DidJump && input.IsUp)
         {
             if (!player.IsGoingDown)
             {
                 player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
                 Debug.Log("[SolidJump] Jump Cancel");
             }
-            _didJump = false;
+            player.DidJump = false;
+        }
+        else if(player.CanJump && input.IsDown && !player.DidJump)
+        {
+            player?.AddJump(player.SolidJump);
+            player.DidJump = true;
         }
     }
 }
