@@ -5,14 +5,10 @@ using UnityEngine;
 /// </summary>
 public class CheckPoint : OptionalInteractableObjects
 {
+    public GameObject spawnPoint;
     public override void Interaction()
     {
-        if (IsInteractable()) { /* Lógica de checkpoint */ }
-    }
-
-    public override void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(SphereOrigin, Radius);
+        FindFirstObjectByType<PlayerSpawnpoint>().SetSpawnPoint(spawnPoint.transform.position);
+        this.GetComponent<Renderer>().material.color = Color.red;
     }
 }

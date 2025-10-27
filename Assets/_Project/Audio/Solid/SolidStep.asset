@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6488a000468d1947967f3f2a69449d3, type: 3}
-  m_Name: Jump
+  m_Name: SolidStep
   m_EditorClassIdentifier: 
-  Id: 1
+  Id: 3
   Clips:
-  - {fileID: 8300000, guid: 633a2d04478f0dd448ce4de538996be4, type: 3}
-  LoopByDefault: 0
-  DefaultGain: 0.7
+  - {fileID: 8300000, guid: 3b601896dbb4eb8419e12c8aa8afe95c, type: 3}
+  LoopByDefault: 1
+  DefaultGain: 0.1
   Description: 
   PitchRange: {x: 1, y: 1}
-  MaxSimultaneousInstances: 4
-  Cooldown: 0
+  MaxSimultaneousInstances: 1
+  Cooldown: 0.5
   Priority: 128
