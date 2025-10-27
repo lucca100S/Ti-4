@@ -16,7 +16,11 @@ public class SolidClimbState : IState
         this.player = UnityEngine.Object.FindFirstObjectByType<PlayerStateMachine>();
     }
 
-    public void Enter() => Debug.Log("[SolidClimb] Enter");
+    public void Enter()
+    {
+        Debug.Log("[SolidClimb] Enter");
+        AudioPlayer.Stop(AudioId.SolidStep);
+    }
 
     public void Update()
     {
@@ -27,10 +31,15 @@ public class SolidClimbState : IState
                 player.SetGravityDirection(Vector3.zero);
                 if (player.DirectionInput != Vector3.zero)
                 {
+                    player.GetComponent<Animator>().SetTrigger("Climbing");
                     Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
                     player?.SetMovement(move);
                 }
-                break;
+                else 
+                {
+                    player.GetComponent<Animator>().SetTrigger("IdleClimbing");
+                }
+                    break;
             case SurfaceMaterial.Earth:
                 player.AddJump(player.gravity * 0.1f);
                 player.SetGravityDirection(Vector3.up);

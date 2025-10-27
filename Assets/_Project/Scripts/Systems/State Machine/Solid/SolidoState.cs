@@ -63,7 +63,7 @@ public class SolidoState : IState
                     if (player.CurrentVelocity.y <= 0)
                     {
                         Vector3 dir = player.DirectionInput;
-                        if (dir.magnitude > 0.01f)
+                        if (dir.magnitude > 0.001f)
                         {
                             player.PlayerController.RotateModelTowards(dir);
                             player.GetComponent<Animator>().SetTrigger("MeetGround");

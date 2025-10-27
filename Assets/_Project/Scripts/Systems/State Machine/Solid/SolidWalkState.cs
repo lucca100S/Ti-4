@@ -30,6 +30,10 @@ public class SolidWalkState : IState
 
     public void Update()
     {
+        if(!player.IsGrounded)
+        {
+            AudioPlayer.Stop(AudioId.SolidStep);
+        }
         Vector3 move = player.DirectionInput * (player != null ? player.SolidSpeed : 6f);
         player?.SetMovement(move);
     }

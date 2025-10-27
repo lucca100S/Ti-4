@@ -9,5 +9,6 @@ public class CheckPoint : OptionalInteractableObjects
     public override void Interaction()
     {
         FindFirstObjectByType<PlayerSpawnpoint>().SetSpawnPoint(spawnPoint.transform.position);
+        this.GetComponent<Renderer>().material.color = Color.red;
     }
 }

@@ -63,7 +63,7 @@ public class SolidJumpState : IState
 
     public void Exit()
     {
-        _didJump = false;
+        player.DidJump = false;
         Debug.Log("[SolidJump] Exit");
         
     }
@@ -76,6 +76,7 @@ public class SolidJumpState : IState
             {
                 player.AddJump(player.VerticalVelocity.magnitude * 0.5f);
                 Debug.Log("[SolidJump] Jump Cancel");
+
             }
             player.DidJump = false;
         }

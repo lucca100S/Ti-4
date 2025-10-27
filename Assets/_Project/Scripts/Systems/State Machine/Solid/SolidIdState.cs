@@ -1,3 +1,4 @@
+using Player;
 using Systems.Input;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class SolidIdleState : IState
         player.GetComponent<Animator>().ResetTrigger("MeetGround");
         player.GetComponent<Animator>().ResetTrigger("Falling");
         player.GetComponent<Animator>().ResetTrigger("Walk");
+        AudioPlayer.Stop(AudioId.SolidStep);
         if (!player.IsGrounded)
         {
             player.GetComponent<Animator>().SetTrigger("MeetGround");
@@ -31,7 +33,6 @@ public class SolidIdleState : IState
 
     public void Update()
     {
-
     }
 
     public void Exit() 
