@@ -33,6 +33,7 @@ public class LiquidJumpState : IState
 
         if (player.DidJump)
         {
+            ActionsManager.Instance.OnPlayerJumped?.Invoke();
             player.LastJumpInputOnGround = -Mathf.Infinity;
         }
     }
@@ -55,6 +56,7 @@ public class LiquidJumpState : IState
     {
         Debug.Log("[LiquidJump] Exit");
         player.DidJump = false;
+        ActionsManager.Instance.OnPlayerLanded?.Invoke();
     }
 
     public void OnJumpInput(InputInfo input)

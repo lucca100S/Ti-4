@@ -77,10 +77,7 @@ public class PlayerStateMachine : MonoBehaviour
         // criar macros e passar dependências
         solidoState = new SolidoState(this, surfaceDetection);
         liquidoState = new LiquidoState(this, surfaceDetection);
-    }
 
-    private void Start()
-    {
         macroStateMachine.ChangeState(solidoState);
     }
 
@@ -250,7 +247,7 @@ public class PlayerStateMachine : MonoBehaviour
             }
         }
     } 
-        
+    public StateMachine MacroStateMachine => macroStateMachine;
     public float LiquidSpeed
     {
         get

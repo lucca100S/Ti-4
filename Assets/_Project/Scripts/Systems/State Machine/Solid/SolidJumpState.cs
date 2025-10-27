@@ -34,6 +34,7 @@ public class SolidJumpState : IState
 
         if (player.DidJump)
         {
+            ActionsManager.Instance.OnPlayerJumped?.Invoke();
             player.LastJumpInputOnGround = -Mathf.Infinity;
         }
             player.SetGravityDirection(Vector3.up);
@@ -65,7 +66,7 @@ public class SolidJumpState : IState
     {
         player.DidJump = false;
         Debug.Log("[SolidJump] Exit");
-        
+        ActionsManager.Instance.OnPlayerLanded?.Invoke();
     }
 
     public void OnJumpInput(InputInfo input)
