@@ -8,6 +8,8 @@ using UnityEngine;
 public class StateMachine
 {
     private float _timeInState;
+    private IState _lastState;
+    public IState LastState => _lastState;
 
     /// <summary>Estado atual da máquina.</summary>
     public IState CurrentState { get; private set; }
@@ -24,6 +26,8 @@ public class StateMachine
 
         if (CurrentState == newState)
             return;
+
+        _lastState = CurrentState;
 
         Debug.Log($"[StateMachine] Mudando estado: {CurrentState?.GetType().Name ?? "NULL"} -> {newState.GetType().Name}");
         CurrentState?.Exit();

@@ -99,7 +99,7 @@ namespace Systems.Input
 
         public bool GetDelayInput(float time)
         {
-            return Time.time <= time + _delayTime && _isDown;
+            return Time.time <= time + _delayTime;
         }
 
         private async Awaitable BufferInput()
