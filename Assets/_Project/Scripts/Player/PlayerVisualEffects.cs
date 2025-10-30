@@ -59,7 +59,20 @@ namespace Player
             if (_currentWalkParticle == null || _currentJumpParticle == null)
                 return;
             _currentWalkParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            _currentJumpParticle.Play();
+            /*
+            Vector3 hitNormal = _playerController.SurfaceDetection.CurrentSurface.HasValue ?
+                _playerController.SurfaceDetection.CurrentSurface.Value.hit.normal : Vector3.up;
+
+            _currentJumpParticle.transform.rotation = Quaternion.FromToRotation(_playerController.transform.up, hitNormal) * _playerController.transform.rotation;
+            */
+            bool isLiquid = _playerState.MacroStateMachine.CurrentState is LiquidoState;
+            bool hasValue = _playerController.SurfaceDetection.CurrentSurface.HasValue;
+            bool isOnWall = hasValue ? _playerController.SurfaceDetection.CurrentSurface.Value.type == SurfaceType.Wall : false;
+            Debug.Log("[Wall] is on wall: " +isOnWall);
+            if (isLiquid || !isOnWall)
+            {
+                _currentJumpParticle.Play();
+            }
         }
 
         private void HandleFormChanged(IState state)

@@ -1,5 +1,6 @@
 ﻿using Systems.Input;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 
 #region Macros - Liquido
 /// <summary>
@@ -41,6 +42,17 @@ public class LiquidoState : IState
     #region IState
     public void Enter()
     {
+        if(surface.CurrentSurface.HasValue)
+        {
+            Vector3 normal = surface.CurrentSurface.Value.hit.normal;
+            Vector3 hitPos = surface.CurrentSurface.Value.hit.point;
+
+            Quaternion alignRotation = Quaternion.FromToRotation(player.transform.up, normal) * player.transform.rotation;
+            player.PlayerController.RotateModelTowardsInstant(alignRotation);
+
+            player.RigidBody.MovePosition(hitPos);
+        }
+
         Debug.Log("[Macro] Entrou em Líquido");
         player.GetComponent<Animator>().SetBool("IsSolid", false);
         player.GetComponent<Animator>().SetBool("KeepAtState", true);
