@@ -82,11 +82,12 @@ public class SolidoState : IState
                 case SurfaceType.Wall:
                     Vector3 hitNormal = surface.CurrentSurface.Value.hit.normal;
                     // escalar e walljump
-                    float DOTProduct = Vector3.Dot(player.DirectionInput.normalized, -hitNormal);
-                    if (DOTProduct > 0.8f)
+                    IState currentState = subStateMachine.CurrentState;
+                    if (player.CurrentVelocity.y <= 0 && !player.IsGrounded && currentState != WallJumpState)
+                    {
                         subStateMachine.ChangeState(ClimbState);
-
-                    player.PlayerController.RotateModelTowards(-hitNormal);
+                        player.PlayerController.RotateModelTowardsInstant(-hitNormal);
+                    }
                     break;
 
                 case SurfaceType.Ceiling:

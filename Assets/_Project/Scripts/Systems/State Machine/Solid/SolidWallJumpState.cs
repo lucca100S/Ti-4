@@ -26,15 +26,13 @@ public class SolidWallJumpState : IState
         {
             Debug.Log("Executed");
             // Impulso longe da parede: como não temos a normal do movimento aqui, usamos a normal do hit
-            if (surface.CurrentSurface.HasValue && surface.CurrentSurface.Value.type == SurfaceType.Wall)
-            {
-                Vector3 normal = surface.CurrentSurface.Value.hit.normal;
-                // aplicar jump com componente para cima
-                player?.SetVelocity(normal * player.solidWallJumpForce);
-                player.SetGravityDirection(Vector3.up);
-                player?.AddJump(player.solidWallJumpHeight);
-                Debug.Log($"[SolidWallJump] Executando walljump com push {normal}");
-            }
+            Vector3 normal = player.PlayerController.LastNormal;
+            // aplicar jump com componente para cima
+            player?.SetVelocity(normal * player.solidWallJumpForce);
+            player.SetGravityDirection(Vector3.up);
+            player?.AddJump(player.solidWallJumpHeight);
+            Debug.Log($"[SolidWallJump] Executando walljump com push {normal}");
+            
             executed = true;
         }
     }
@@ -43,7 +41,11 @@ public class SolidWallJumpState : IState
     {
     }
 
-    public void Exit() => Debug.Log("[SolidWallJump] Exit");
+    public void Exit() 
+    { 
+        Debug.Log("[SolidWallJump] Exit");
+        player.DidJump = false;
+    }
 
     public void OnJumpInput(InputInfo input)
     {

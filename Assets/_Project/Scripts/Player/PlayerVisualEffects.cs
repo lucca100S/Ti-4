@@ -10,9 +10,6 @@ namespace Player
         private PlayerStateMachine _playerState;
         private PlayerController _playerController;
 
-        private ParticleSystem _currentWalkParticle;
-        private ParticleSystem _currentJumpParticle;
-
         [Header("Solid Effects")]
         [SerializeField] private ParticleSystem _solidWalkParticle;
         [SerializeField] private ParticleSystem _solidJumpParticle;
@@ -49,30 +46,38 @@ namespace Player
 
         private void HandlePlayerLand()
         {
-            if (_currentWalkParticle == null)
-                return;
-            _currentWalkParticle.Play();
+            if((_playerState.MacroStateMachine.CurrentState is SolidoState))
+            {
+                _solidWalkParticle.Play();
+            }
+            else
+            {
+
+            }
+
         }
 
         private void HandlePlayerJump()
         {
-            if (_currentWalkParticle == null || _currentJumpParticle == null)
-                return;
-            _currentWalkParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            /*
-            Vector3 hitNormal = _playerController.SurfaceDetection.CurrentSurface.HasValue ?
-                _playerController.SurfaceDetection.CurrentSurface.Value.hit.normal : Vector3.up;
-
-            _currentJumpParticle.transform.rotation = Quaternion.FromToRotation(_playerController.transform.up, hitNormal) * _playerController.transform.rotation;
-            */
-            bool isLiquid = _playerState.MacroStateMachine.CurrentState is LiquidoState;
             bool hasValue = _playerController.SurfaceDetection.CurrentSurface.HasValue;
             bool isOnWall = hasValue ? _playerController.SurfaceDetection.CurrentSurface.Value.type == SurfaceType.Wall : false;
-            Debug.Log("[Wall] is on wall: " +isOnWall);
-            if (isLiquid || !isOnWall)
+
+            _solidWalkParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+            if ((_playerState.MacroStateMachine.CurrentState is SolidoState))
             {
-                _currentJumpParticle.Play();
+                if (!isOnWall)
+                {
+                    _solidJumpParticle.Play();
+                }
             }
+            else
+            {
+
+            }
+
+            
+           
         }
 
         private void HandleFormChanged(IState state)
@@ -80,18 +85,16 @@ namespace Player
             Debug.Log("[PlayerVisualEffects] Form changed to " + state.GetType().Name);
             if (state is SolidoState)
             {
-                _currentJumpParticle = _solidJumpParticle;
-                _currentWalkParticle = _solidWalkParticle;
+                _solidWalkParticle.Play();
             }
             else if (state is LiquidoState)
             {
-                _currentJumpParticle = _liquidJumpParticle;
-                _currentWalkParticle = _liquidWalkParticle;
+                _solidWalkParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
 
-            if (!_playerState.IsGrounded && _currentWalkParticle != null)
+            if (!_playerState.IsGrounded)
             {
-                _currentWalkParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                _solidWalkParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
         }
     }
