@@ -58,6 +58,7 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
     private Vector3 _directionInput = Vector3.zero;
+    private Vector3 _lastDirectionInput = Vector3.forward;
     private InputInfo _jumpInput = new InputInfo { };
     private InputInfo _transformInput = new InputInfo { };
     private Vector3 _currentVelocity = Vector3.zero;
@@ -94,10 +95,16 @@ public class PlayerStateMachine : MonoBehaviour
 
         _currentVelocity = Vector3.MoveTowards(_currentVelocity, totalMove, (totalMove.magnitude > _currentVelocity.magnitude ? _acceleration : IsGrounded ? _deceleration : _airDeceleration) * Time.deltaTime);
 
-        _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
-
         // Reset horizontal for next frame (vertical is persistent)
         accumulatedHorizontalMovement = Vector3.zero;
+    }
+
+    private void FixedUpdate()
+    {
+        
+        _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
+
+        
     }
     #endregion
 
@@ -174,6 +181,7 @@ public class PlayerStateMachine : MonoBehaviour
         if (IsGrounded && IsGoingDown)
         {
             // Mantém levemente negativo para garantir contato com CharacterController
+            _rigidBody.linearVelocity = new Vector3(_rigidBody.linearVelocity.x, 0f, _rigidBody.linearVelocity.z);
             verticalVelocity = -2f * _gravityDirection;
         }
         else
@@ -203,6 +211,10 @@ public class PlayerStateMachine : MonoBehaviour
     internal void GetDirectionInput(Vector3 direction)
     {
         _directionInput = direction;
+        if(direction != Vector3.zero)
+        {
+            _lastDirectionInput = DirectionInput;
+        }
     }
 
     internal void GetJumpInput(InputInfo info)
@@ -288,6 +300,10 @@ public class PlayerStateMachine : MonoBehaviour
             direction.y = 0;
             return direction.normalized;
         }
+    }
+    public Vector3 LastDirectionInput
+    {
+        get { return _lastDirectionInput; }
     }
     public Vector3 DirectionInputClimb
     {

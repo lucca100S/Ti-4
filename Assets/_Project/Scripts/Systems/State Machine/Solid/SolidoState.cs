@@ -43,7 +43,9 @@ public class SolidoState : IState
     public void Enter()
     {
         //Change later to maintin relative forward direction
-        player.PlayerController.RotateModelTowardsInstant(Vector3.forward);
+
+        player.PlayerController.RotateModelTowardsInstant(player.LastDirectionInput);
+
         player.GetComponent<Animator>().SetBool("IsSolid", true);
         player.GetComponent<Animator>().SetBool("KeepAtState", true);
         Debug.Log("[Macro] Entrou em Sólido");
