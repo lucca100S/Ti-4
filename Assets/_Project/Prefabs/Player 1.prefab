@@ -101,8 +101,8 @@ MonoBehaviour:
   liquidMoveSpeedStone: 1.8
   liquidMoveSpeedEarth: 14
   solidJumpForce: 12
-  solidWallJumpForce: 10
-  solidWallJumpHeight: 8
+  solidWallJumpForce: 11
+  solidWallJumpHeight: 6
   liquidJumpForce: 8
   liquidWallJumpForce: 8
   gravity: -20
@@ -749,7 +749,7 @@ MonoBehaviour:
   - {fileID: 4791698790082100100}
   - {fileID: 7583184286026815950}
   - {fileID: 8110633196238907690}
-  _target: {fileID: 0}
+  _target: {fileID: 4461126628504018758}
   _rotationSpeed: 4.7
   _minAngle: {x: 15, y: 0, z: 0}
   _maxAngle: {x: 40, y: 0, z: 0}
