@@ -1,63 +1,66 @@
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public UIManager Instance;
-    public static Dictionary<PanelNames, GameObject> panels = new Dictionary<PanelNames, GameObject>();
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+    [Tooltip("Lista de painéis disponíveis na cena.")]
+    public List<GameObject> panels = new();
 
-        UIManager.FillPanelsDictionary();
-        SetAllCanvasState(false);
+    private void OnEnable()
+    {
+        EventBus.Subscribe<SceneChangeEvent>(OnSceneChange);
+        EventBus.Subscribe<PanelToggleEvent>(OnPanelToggle);
+        EventBus.Subscribe<ComponentTriggeredEvent>(OnComponentTrigger);
+        EventBus.Subscribe<EndApplicationEvent>(evt => OnCloseApplication());
     }
 
-    private static void FillPanelsDictionary()
+    private void OnDisable()
     {
-        foreach (PanelNames panelName in System.Enum.GetValues(typeof(PanelNames)))
+        EventBus.Unsubscribe<SceneChangeEvent>(OnSceneChange);
+        EventBus.Unsubscribe<PanelToggleEvent>(OnPanelToggle);
+        EventBus.Unsubscribe<ComponentTriggeredEvent>(OnComponentTrigger);
+        EventBus.Unsubscribe<EndApplicationEvent>(evt => OnCloseApplication());
+    }
+
+    private void OnSceneChange(SceneChangeEvent evt)
+    {
+        Debug.Log($"Mudando para a cena: {evt.SceneName}");
+        SceneManager.LoadScene(evt.SceneName);
+    }
+
+    private void OnPanelToggle(PanelToggleEvent evt)
+    {
+        bool found = false;
+
+        foreach (var panel in panels)
         {
-            string panelObjectName = panelName.ToPanelName();
-            GameObject panelObject = GameObject.Find(panelObjectName);
-            if (panelObject != null)
+            // Se o nome não for o painel alvo, desativa
+            if (panel.name != evt.PanelName)
             {
-                panels[panelName] = panelObject;
-                Debug.Log($"[UIManager] Painel '{panelObjectName}' adicionado ao dicionário.");
+                panel.SetActive(false);
+                continue;
             }
-            else
-            {
-                Debug.LogWarning($"[UIManager] Painel '{panelObjectName}' não encontrado na cena.");
-            }
+
+            // Caso contrário, ativa ou desativa conforme o evento
+            panel.SetActive(evt.Active);
+            Debug.Log($"Painel {evt.PanelName} -> {(evt.Active ? "Ativado" : "Desativado")}");
+            found = true;
         }
+
+        // Caso nenhum painel tenha o nome especificado
+        if (!found)
+            Debug.LogWarning($"Painel '{evt.PanelName}' não encontrado na lista do UIManager.");
     }
 
-    public void SetPanelState(PanelNames panelName, bool state)
+    private void OnCloseApplication()
     {
-        if (panels.ContainsKey(panelName))
-        {
-            panels[panelName].SetActive(state);
-            Debug.Log($"[UIManager] Painel '{panelName.ToPanelName()}' definido para estado: {state}");
-        }
-        else
-        {
-            Debug.LogWarning($"[UIManager] Painel '{panelName.ToPanelName()}' não encontrado no dicionário.");
-        }
+        Debug.Log("Fechando a aplicação...");
+        Application.Quit();
     }
 
-    public void SetAllCanvasState(bool state)
+    private void OnComponentTrigger(ComponentTriggeredEvent evt)
     {
-        foreach (var panel in panels.Values)
-        {
-            panel.SetActive(state);
-        }
-        Debug.Log($"[UIManager] Todos os painéis definidos para estado: {state}");
+        Debug.Log($"Componente '{evt.ComponentName}' utilizado!");
     }
 }
