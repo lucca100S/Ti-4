@@ -2,10 +2,11 @@ using System.Linq;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class InteractWithInteractable : MonoBehaviour
 {
-    [Header("Configurações de Pegar Objeto")]
+    [Header("Configuraï¿½ï¿½es de Pegar Objeto")]
     public float maxPickupDistance = 20f;
     public LayerMask pickupMask = ~0;
 
@@ -13,7 +14,7 @@ public class InteractWithInteractable : MonoBehaviour
     private void Update()
     {
         // Apenas para teste: pressionar a tecla E para interagir
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current.eKey.wasPressedThisFrame || Gamepad.current[GamepadButton.North].wasPressedThisFrame)
         {
             Interact();
         }
@@ -31,8 +32,8 @@ public class InteractWithInteractable : MonoBehaviour
 
         if (grabbables.Length > 0)
         {
-            Collider nearest = grabbables.First(); // agora só pega de objetos válidos
-            Debug.Log($"[Pickup] Objeto mais próximo (Grabbable): {nearest.name}");
+            Collider nearest = grabbables.First(); // agora sï¿½ pega de objetos vï¿½lidos
+            Debug.Log($"[Pickup] Objeto mais prï¿½ximo (Grabbable): {nearest.name}");
             Debug.Log($"[Pickup] Pegando objeto: {nearest.name}");
             nearest.gameObject.GetComponent<IInteractable>().Interaction();
         }

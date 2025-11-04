@@ -3,7 +3,27 @@ guid: dade9d43971f2e0449abf9be936a62c3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Agua
+    second: {fileID: 2100000, guid: 40f75930dc64f5744b944cfc062a415f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass
+    second: {fileID: 2100000, guid: bb00301cff647614aadaee3cccc642fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lama
+    second: {fileID: 2100000, guid: 3dff641d1dfe46f40b6a38440fc35e7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pedra
+    second: {fileID: 2100000, guid: 92d88fd37b8cd2f4db90d60c7cfbc3df, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

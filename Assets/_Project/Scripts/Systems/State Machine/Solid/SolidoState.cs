@@ -43,7 +43,9 @@ public class SolidoState : IState
     public void Enter()
     {
         //Change later to maintin relative forward direction
-        player.PlayerController.RotateModelTowardsInstant(Vector3.forward);
+
+        player.PlayerController.RotateModelTowardsInstant(player.LastDirectionInput);
+
         player.GetComponent<Animator>().SetBool("IsSolid", true);
         player.GetComponent<Animator>().SetBool("KeepAtState", true);
         Debug.Log("[Macro] Entrou em Sólido");
@@ -80,11 +82,12 @@ public class SolidoState : IState
                 case SurfaceType.Wall:
                     Vector3 hitNormal = surface.CurrentSurface.Value.hit.normal;
                     // escalar e walljump
-                    float DOTProduct = Vector3.Dot(player.DirectionInput.normalized, -hitNormal);
-                    if (DOTProduct > 0.8f)
+                    IState currentState = subStateMachine.CurrentState;
+                    if (player.CurrentVelocity.y <= 0 && !player.IsGrounded && currentState != WallJumpState)
+                    {
                         subStateMachine.ChangeState(ClimbState);
-
-                    player.PlayerController.RotateModelTowards(-hitNormal);
+                        player.PlayerController.RotateModelTowardsInstant(-hitNormal);
+                    }
                     break;
 
                 case SurfaceType.Ceiling:
