@@ -559,6 +559,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7321668080388713685, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 649e454d3af6cbd468183950f1be94a7, type: 2}
+    - target: {fileID: -7321668080388713685, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 5101294095083753227, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
@@ -638,6 +642,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -2382729809045686422, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 70437e1f7691f444f89475ba47f13538, type: 2}
     - target: {fileID: -2067235021251406533, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -718,6 +726,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1030838957869402942, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 071e5a2aba45e1d4093c0a5687017198, type: 2}
     - target: {fileID: 1527557313111336904, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -778,6 +790,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5654725717344514998, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9fb99b1bfbd290b4db2f290b2084d5f8, type: 2}
+    - target: {fileID: 5654725717344514998, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f26a23ff891b0764187bced3b8fdc291, type: 2}
+    - target: {fileID: 5654725717344514998, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9fb99b1bfbd290b4db2f290b2084d5f8, type: 2}
     - target: {fileID: 5866666021909216657, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       propertyPath: m_Controller
       value: 
@@ -802,6 +826,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7471087839075164624, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: be27e6c43a199e441acb6ec418001150, type: 2}
     - target: {fileID: 7911415929753677735, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -950,6 +978,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 56d9db773479d3c49bb843439d806d5c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db55bcf22393c404db564846da494f47, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 56d9db773479d3c49bb843439d806d5c, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ae09bd0ecffae84b86aef2909458690, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 56d9db773479d3c49bb843439d806d5c, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: be27e6c43a199e441acb6ec418001150, type: 2}
     - target: {fileID: 919132149155446097, guid: 56d9db773479d3c49bb843439d806d5c, type: 3}
       propertyPath: m_Name
       value: ModeloPlayerLama
