@@ -50,7 +50,6 @@ GameObject:
   - component: {fileID: 8237231831348232514}
   - component: {fileID: 24506430698536637}
   - component: {fileID: 9109924603936484855}
-  - component: {fileID: 1465267299122045625}
   - component: {fileID: 8304052787321638032}
   - component: {fileID: 819022029859999999}
   - component: {fileID: 3847028952425440306}
@@ -273,28 +272,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.35033607
   m_Center: {x: 0, y: 0.32092094, z: 0}
---- !u!95 &1465267299122045625
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3112733754245621094}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
-  m_Controller: {fileID: 9100000, guid: f98934aa032d83844a83f4f9a9ee6468, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8304052787321638032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -807,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: f98934aa032d83844a83f4f9a9ee6468, type: 2}
     - target: {fileID: 5866666021909216657, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6075262598356173076, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       propertyPath: m_Layer

@@ -70,6 +70,11 @@ namespace Player
 
         private void ChangeStateAnimation(string stateAnimation, float transitionDuration = 0.2f)
         {
+            if(string.IsNullOrEmpty(stateAnimation))
+                return;
+            if (_currentAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateAnimation))
+                return;
+
             _currentAnimator.CrossFade(stateAnimation, transitionDuration);
         }
 

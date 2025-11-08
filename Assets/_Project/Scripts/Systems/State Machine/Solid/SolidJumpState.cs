@@ -62,6 +62,11 @@ public class SolidJumpState : IState
         {
             Debug.Log("[SolidJump] Detectado chão -> transição será feita pela macro Sólido.");
         }
+
+        if(player.IsGoingDown)
+        {
+            ActionsManager.Instance.OnStateAnimationChanged?.Invoke("Falling", 0.1f);
+        }
     }
 
     public void Exit()
