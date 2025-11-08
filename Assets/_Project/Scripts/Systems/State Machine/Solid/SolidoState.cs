@@ -49,8 +49,6 @@ public class SolidoState : IState
 
         player.PlayerController.RotateModelTowardsInstant(player.LastDirectionInput);
 
-        //player.GetComponent<Animator>().SetBool("IsSolid", true);
-        //player.GetComponent<Animator>().SetBool("KeepAtState", true);
         Debug.Log("[Macro] Entrou em Sólido");
         subStateMachine.ChangeState(IdleState);
     }
@@ -65,18 +63,16 @@ public class SolidoState : IState
             {
                 case SurfaceType.Floor:
                     // andar/idle/pular
-                    if (player.CurrentVelocity.y <= 0)
+                    if (player.CanJump)
                     {
                         Vector3 dir = player.DirectionInput;
                         if (dir.magnitude > 0.001f)
                         {
                             player.PlayerController.RotateModelTowards(dir);
-                            //player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(WalkState);
                         }
                         else
                         {
-                            //player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(IdleState);
                         }
                     }

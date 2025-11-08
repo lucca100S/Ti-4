@@ -25,7 +25,12 @@ public class SolidWalkState : IState
         { 
             AudioPlayer.Play(AudioId.SolidStep); 
         }
-        
+
+        if (parent.LastState == parent.JumpState)
+        {
+            ActionsManager.Instance.OnStateAnimationChanged?.Invoke("FallingEnd", 0.1f);
+        }
+
         Debug.Log("[SolidWalk] Enter");
     }
     

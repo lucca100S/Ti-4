@@ -95,6 +95,9 @@ public class PlayerStateMachine : MonoBehaviour
 
         _currentVelocity = Vector3.MoveTowards(_currentVelocity, totalMove, (totalMove.magnitude > _currentVelocity.magnitude ? _acceleration : IsGrounded ? _deceleration : _airDeceleration) * Time.deltaTime);
 
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("Speed", _currentVelocity.magnitude);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("SpeedFactor", _currentVelocity.magnitude/solidMoveSpeedStone);
+
         // Reset horizontal for next frame (vertical is persistent)
         accumulatedHorizontalMovement = Vector3.zero;
     }
@@ -341,7 +344,7 @@ public class PlayerStateMachine : MonoBehaviour
     public InputInfo TransformInput => _transformInput;
     public Transform Orientation => playerController.Orientation;
     public bool CoyoteTime => LastTimeOnGround + JumpInput.BufferTime > Time.time;
-    public bool CanJump { get { return JumpInput.GetDelayInput(LastJumpInputOnGround) || IsGrounded || (CoyoteTime && _jumpInput.IsDown); } private set { } }
+    public bool CanJump { get { return !DidJump && (JumpInput.GetDelayInput(LastJumpInputOnGround) || IsGrounded || (CoyoteTime && _jumpInput.IsDown)); } private set { } }
     public bool DidJump { get { return _didJump; } set { _didJump = value; } }
     #endregion
 }

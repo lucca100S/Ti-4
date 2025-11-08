@@ -33,6 +33,11 @@ public class SolidIdleState : IState
            
         }
 
+        if(parent.LastState == parent.JumpState)
+        {
+            ActionsManager.Instance.OnStateAnimationChanged?.Invoke("FallingEnd", 0.1f);
+        }
+
         _currentVariationTime = Random.Range(_variationTimeMin, _variationTimeMax);
     }
         

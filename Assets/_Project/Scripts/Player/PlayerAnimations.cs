@@ -15,6 +15,7 @@ namespace Player
             ActionsManager.Instance.OnFormChanged += ChangeAnimator;
             ActionsManager.Instance.OnStateChanged += ChangeState;
             ActionsManager.Instance.OnStateAnimationChanged += ChangeStateAnimation;
+            ActionsManager.Instance.OnAnimatorFloatChanged += ChangeFloat;
         }
 
         private void OnDisable()
@@ -22,9 +23,10 @@ namespace Player
             ActionsManager.Instance.OnFormChanged -= ChangeAnimator;
             ActionsManager.Instance.OnStateChanged -= ChangeState;
             ActionsManager.Instance.OnStateAnimationChanged -= ChangeStateAnimation;
+            ActionsManager.Instance.OnAnimatorFloatChanged += ChangeFloat;
         }
 
-       
+
 
         private void Awake()
         {
@@ -60,10 +62,10 @@ namespace Player
                     _currentAnimator.SetTrigger("Jump");
                     break;
                 case StateType.Climb:
-                    //_currentAnimator.SetTrigger("Climb");
+                    _currentAnimator.SetTrigger("Climb");
                     break;
                 case StateType.WallJump:
-                    //_currentAnimator.SetTrigger("WallJump");
+                    _currentAnimator.SetTrigger("WallJump");
                     break;
             }
         }
@@ -78,6 +80,10 @@ namespace Player
             _currentAnimator.CrossFade(stateAnimation, transitionDuration);
         }
 
+        private void ChangeFloat(string animatorFloat, float value)
+        {
+            _currentAnimator.SetFloat(animatorFloat, value);
+        }
 
     }
 }

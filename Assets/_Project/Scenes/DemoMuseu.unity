@@ -1449,8 +1449,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545440065}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000007712174, y: 0.9764043, z: -0.21595056, w: 0.000000034870013}
-  m_LocalPosition: {x: -8.621336, y: 4.9923067, z: 3.750497}
+  m_LocalRotation: {x: 0.000000015424346, y: 0.9764043, z: -0.21595055, w: 0.00000006974003}
+  m_LocalPosition: {x: -10.534932, y: 4.669567, z: 1.016531}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5803,23 +5803,23 @@ PrefabInstance:
       objectReference: {fileID: 6347623982003246543}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.621336
+      value: -10.534932
       objectReference: {fileID: 0}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.9923067
+      value: 4.669567
       objectReference: {fileID: 0}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.750497
+      value: 1.016531
       objectReference: {fileID: 0}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.000000034870013
+      value: 0.00000006974003
       objectReference: {fileID: 0}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000000007712174
+      value: 0.000000015424346
       objectReference: {fileID: 0}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalRotation.y
@@ -5827,7 +5827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.21595056
+      value: -0.21595055
       objectReference: {fileID: 0}
     - target: {fileID: 2748245253331573047, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -28773,15 +28773,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.621335
+      value: -10.534931
       objectReference: {fileID: 0}
     - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8873663
+      value: 0.5646267
       objectReference: {fileID: 0}
     - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.9255226
+      value: -5.6594887
       objectReference: {fileID: 0}
     - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
       propertyPath: m_LocalRotation.w
@@ -40885,7 +40885,7 @@ GameObject:
   - component: {fileID: 8414525890210599772}
   m_Layer: 6
   m_Name: WallJump_Pedra
-  m_TagString: Stone
+  m_TagString: Vines
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42939,7 +42939,7 @@ GameObject:
   - component: {fileID: 8984652100154005616}
   m_Layer: 6
   m_Name: AreaInicial.001
-  m_TagString: Untagged
+  m_TagString: Vines
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
