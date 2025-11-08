@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class InteractWithInteractable : MonoBehaviour
 {
+    /*
     [Header("Configura��es de Pegar Objeto")]
     public float maxPickupDistance = 20f;
     public LayerMask pickupMask = ~0;
@@ -43,7 +44,7 @@ public class InteractWithInteractable : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(this.transform.position, maxPickupDistance);
-    }
+    }*/
 }
 
 

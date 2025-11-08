@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public interface IState
 {
+    public StateType StateType { get; }
+
     /// <summary>Executado ao entrar no estado.</summary>
     void Enter();
 
@@ -19,3 +21,12 @@ public interface IState
     void OnJumpInput(InputInfo input);
 }
 #endregion
+
+public enum StateType
+{
+    Idle,
+    Jump,
+    Walk,
+    Climb,
+    WallJump
+}

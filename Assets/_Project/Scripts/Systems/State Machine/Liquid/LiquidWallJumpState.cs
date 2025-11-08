@@ -13,6 +13,8 @@ public class LiquidWallJumpState : IState
     private readonly SurfaceDetection surface;
     private bool executed;
 
+    public StateType StateType => StateType.WallJump;
+
     public LiquidWallJumpState(LiquidoState parent, PlayerStateMachine player, SurfaceDetection surface)
     {
         this.parent = parent;

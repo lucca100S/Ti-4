@@ -9,6 +9,9 @@ public class SolidIdleState : IState
     private SolidoState parent;
     private SurfaceDetection surface;
     private PlayerStateMachine player;
+
+    public StateType StateType => StateType.Idle;
+
     public SolidIdleState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -19,14 +22,14 @@ public class SolidIdleState : IState
     public void Enter() 
     {
         Debug.Log("[SolidIdle] Enter");
-        player.GetComponent<Animator>().ResetTrigger("Jump");
-        player.GetComponent<Animator>().ResetTrigger("MeetGround");
-        player.GetComponent<Animator>().ResetTrigger("Falling");
-        player.GetComponent<Animator>().ResetTrigger("Walk");
+        //player.GetComponent<Animator>().ResetTrigger("Jump");
+        //player.GetComponent<Animator>().ResetTrigger("MeetGround");
+        //player.GetComponent<Animator>().ResetTrigger("Falling");
+        //player.GetComponent<Animator>().ResetTrigger("Walk");
         AudioPlayer.Stop(AudioId.SolidStep);
         if (!player.IsGrounded)
         {
-            player.GetComponent<Animator>().SetTrigger("MeetGround");
+            //player.GetComponent<Animator>().SetTrigger("MeetGround");
         }
     }
         

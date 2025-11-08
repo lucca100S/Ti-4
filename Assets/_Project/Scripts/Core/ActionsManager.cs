@@ -10,6 +10,8 @@ public class ActionsManager : Singleton<ActionsManager>
 {
     #region Player
     public Action<IState> OnFormChanged;
+    public Action<StateType> OnStateChanged;
+
     public Action OnPlayerJumped;
     public Action OnPlayerFall;
     public Action OnPlayerLanded;

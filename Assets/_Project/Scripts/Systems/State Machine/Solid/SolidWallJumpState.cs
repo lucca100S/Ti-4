@@ -10,6 +10,8 @@ public class SolidWallJumpState : IState
     private PlayerStateMachine player;
     private bool executed = false;
 
+    public StateType StateType => StateType.WallJump;
+
     public SolidWallJumpState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;

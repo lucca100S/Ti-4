@@ -20,6 +20,8 @@ public class SolidoState : IState
     public SolidWallJumpState WallJumpState { get; private set; }
     public SolidClimbState ClimbState { get; private set; }
     public IState LastState => subStateMachine.LastState;
+
+    public StateType StateType => StateType.Idle;
     #endregion
 
     #region Constructor
@@ -46,8 +48,8 @@ public class SolidoState : IState
 
         player.PlayerController.RotateModelTowardsInstant(player.LastDirectionInput);
 
-        player.GetComponent<Animator>().SetBool("IsSolid", true);
-        player.GetComponent<Animator>().SetBool("KeepAtState", true);
+        //player.GetComponent<Animator>().SetBool("IsSolid", true);
+        //player.GetComponent<Animator>().SetBool("KeepAtState", true);
         Debug.Log("[Macro] Entrou em Sólido");
         subStateMachine.ChangeState(IdleState);
     }
@@ -68,12 +70,12 @@ public class SolidoState : IState
                         if (dir.magnitude > 0.001f)
                         {
                             player.PlayerController.RotateModelTowards(dir);
-                            player.GetComponent<Animator>().SetTrigger("MeetGround");
+                            //player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(WalkState);
                         }
                         else
                         {
-                            player.GetComponent<Animator>().SetTrigger("MeetGround");
+                            //player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(IdleState);
                         }
                     }

@@ -9,6 +9,8 @@ public class SolidWalkState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
+    public StateType StateType => StateType.Walk;
+
     public SolidWalkState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -18,7 +20,7 @@ public class SolidWalkState : IState
 
     public void Enter() 
     {
-        player.GetComponent<Animator>().SetTrigger("Walk");
+        //player.GetComponent<Animator>().SetTrigger("Walk");
         if (player.IsGrounded) 
         { 
             AudioPlayer.Play(AudioId.SolidStep); 
@@ -44,7 +46,7 @@ public class SolidWalkState : IState
         {
             AudioPlayer.Stop(AudioId.SolidStep);
         }
-        player.GetComponent<Animator>().SetTrigger("Idle");
+        //player.GetComponent<Animator>().SetTrigger("Idle");
     }
 
     public void OnJumpInput(InputInfo input)

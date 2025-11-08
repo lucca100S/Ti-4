@@ -9,6 +9,8 @@ public class SolidClimbState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
+    public StateType StateType => StateType.Climb;
+
     public SolidClimbState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -31,13 +33,13 @@ public class SolidClimbState : IState
                 player.SetGravityDirection(Vector3.zero);
                 if (player.DirectionInput != Vector3.zero)
                 {
-                    player.GetComponent<Animator>().SetTrigger("Climbing");
+                    //player.GetComponent<Animator>().SetTrigger("Climbing");
                     Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
                     player?.SetMovement(move);
                 }
                 else 
                 {
-                    player.GetComponent<Animator>().SetTrigger("IdleClimbing");
+                    //player.GetComponent<Animator>().SetTrigger("IdleClimbing");
                 }
                     break;
             case SurfaceMaterial.Earth:

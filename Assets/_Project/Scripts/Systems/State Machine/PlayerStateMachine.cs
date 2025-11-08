@@ -144,7 +144,7 @@ public class PlayerStateMachine : MonoBehaviour
     #region Macro State Control
     private void ToggleMacroState()
     {
-        this.GetComponent<Animator>().SetBool("KeepAtState", false);
+        //this.GetComponent<Animator>().SetBool("KeepAtState", false);
         if (macroStateMachine.CurrentState == solidoState)
         {
             macroStateMachine.ChangeState(liquidoState);

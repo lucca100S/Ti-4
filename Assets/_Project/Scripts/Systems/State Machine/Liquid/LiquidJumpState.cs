@@ -14,6 +14,8 @@ public class LiquidJumpState : IState
 
     private Vector3 _originalDirection;
 
+    public StateType StateType => StateType.Jump;
+
     public LiquidJumpState(LiquidoState parent, PlayerStateMachine player, SurfaceDetection surface)
     {
         this.parent = parent;

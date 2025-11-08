@@ -9,6 +9,8 @@ public class SolidJumpState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
+    public StateType StateType => StateType.Jump;
+
     public SolidJumpState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -22,7 +24,7 @@ public class SolidJumpState : IState
         AudioPlayer.Stop(AudioId.SolidStep);
         if (player.CanJump)
         {
-            player.GetComponent<Animator>().SetTrigger("Jump");
+            //player.GetComponent<Animator>().SetTrigger("Jump");
             AudioPlayer.Play(AudioId.SolidJump);
             player?.AddJump(player.SolidJump);
             player.DidJump = true;

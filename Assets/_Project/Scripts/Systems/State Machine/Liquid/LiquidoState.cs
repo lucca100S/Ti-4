@@ -21,6 +21,8 @@ public class LiquidoState : IState
     public LiquidJumpState JumpState { get; private set; }
     public LiquidWallJumpState WallJumpState { get; private set; }
     public Vector3 NormalDirection => _normalDirection;
+
+    public StateType StateType => StateType.Idle;
     #endregion
 
     #region Constructor
@@ -54,8 +56,8 @@ public class LiquidoState : IState
         }
 
         Debug.Log("[Macro] Entrou em Líquido");
-        player.GetComponent<Animator>().SetBool("IsSolid", false);
-        player.GetComponent<Animator>().SetBool("KeepAtState", true);
+        //player.GetComponent<Animator>().SetBool("IsSolid", false);
+        //player.GetComponent<Animator>().SetBool("KeepAtState", true);
         subStateMachine.ChangeState(IdleState);
     }
 

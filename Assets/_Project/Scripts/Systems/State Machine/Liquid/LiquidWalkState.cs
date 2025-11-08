@@ -12,6 +12,8 @@ public class LiquidWalkState : IState
     private readonly PlayerStateMachine player;
     private readonly SurfaceDetection surface;
 
+    public StateType StateType => StateType.Walk;
+
     public LiquidWalkState(LiquidoState parent, PlayerStateMachine player, SurfaceDetection surface)
     {
         this.parent = parent;
