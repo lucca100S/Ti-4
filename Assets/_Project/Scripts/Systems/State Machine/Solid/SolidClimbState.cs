@@ -43,6 +43,12 @@ public class SolidClimbState : IState
                 {
                     //player.GetComponent<Animator>().SetTrigger("IdleClimbing");
                 }
+
+                if (!_didStart)
+                {
+                    _didStart = true;
+                    player.SetVelocity(Vector3.zero);
+                }
                 break;
             case SurfaceMaterial.Earth:
                 player.AddJump(player.gravity * 0.1f);

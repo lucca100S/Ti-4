@@ -9,8 +9,6 @@ public class SolidJumpState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
-    private bool _startedFalling = false;
-
     public StateType StateType => StateType.Jump;
 
     public SolidJumpState(SolidoState parent, SurfaceDetection surface)
@@ -29,6 +27,7 @@ public class SolidJumpState : IState
             //player.GetComponent<Animator>().SetTrigger("Jump");
             AudioPlayer.Play(AudioId.SolidJump);
             player?.AddJump(player.SolidJump);
+           
             player.DidJump = true;
         }
         else if(parent.LastState == parent.WallJumpState)
@@ -64,12 +63,6 @@ public class SolidJumpState : IState
         {
             Debug.Log("[SolidJump] Detectado chão -> transição será feita pela macro Sólido.");
         }
-
-        if(player.IsGoingDown && !_startedFalling)
-        {
-            _startedFalling = true;
-            ActionsManager.Instance.OnStateAnimationChanged?.Invoke("Falling", 0.6f);
-        }
     }
 
     public void Exit()
@@ -77,8 +70,6 @@ public class SolidJumpState : IState
         player.DidJump = false;
         Debug.Log("[SolidJump] Exit");
         ActionsManager.Instance.OnPlayerLanded?.Invoke();
-
-        _startedFalling = false;
     }
 
     public void OnJumpInput(InputInfo input)

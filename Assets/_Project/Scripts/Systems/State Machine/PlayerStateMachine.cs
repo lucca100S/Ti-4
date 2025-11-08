@@ -97,6 +97,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("Speed", _currentVelocity.magnitude);
         ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("SpeedFactor", _currentVelocity.magnitude/solidMoveSpeedStone);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("VerticalVelocity", _rigidBody.linearVelocity.y);
 
         // Reset horizontal for next frame (vertical is persistent)
         accumulatedHorizontalMovement = Vector3.zero;
