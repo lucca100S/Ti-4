@@ -22,6 +22,7 @@ public class SolidoState : IState
     public IState LastState => subStateMachine.LastState;
 
     public StateType StateType => StateType.Idle;
+    public float TimeInState => subStateMachine.TimeInState;
     #endregion
 
     #region Constructor

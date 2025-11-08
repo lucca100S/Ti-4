@@ -11,6 +11,7 @@ public class ActionsManager : Singleton<ActionsManager>
     #region Player
     public Action<IState> OnFormChanged;
     public Action<StateType> OnStateChanged;
+    public Action<string, float> OnStateAnimationChanged;
 
     public Action OnPlayerJumped;
     public Action OnPlayerFall;

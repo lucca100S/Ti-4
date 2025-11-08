@@ -14,13 +14,17 @@ namespace Player
         {
             ActionsManager.Instance.OnFormChanged += ChangeAnimator;
             ActionsManager.Instance.OnStateChanged += ChangeState;
+            ActionsManager.Instance.OnStateAnimationChanged += ChangeStateAnimation;
         }
 
         private void OnDisable()
         {
             ActionsManager.Instance.OnFormChanged -= ChangeAnimator;
             ActionsManager.Instance.OnStateChanged -= ChangeState;
+            ActionsManager.Instance.OnStateAnimationChanged -= ChangeStateAnimation;
         }
+
+       
 
         private void Awake()
         {
@@ -38,7 +42,13 @@ namespace Player
         private void ChangeState(StateType state)
         {
 
-            switch(state)
+            _currentAnimator.ResetTrigger("Idle");
+            _currentAnimator.ResetTrigger("Walk");
+            _currentAnimator.ResetTrigger("Jump");
+            _currentAnimator.ResetTrigger("Climb");
+            _currentAnimator.ResetTrigger("WallJump");
+
+            switch (state)
             {
                 case StateType.Idle:
                     _currentAnimator.SetTrigger("Idle");
@@ -57,6 +67,12 @@ namespace Player
                     break;
             }
         }
+
+        private void ChangeStateAnimation(string stateAnimation, float transitionDuration = 0.2f)
+        {
+            _currentAnimator.CrossFade(stateAnimation, transitionDuration);
+        }
+
 
     }
 }

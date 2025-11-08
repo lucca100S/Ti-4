@@ -10,6 +10,11 @@ public class SolidIdleState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
+    private float _variationTimeMin = 10f;
+    private float _variationTimeMax = 15f;
+
+    private float _currentVariationTime;
+
     public StateType StateType => StateType.Idle;
 
     public SolidIdleState(SolidoState parent, SurfaceDetection surface)
@@ -22,20 +27,23 @@ public class SolidIdleState : IState
     public void Enter() 
     {
         Debug.Log("[SolidIdle] Enter");
-        //player.GetComponent<Animator>().ResetTrigger("Jump");
-        //player.GetComponent<Animator>().ResetTrigger("MeetGround");
-        //player.GetComponent<Animator>().ResetTrigger("Falling");
-        //player.GetComponent<Animator>().ResetTrigger("Walk");
         AudioPlayer.Stop(AudioId.SolidStep);
         if (!player.IsGrounded)
         {
-            //player.GetComponent<Animator>().SetTrigger("MeetGround");
+           
         }
+
+        _currentVariationTime = Random.Range(_variationTimeMin, _variationTimeMax);
     }
         
 
     public void Update()
     {
+        if(parent.TimeInState >= _currentVariationTime)
+        {
+            ActionsManager.Instance.OnStateAnimationChanged?.Invoke("LookAround", 0.2f);
+            _currentVariationTime += Random.Range(_variationTimeMin, _variationTimeMax);
+        }
     }
 
     public void Exit() 
