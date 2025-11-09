@@ -82,7 +82,6 @@ namespace Player
 
         private void HandleFormChanged(IState state)
         {
-            Debug.Log("[PlayerVisualEffects] Form changed to " + state.GetType().Name);
             if (state is SolidoState)
             {
                 _solidWalkParticle.Play();
