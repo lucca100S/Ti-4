@@ -28,5 +28,6 @@ public enum StateType
     Jump,
     Walk,
     Climb,
-    WallJump
+    WallJump,
+    Transform
 }

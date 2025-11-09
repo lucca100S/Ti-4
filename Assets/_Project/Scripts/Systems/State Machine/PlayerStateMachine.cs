@@ -78,8 +78,14 @@ public class PlayerStateMachine : MonoBehaviour
         // criar macros e passar dependências
         solidoState = new SolidoState(this, surfaceDetection);
         liquidoState = new LiquidoState(this, surfaceDetection);
+    }
+
+    private void Start()
+    {
+        _lastDirectionInput = transform.forward;
 
         macroStateMachine.ChangeState(solidoState);
+        ActionsManager.Instance.OnFormChanged?.Invoke(solidoState);
     }
 
     private void Update()

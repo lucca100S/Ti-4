@@ -79,6 +79,7 @@ namespace Player
             _surfaceDetection.OnSurfaceHit += OnSurfaceHit;
 
             ActionsManager.Instance.OnFormChanged += ChangeForm;
+            ActionsManager.Instance.OnTransformAnimationEnded += ToggleFormModels;
         }
 
         private void OnDisable()
@@ -92,6 +93,7 @@ namespace Player
             _surfaceDetection.OnSurfaceHit -= OnSurfaceHit;
 
             ActionsManager.Instance.OnFormChanged -= ChangeForm;
+            ActionsManager.Instance.OnTransformAnimationEnded -= ToggleFormModels;
         }
 
         #region StateMachine
@@ -152,9 +154,16 @@ namespace Player
         {
             bool isLiquid = state is LiquidoState;
             _liquidCollider.enabled = isLiquid;
-            _liquidModel.SetActive(isLiquid);
-          
             _solidCollider.enabled = !isLiquid;
+
+            _liquidModel.SetActive(false);
+            _solidModel.SetActive(true);
+        }
+
+        private void ToggleFormModels(IState state)
+        {
+            bool isLiquid = state is LiquidoState;
+            _liquidModel.SetActive(isLiquid);
             _solidModel.SetActive(!isLiquid);
         }
 

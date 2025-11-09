@@ -13,10 +13,12 @@ public class ActionsManager : Singleton<ActionsManager>
     public Action<StateType> OnStateChanged;
     public Action<string, float> OnStateAnimationChanged;
     public Action<string, float> OnAnimatorFloatChanged;
+    public Action<IState> OnTransformAnimationEnded;
 
     public Action OnPlayerJumped;
     public Action OnPlayerFall;
     public Action OnPlayerLanded;
+
 
     #endregion
 }

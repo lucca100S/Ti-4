@@ -1,11 +1,13 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace Player
 {
     public class PlayerAnimations : MonoBehaviour
     {
-        [SerializeField] private Animator _mudAnimator;
+        //[SerializeField] private Animator _mudAnimator;
         [SerializeField] private Animator _solidAnimator;
 
         private Animator _currentAnimator;
@@ -23,7 +25,7 @@ namespace Player
             ActionsManager.Instance.OnFormChanged -= ChangeAnimator;
             ActionsManager.Instance.OnStateChanged -= ChangeState;
             ActionsManager.Instance.OnStateAnimationChanged -= ChangeStateAnimation;
-            ActionsManager.Instance.OnAnimatorFloatChanged += ChangeFloat;
+            ActionsManager.Instance.OnAnimatorFloatChanged -= ChangeFloat;
         }
 
 
@@ -35,14 +37,28 @@ namespace Player
 
         public void ChangeAnimator(IState state)
         {
+            if (!_currentAnimator.gameObject.activeSelf)
+                _currentAnimator.gameObject.SetActive(true);
+
+            _currentAnimator.SetBool("Transforming", true);
+
             if (state is LiquidoState)
-                _currentAnimator = _mudAnimator;
+            {
+                ChangeStateAnimation("ToLiquid", 0);
+            }
             else if (state is SolidoState)
-                _currentAnimator = _solidAnimator;
+            {
+                ChangeStateAnimation("ToSolid", 0);
+            }
+
+            StopAllCoroutines();
+            StartCoroutine(DisableTransformation(0.2f, state));
         }
 
         private void ChangeState(StateType state)
         {
+            if (!_currentAnimator.gameObject.activeSelf)
+                return;
 
             _currentAnimator.ResetTrigger("Idle");
             _currentAnimator.ResetTrigger("Walk");
@@ -67,12 +83,18 @@ namespace Player
                 case StateType.WallJump:
                     _currentAnimator.SetTrigger("WallJump");
                     break;
+                case StateType.Transform:
+                    _currentAnimator.SetTrigger("Transform");
+                    break;
             }
         }
 
         private void ChangeStateAnimation(string stateAnimation, float transitionDuration = 0.2f)
         {
-            if(string.IsNullOrEmpty(stateAnimation))
+            if (!_currentAnimator.gameObject.activeSelf)
+                return;
+
+            if (string.IsNullOrEmpty(stateAnimation))
                 return;
             if (_currentAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateAnimation))
                 return;
@@ -82,7 +104,17 @@ namespace Player
 
         private void ChangeFloat(string animatorFloat, float value)
         {
+            if (!_currentAnimator.gameObject.activeSelf)
+                return;
+
             _currentAnimator.SetFloat(animatorFloat, value);
+        }
+
+        private IEnumerator DisableTransformation(float time, IState newState)
+        {
+            yield return new WaitForSeconds(time);
+            _currentAnimator.SetBool("Transforming", false);
+            ActionsManager.Instance.OnTransformAnimationEnded?.Invoke(newState);
         }
 
     }

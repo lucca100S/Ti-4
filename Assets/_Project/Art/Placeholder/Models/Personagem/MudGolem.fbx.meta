@@ -3,7 +3,37 @@ guid: 74bf93bb85e75184184f39300ae81ed0
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Capa
+    second: {fileID: 2100000, guid: 649e454d3af6cbd468183950f1be94a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Capuz
+    second: {fileID: 2100000, guid: 071e5a2aba45e1d4093c0a5687017198, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Folhas
+    second: {fileID: 2100000, guid: 70437e1f7691f444f89475ba47f13538, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lama
+    second: {fileID: 2100000, guid: 9fb99b1bfbd290b4db2f290b2084d5f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nariz
+    second: {fileID: 2100000, guid: 9fb99b1bfbd290b4db2f290b2084d5f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tinta
+    second: {fileID: 2100000, guid: f26a23ff891b0764187bced3b8fdc291, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
