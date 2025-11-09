@@ -9,6 +9,8 @@ namespace Player
     {
         //[SerializeField] private Animator _mudAnimator;
         [SerializeField] private Animator _solidAnimator;
+        [SerializeField] private PlayerTransformationGroundVFX _transformationVFX;
+        [SerializeField] private PlayerStateMachine _playerStateMachine;
 
         private Animator _currentAnimator;
 
@@ -39,8 +41,16 @@ namespace Player
         {
             if (!_currentAnimator.gameObject.activeSelf)
                 _currentAnimator.gameObject.SetActive(true);
-
             _currentAnimator.SetBool("Transforming", true);
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                PlayGroundedTransformation();
+            }
+            else
+            {
+
+            }
 
             if (state is LiquidoState)
             {
@@ -53,6 +63,12 @@ namespace Player
 
             StopAllCoroutines();
             StartCoroutine(DisableTransformation(0.2f, state));
+        }
+
+        private void PlayGroundedTransformation()
+        {
+            _transformationVFX.gameObject.SetActive(true);
+            _transformationVFX.Play();
         }
 
         private void ChangeState(StateType state)

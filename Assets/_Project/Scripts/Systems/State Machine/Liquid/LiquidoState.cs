@@ -72,11 +72,9 @@ public class LiquidoState : IState
                 case SurfaceType.Wall:
                 case SurfaceType.Floor:
                 case SurfaceType.Ceiling:
-                    Debug.Log("IsGoingDown here: " + player.IsGoingDown);
                     if (player.IsGoingDown)
                     {
                         Vector3 dir = player.DirectionInputNormal;
-                        Debug.Log("Dir here: " + dir);
                         if (dir.magnitude > 0.01f)
                         {
                             subStateMachine.ChangeState(WalkState);

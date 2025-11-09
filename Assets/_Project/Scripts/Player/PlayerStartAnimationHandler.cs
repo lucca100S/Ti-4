@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStartAnimationHandler : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerStartAnimationHandler : MonoBehaviour
     private bool _isPlaying = false;
 
     [SerializeField] private GameObject _playerGameplay;
+    [SerializeField] private InputActionReference _transformAction;
 
     [Header("Cameras")]
     [SerializeField] private GameObject _panCamera;
@@ -18,10 +20,12 @@ public class PlayerStartAnimationHandler : MonoBehaviour
     [Header("Animations Models")]
     [SerializeField] private GameObject _mudStill;
     [SerializeField] private GameObject _solidStill;
+    [SerializeField] private PlayerTransformationGroundVFX _transformationVFX;
 
     [Header("UI")]
     [SerializeField] private GameObject _gameplayCanvas;
     [SerializeField] private GameObject _startCanvas;
+
 
     #region Properties
 
@@ -38,16 +42,29 @@ public class PlayerStartAnimationHandler : MonoBehaviour
         _mudStill.SetActive(true);
         _solidStill.SetActive(false);
 
+        _transformationVFX.gameObject.SetActive(false);
+
         _startCamera.SetActive(true);
         _panCamera.SetActive(false);
 
         _startCanvas.SetActive(true);
         _gameplayCanvas.SetActive(false);
 
+
         _playerGameplay.transform.position = _solidStill.transform.position;
     }
 
-    public void StartAnimation()
+    private void OnEnable()
+    {
+        _transformAction.action.performed += StartAnimation;
+    }
+
+    private void OnDisable()
+    {
+        _transformAction.action.performed -= StartAnimation;
+    }
+
+    public void StartAnimation(InputAction.CallbackContext context)
     {
         if (_isPlaying)
             return;
@@ -63,13 +80,17 @@ public class PlayerStartAnimationHandler : MonoBehaviour
         _mudStill.SetActive(false);
         _solidStill.SetActive(true);
 
-        while(_animationTime < _animationDuration)
+        _transformationVFX.gameObject.SetActive(true);
+        _transformationVFX.Play();
+
+        while (_animationTime < _animationDuration)
         {
             _animationTime += Time.deltaTime;
             yield return null;
         }
 
         _solidStill.SetActive(false);
+        _mudStill.SetActive(false);
 
         _panCamera.SetActive(false);
         _playerGameplay.SetActive(true);
