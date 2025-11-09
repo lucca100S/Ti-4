@@ -15,8 +15,7 @@ namespace Player
         [SerializeField] private ParticleSystem _solidJumpParticle;
 
         [Header("Liquid Effects")]
-        [SerializeField] private ParticleSystem _liquidWalkParticle;
-        [SerializeField] private ParticleSystem _liquidJumpParticle;
+        [SerializeField] private AutoDisableTrail _liquidWalkParticle;
 
         private void Awake()
         {
@@ -44,17 +43,31 @@ namespace Player
             ActionsManager.Instance.OnPlayerLanded -= HandlePlayerLand;
         }
 
+        private void Update()
+        {
+            if(_playerState.IsGrounded && (_playerState.MacroStateMachine.CurrentState is LiquidoState))
+            {
+                if(_playerState.SurfaceDetection.CurrentSurface.Value.material == SurfaceMaterial.Earth)
+                {
+                    _liquidWalkParticle.EnableTrail();
+                }
+                else
+                {
+                    _liquidWalkParticle.DisableTrailSmoothly();
+                }
+            }
+            else
+            {
+                _liquidWalkParticle.DisableTrailSmoothly();
+            }
+        }
+
         private void HandlePlayerLand()
         {
             if((_playerState.MacroStateMachine.CurrentState is SolidoState))
             {
                 _solidWalkParticle.Play();
             }
-            else
-            {
-
-            }
-
         }
 
         private void HandlePlayerJump()
@@ -71,13 +84,7 @@ namespace Player
                     _solidJumpParticle.Play();
                 }
             }
-            else
-            {
 
-            }
-
-            
-           
         }
 
         private void HandleFormChanged(IState state)
