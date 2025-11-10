@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Subscribe<SceneChangeEvent>(OnSceneChange);
-        EventBus.Subscribe<PanelToggleEvent>(OnPanelToggle);
+        EventBus.Subscribe<GameObjectRevealButton>(OnPanelToggle);
         EventBus.Subscribe<ComponentTriggeredEvent>(OnComponentTrigger);
         EventBus.Subscribe<EndApplicationEvent>(evt => OnCloseApplication());
     }
@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         EventBus.Unsubscribe<SceneChangeEvent>(OnSceneChange);
-        EventBus.Unsubscribe<PanelToggleEvent>(OnPanelToggle);
+        EventBus.Unsubscribe<GameObjectRevealButton>(OnPanelToggle);
         EventBus.Unsubscribe<ComponentTriggeredEvent>(OnComponentTrigger);
         EventBus.Unsubscribe<EndApplicationEvent>(evt => OnCloseApplication());
     }
@@ -29,28 +29,22 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(evt.SceneName);
     }
 
-    private void OnPanelToggle(PanelToggleEvent evt)
+    private void OnPanelToggle(GameObjectRevealButton evt)
     {
-        bool found = false;
-
-        foreach (var panel in panels)
+        if (evt.GameObject == null)
         {
-            // Se o nome não for o painel alvo, desativa
-            if (panel.name != evt.PanelName)
+            Debug.LogWarning("Evento GameObjectRevealButton recebido com Panel nulo.");
+            return;
+        }
+        if (evt.HideOthers.Count > 0)
+        {
+            foreach (var panel in evt.HideOthers)
             {
                 panel.SetActive(false);
-                continue;
             }
-
-            // Caso contrário, ativa ou desativa conforme o evento
-            panel.SetActive(evt.Active);
-            Debug.Log($"Painel {evt.PanelName} -> {(evt.Active ? "Ativado" : "Desativado")}");
-            found = true;
         }
-
-        // Caso nenhum painel tenha o nome especificado
-        if (!found)
-            Debug.LogWarning($"Painel '{evt.PanelName}' não encontrado na lista do UIManager.");
+        evt.GameObject.SetActive(evt.Active);
+        Debug.Log($"Painel {evt.GameObject.name} -> {(evt.Active ? "Ativado" : "Desativado")}");
     }
 
     private void OnCloseApplication()
