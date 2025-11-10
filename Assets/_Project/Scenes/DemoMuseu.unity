@@ -45832,23 +45832,23 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 2.8488998
-        y: 0.5335808
-        z: -0.32157707
+        x: 2.7634735
+        y: 0.55358124
+        z: -0.3227806
       TangentIn:
         x: -0
         y: -0
-        z: -0.6924053
+        z: -0.6836379
       TangentOut:
         x: 0
         y: 0
-        z: 0.6924053
+        z: 0.6836379
       Rotation:
         value:
-          x: -0.44071373
-          y: 0.55535305
-          z: 0.5694281
-          w: -0.41606018
+          x: -0.44055188
+          y: 0.5554327
+          z: 0.5695636
+          w: -0.4159395
     - Position:
         x: -3.8260956
         y: 2.373581
@@ -141806,10 +141806,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 907889493}
     - target: {fileID: 1264716052373859463, guid: a3524153e521d5440a8c1368eb972c25, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 1264716052373859463, guid: a3524153e521d5440a8c1368eb972c25, type: 3}
       propertyPath: m_Name
       value: PlayerStartPoint
       objectReference: {fileID: 0}
@@ -142356,10 +142352,6 @@ PrefabInstance:
     - target: {fileID: 3112733754245621094, guid: 0c60669915823a34093853167ddef4ac, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3112733754245621094, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
