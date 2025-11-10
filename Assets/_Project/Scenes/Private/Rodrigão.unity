@@ -406,6 +406,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18e15af2e5018e41bd1f1ace3b890a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableData:
+    ID: a
+    Collected: 0
 --- !u!1001 &67324915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1176,6 +1179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1141799224}
+  checkpointData:
+    ID: asd
+    Activated: 0
 --- !u!135 &293620304
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1662,6 +1668,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18e15af2e5018e41bd1f1ace3b890a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableData:
+    ID: b
+    Collected: 0
 --- !u!65 &450729951
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2216,6 +2225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 349362289}
+  checkpointData:
+    ID: sdf
+    Activated: 0
 --- !u!135 &689925443
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2337,6 +2349,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18e15af2e5018e41bd1f1ace3b890a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableData:
+    ID: e
+    Collected: 0
 --- !u!65 &692132082
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3362,6 +3377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18e15af2e5018e41bd1f1ace3b890a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableData:
+    ID: c
+    Collected: 0
 --- !u!65 &960853523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4560,6 +4578,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18e15af2e5018e41bd1f1ace3b890a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableData:
+    ID: d
+    Collected: 0
 --- !u!65 &1242573739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6682,6 +6703,100 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -462981019419857548, guid: ce330a8b88d2c4e4a8e8712529757f76, type: 3}
+--- !u!1 &1611637824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1611637825}
+  - component: {fileID: 1611637827}
+  m_Layer: 0
+  m_Name: Save
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1611637825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611637824}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1356.5447, y: 647.9787, z: -1204.5912}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1611637827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611637824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7c3f40f681e3b4084c45a6d9302234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageEntries:
+  - stageKey: "Rodrig\xE3o"
+    stageData:
+      StageName: "Rodrig\xE3o"
+      checkpoints:
+      - ID: dfs
+        Activated: 0
+      - ID: gyu
+        Activated: 0
+      - ID: sdf
+        Activated: 0
+      - ID: asd
+        Activated: 0
+      collectables:
+      - ID: 
+        Collected: 0
+      - ID: c
+        Collected: 0
+      - ID: d
+        Collected: 0
+      - ID: e
+        Collected: 0
+      - ID: a
+        Collected: 0
+      - ID: b
+        Collected: 0
+  currentStageData:
+    StageName: "Rodrig\xE3o"
+    checkpoints:
+    - ID: dfs
+      Activated: 0
+    - ID: gyu
+      Activated: 0
+    - ID: sdf
+      Activated: 0
+    - ID: asd
+      Activated: 0
+    collectables:
+    - ID: 
+      Collected: 0
+    - ID: c
+      Collected: 0
+    - ID: d
+      Collected: 0
+    - ID: e
+      Collected: 0
+    - ID: a
+      Collected: 0
+    - ID: b
+      Collected: 0
 --- !u!1 &1615300491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1025663018108745142, guid: ce330a8b88d2c4e4a8e8712529757f76, type: 3}
@@ -7595,6 +7710,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 916021802}
+  checkpointData:
+    ID: dfs
+    Activated: 0
 --- !u!135 &1691039615
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7817,6 +7935,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1160887876}
+  checkpointData:
+    ID: gyu
+    Activated: 0
 --- !u!135 &1772580704
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -46159,6 +46280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18e15af2e5018e41bd1f1ace3b890a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectableData:
+    ID: 
+    Collected: 0
 --- !u!64 &8806257482783856876
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -47844,3 +47968,4 @@ SceneRoots:
   - {fileID: 1339084964}
   - {fileID: 67324915}
   - {fileID: 160685068}
+  - {fileID: 1611637825}
