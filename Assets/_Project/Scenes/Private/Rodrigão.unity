@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1141799224}
   checkpointData:
-    ID: asd
+    ID: 
     Activated: 0
 --- !u!135 &293620304
 SphereCollider:
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 349362289}
   checkpointData:
-    ID: sdf
+    ID: 
     Activated: 0
 --- !u!135 &689925443
 SphereCollider:
@@ -6712,7 +6712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1611637825}
-  - component: {fileID: 1611637827}
+  - component: {fileID: 1611637826}
   m_Layer: 0
   m_Name: Save
   m_TagString: Untagged
@@ -6735,7 +6735,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1611637827
+--- !u!114 &1611637826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6752,50 +6752,50 @@ MonoBehaviour:
     stageData:
       StageName: "Rodrig\xE3o"
       checkpoints:
-      - ID: dfs
+      - ID: 
         Activated: 0
-      - ID: gyu
+      - ID: 
         Activated: 0
-      - ID: sdf
+      - ID: 
         Activated: 0
-      - ID: asd
+      - ID: 
         Activated: 0
       collectables:
-      - ID: 
-        Collected: 0
-      - ID: c
+      - ID: a
         Collected: 0
       - ID: d
         Collected: 0
+      - ID: b
+        Collected: 0
+      - ID: 
+        Collected: 0
       - ID: e
         Collected: 0
-      - ID: a
-        Collected: 0
-      - ID: b
+      - ID: c
         Collected: 0
   currentStageData:
     StageName: "Rodrig\xE3o"
     checkpoints:
-    - ID: dfs
+    - ID: 
       Activated: 0
-    - ID: gyu
+    - ID: 
       Activated: 0
-    - ID: sdf
+    - ID: 
       Activated: 0
-    - ID: asd
+    - ID: 
       Activated: 0
     collectables:
-    - ID: 
-      Collected: 0
-    - ID: c
+    - ID: a
       Collected: 0
     - ID: d
       Collected: 0
+    - ID: b
+      Collected: 0
+    - ID: 
+      Collected: 0
     - ID: e
       Collected: 0
-    - ID: a
-      Collected: 0
-    - ID: b
+    - ID: c
       Collected: 0
 --- !u!1 &1615300491 stripped
 GameObject:
@@ -7711,7 +7711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 916021802}
   checkpointData:
-    ID: dfs
+    ID: 
     Activated: 0
 --- !u!135 &1691039615
 SphereCollider:
@@ -7936,7 +7936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1160887876}
   checkpointData:
-    ID: gyu
+    ID: 
     Activated: 0
 --- !u!135 &1772580704
 SphereCollider:
