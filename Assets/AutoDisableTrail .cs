@@ -4,6 +4,9 @@ using System.Collections;
 [RequireComponent(typeof(TrailRenderer))]
 public class AutoDisableTrail : MonoBehaviour
 {
+
+    [SerializeField] private ParticleSystem _particlesFlying;
+
     [Header("Target & detection")]
     public Transform target;
     public float velocityThreshold = 0.01f;
@@ -59,7 +62,7 @@ public class AutoDisableTrail : MonoBehaviour
         }
     }
 
-    void DisableTrailSmoothly()
+    public void DisableTrailSmoothly()
     {
         if (isFading) return;
         StartCoroutine(FadeOutTrail());
@@ -68,12 +71,15 @@ public class AutoDisableTrail : MonoBehaviour
     IEnumerator FadeOutTrail()
     {
         isFading = true;
+        _particlesFlying.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
         // Captura o gradiente original do trail
         Gradient originalGradient = trail.colorGradient;
         Gradient newGradient = new Gradient();
 
         float elapsed = 0f;
+
+        trail.emitting = false;
 
         while (elapsed < fadeOutDuration)
         {
@@ -108,23 +114,16 @@ public class AutoDisableTrail : MonoBehaviour
         if (clearWhenDisabled)
             trail.Clear();
 
-        #if UNITY_2019_1_OR_NEWER
-        trail.emitting = false;
-        #else
-        trail.enabled = false;
-        #endif
-
         isDisabled = true;
         isFading = false;
     }
 
-    void EnableTrail()
+    public void EnableTrail()
     {
-        #if UNITY_2019_1_OR_NEWER
         trail.emitting = true;
-        #else
-        trail.enabled = true;
-        #endif
+
+        if(!_particlesFlying.isPlaying)
+            _particlesFlying.Play(true);
 
         // restaura o gradiente original (alpha total)
         Gradient g = trail.colorGradient;
