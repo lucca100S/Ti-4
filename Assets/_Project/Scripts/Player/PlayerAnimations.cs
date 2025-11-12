@@ -97,12 +97,14 @@ namespace Player
                     _currentAnimator.SetTrigger("Climb");
                     break;
                 case StateType.WallJump:
-                    _currentAnimator.SetTrigger("WallJump");
+                    //_currentAnimator.SetTrigger("WallJump");
                     break;
                 case StateType.Transform:
                     _currentAnimator.SetTrigger("Transform");
                     break;
             }
+
+
         }
 
         private void ChangeStateAnimation(string stateAnimation, float transitionDuration = 0.2f)

@@ -9,6 +9,8 @@ public class SolidJumpState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
+    private bool _didJump = false;
+
     public StateType StateType => StateType.Jump;
 
     public SolidJumpState(SolidoState parent, SurfaceDetection surface)
@@ -20,6 +22,8 @@ public class SolidJumpState : IState
 
     public void Enter()
     {
+        _didJump = player.DidJump;
+
         Debug.Log("[SolidJump] Enter");
         AudioPlayer.Stop(AudioId.SolidStep);
         if (player.CanJump)
@@ -27,10 +31,10 @@ public class SolidJumpState : IState
             //player.GetComponent<Animator>().SetTrigger("Jump");
             AudioPlayer.Play(AudioId.SolidJump);
             player?.AddJump(player.SolidJump);
-           
+
             player.DidJump = true;
         }
-        else if(parent.LastState == parent.WallJumpState)
+        else if (parent.LastState == parent.WallJumpState)
         {
             player.DidJump = true;
         }
@@ -40,7 +44,9 @@ public class SolidJumpState : IState
             ActionsManager.Instance.OnPlayerJumped?.Invoke();
             player.LastJumpInputOnGround = -Mathf.Infinity;
         }
-            player.SetGravityDirection(Vector3.up);
+        player.SetGravityDirection(Vector3.up);
+
+        _didJump = player.DidJump && !_didJump;
     }
 
     public void Update()
@@ -58,16 +64,10 @@ public class SolidJumpState : IState
             player.PlayerController.RotateModelTowards(lookDirection);
         }
 
-        // quando tocar chão novamente, voltar para Idle/Walk (macro decide isso)
-        if (player.IsGrounded)
-        {
-            Debug.Log("[SolidJump] Detectado chão -> transição será feita pela macro Sólido.");
-        }
     }
 
     public void Exit()
     {
-        player.DidJump = false;
         Debug.Log("[SolidJump] Exit");
         ActionsManager.Instance.OnPlayerLanded?.Invoke();
     }
@@ -82,9 +82,8 @@ public class SolidJumpState : IState
                 Debug.Log("[SolidJump] Jump Cancel");
 
             }
-            player.DidJump = false;
         }
-        else if(player.CanJump && input.IsDown && !player.DidJump)
+        else if (player.CanJump && input.IsDown && !player.DidJump)
         {
             player?.AddJump(player.SolidJump);
             player.DidJump = true;

@@ -114,7 +114,10 @@ public class PlayerStateMachine : MonoBehaviour
         
         _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
 
-        
+        if (IsGrounded)
+        {
+            DidJump = false;
+        }
     }
     #endregion
 
@@ -142,12 +145,10 @@ public class PlayerStateMachine : MonoBehaviour
     public void AddJump(float jumpForce)
     {
         verticalVelocity = jumpForce * _gravityDirection;
-        Debug.Log($"[Player] Jump applied: {jumpForce}");
     }
     public void AddJump(float jumpForce, Vector3 direction)
     {
         verticalVelocity = jumpForce * direction;
-        Debug.Log($"[Player] Jump applied: {jumpForce}");
     }
     #endregion
 
@@ -174,6 +175,12 @@ public class PlayerStateMachine : MonoBehaviour
     /// <summary>Exposição para possíveis usos (logs/inspector).</summary>
     public string CurrentMacroName => macroStateMachine.CurrentState?.GetType().Name ?? "None";
     #endregion
+
+    private void GetMovingDirection(Vector3 direction)
+    {
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("HorizontalMovement", direction.x);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("VerticalMovement", direction.z);
+    }
 
     internal void ApplyGravity()
     {
@@ -225,6 +232,8 @@ public class PlayerStateMachine : MonoBehaviour
         {
             _lastDirectionInput = DirectionInput;
         }
+
+        GetMovingDirection(direction);
     }
 
     internal void GetJumpInput(InputInfo info)
