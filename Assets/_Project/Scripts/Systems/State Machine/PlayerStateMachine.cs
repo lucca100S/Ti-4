@@ -55,6 +55,8 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 _gravityDirection = Vector3.up;
     private Vector3 verticalVelocity = Vector3.up;
 
+    private Vector3 _directionLerp = Vector3.zero;
+
     #endregion
 
     private Vector3 _directionInput = Vector3.zero;
@@ -90,6 +92,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
+        GetMovingDirection(_directionInput);
+
         // Gravity & movement commit (reseta accumulated horizontal a cada frame)
         ApplyGravity();
 
@@ -178,8 +182,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void GetMovingDirection(Vector3 direction)
     {
-        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("HorizontalMovement", direction.x);
-        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("VerticalMovement", direction.z);
+        _directionLerp = Vector3.Lerp(_directionLerp, direction, Time.deltaTime * 5f);
+
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("HorizontalMovement", _directionLerp.x);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("VerticalMovement", _directionLerp.z);
     }
 
     internal void ApplyGravity()
@@ -232,8 +238,6 @@ public class PlayerStateMachine : MonoBehaviour
         {
             _lastDirectionInput = DirectionInput;
         }
-
-        GetMovingDirection(direction);
     }
 
     internal void GetJumpInput(InputInfo info)
