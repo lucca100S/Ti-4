@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour
 {
-    [Tooltip("Lista de painéis disponíveis na cena.")]
+    [Tooltip("Lista de painï¿½is disponï¿½veis na cena.")]
     public List<GameObject> panels = new();
 
     private void OnEnable()
@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
         EventBus.Subscribe<GameObjectRevealButton>(OnPanelToggle);
         EventBus.Subscribe<ComponentTriggeredEvent>(OnComponentTrigger);
         EventBus.Subscribe<EndApplicationEvent>(evt => OnCloseApplication());
+        EventBus.Subscribe<SelectButtonEvent>(SelectButton);
     }
 
     private void OnDisable()
@@ -21,8 +22,14 @@ public class UIManager : MonoBehaviour
         EventBus.Unsubscribe<GameObjectRevealButton>(OnPanelToggle);
         EventBus.Unsubscribe<ComponentTriggeredEvent>(OnComponentTrigger);
         EventBus.Unsubscribe<EndApplicationEvent>(evt => OnCloseApplication());
+        EventBus.Unsubscribe<SelectButtonEvent>(SelectButton);
     }
 
+    private void SelectButton(SelectButtonEvent evt)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(evt.obj);
+    }
     private void OnSceneChange(SceneChangeEvent evt)
     {
         Debug.Log($"Mudando para a cena: {evt.SceneName}");
@@ -49,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     private void OnCloseApplication()
     {
-        Debug.Log("Fechando a aplicação...");
+        Debug.Log("Fechando a aplicaï¿½ï¿½o...");
         Application.Quit();
     }
 

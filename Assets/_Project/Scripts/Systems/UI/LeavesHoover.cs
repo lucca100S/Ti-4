@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LeavesHoover : UIComponentBase, IPointerEnterHandler, IPointerExitHandler
+public class LeavesHoover : UIComponentBase, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
-    bool active;
+    public bool active;
     public override void OnTrigger()
     {
         base.OnTrigger();
@@ -16,12 +16,25 @@ public class LeavesHoover : UIComponentBase, IPointerEnterHandler, IPointerExitH
             );
     }
 
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         active = true;
         OnTrigger();
     }
     public void OnPointerExit(PointerEventData eventData)
+    {
+        active = false;
+        OnTrigger();
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        active = true;
+        OnTrigger();
+    }
+
+    public void OnDeselect(BaseEventData eventData)
     {
         active = false;
         OnTrigger();

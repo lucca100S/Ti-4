@@ -42,7 +42,7 @@ public static class EventBus
     }
 
     // -------------------------
-    // Publish (com limpeza automática)
+    // Publish (com limpeza automï¿½tica)
     // -------------------------
     public static void Publish<T>(T message)
     {
@@ -58,7 +58,7 @@ public static class EventBus
         {
             bool isDead = false;
 
-            // Se o Target for um UnityEngine.Object destruído
+            // Se o Target for um UnityEngine.Object destruï¿½do
             if (cb.Target is UnityEngine.Object unityObj)
             {
                 if (unityObj == null)
@@ -69,7 +69,7 @@ public static class EventBus
 
             if (isDead)
             {
-                // Remove do dicionário o callback morto
+                // Remove do dicionï¿½rio o callback morto
                 subscribers[type] = (Action<T>)subscribers[type] - (Action<T>)cb;
                 continue;
             }
@@ -77,7 +77,7 @@ public static class EventBus
             validCallbacks.Add((Action<T>)cb);
         }
 
-        // Invoca apenas os callbacks ainda válidos
+        // Invoca apenas os callbacks ainda vï¿½lidos
         foreach (var cb in validCallbacks)
         {
             try
@@ -144,7 +144,7 @@ public struct LeavesHooverEfectMainMenu
     public Vector2 position; //pos.y + 47
 }
 
-public struct InputModeChangedEvent
+public struct SelectButtonEvent
 {
-    
+    public GameObject obj;
 }

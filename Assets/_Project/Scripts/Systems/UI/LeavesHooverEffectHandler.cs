@@ -3,14 +3,16 @@ public class LeavesHooverEffectHandler : UIComponentBase
 {
     public GameObject rightLeaf;
     public GameObject leftLeaf;
-    void Awake()
+
+    public bool startActive;
+    void OnEnable()
     {
         EventBus.Subscribe<LeavesHooverEfectMainMenu>(Behave);
-    }
-    private void Start()
-    {
-        rightLeaf.SetActive(false);
-        leftLeaf.SetActive(false);
+        if (!startActive)
+        {
+            rightLeaf.SetActive(false);
+            leftLeaf.SetActive(false);
+        }
     }
 
     void Behave(LeavesHooverEfectMainMenu evt)
