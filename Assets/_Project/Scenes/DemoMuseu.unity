@@ -102077,9 +102077,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b937f4d933904a34aa2db1764f444762, type: 2}
+    - target: {fileID: -2993921876907687628, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
       propertyPath: m_Name
       value: PlayerLiquid
+      objectReference: {fileID: 0}
+    - target: {fileID: 7769298555169869262, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -107811,7 +107819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1056307745038421234, guid: 98ecb219f946d614ca4134c2917d75d3, type: 3}
       propertyPath: m_TagString
-      value: Vines
+      value: Stone
       objectReference: {fileID: 0}
     - target: {fileID: 4503882515792017332, guid: 98ecb219f946d614ca4134c2917d75d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -139075,7 +139083,7 @@ GameObject:
   - component: {fileID: 8943191478627337290}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.004
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -139400,7 +139408,7 @@ GameObject:
   - component: {fileID: 8322127655430648111}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -139541,7 +139549,7 @@ GameObject:
   - component: {fileID: 6390401042734136262}
   m_Layer: 6
   m_Name: PlataformaPedra
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -139823,7 +139831,7 @@ GameObject:
   - component: {fileID: 8607897337232876509}
   m_Layer: 6
   m_Name: PlataformaPedra.001
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -140158,7 +140166,7 @@ GameObject:
   - component: {fileID: 8565244485821171275}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.012
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -140274,7 +140282,7 @@ GameObject:
   - component: {fileID: 7445059186361911811}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.001
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -140381,7 +140389,7 @@ GameObject:
   - component: {fileID: 2721122077332428573}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.013
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -140400,7 +140408,7 @@ GameObject:
   - component: {fileID: 7531896315577237798}
   m_Layer: 6
   m_Name: PlataformaPedra.002
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -140754,7 +140762,7 @@ GameObject:
   - component: {fileID: 8046228732986719361}
   m_Layer: 6
   m_Name: PlataformaPedra.003
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -141237,7 +141245,7 @@ GameObject:
   - component: {fileID: 3850195939357112123}
   m_Layer: 6
   m_Name: PlataformaPedra.004
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -141279,7 +141287,7 @@ GameObject:
   - component: {fileID: 6548720143243214022}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.005
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -141991,7 +141999,7 @@ GameObject:
   - component: {fileID: 5430675533729017489}
   m_Layer: 6
   m_Name: TorreInternaPedra
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -142194,7 +142202,7 @@ GameObject:
   - component: {fileID: 7457460587931389923}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.007
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -142416,7 +142424,7 @@ GameObject:
   - component: {fileID: 5715467787927140989}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.008
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -142652,6 +142660,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b937f4d933904a34aa2db1764f444762, type: 2}
+    - target: {fileID: 1184204820100951597, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2681728661274766837, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.16862746
@@ -142720,6 +142732,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b937f4d933904a34aa2db1764f444762, type: 2}
+    - target: {fileID: 4325114414317862839, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373503397872725826, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4912126019447745635, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -142740,6 +142760,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6074677125012254986, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862537721811954123, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7579031913606641078, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -142747,6 +142775,10 @@ PrefabInstance:
     - target: {fileID: 8362059397184737660, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8575399238253997623, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -143101,7 +143133,7 @@ GameObject:
   - component: {fileID: 6287910846845653596}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.006
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -143233,7 +143265,7 @@ GameObject:
   - component: {fileID: 8615829213169482769}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.003
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -143507,7 +143539,7 @@ GameObject:
   - component: {fileID: 6621373678902496140}
   m_Layer: 6
   m_Name: PlataformaSolidaPedra.011
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -143945,7 +143977,7 @@ GameObject:
   - component: {fileID: 7288020948232837484}
   m_Layer: 6
   m_Name: TorreAreaLateralPedra
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -144678,7 +144710,7 @@ GameObject:
   - component: {fileID: 8414525890210599772}
   m_Layer: 6
   m_Name: WallJump_Pedra
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -144793,7 +144825,7 @@ GameObject:
   - component: {fileID: 8480961646579492925}
   m_Layer: 6
   m_Name: PilaresPedra
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -145221,7 +145253,7 @@ GameObject:
   - component: {fileID: 8984652100154005616}
   m_Layer: 6
   m_Name: AreaInicial.001
-  m_TagString: Vines
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
