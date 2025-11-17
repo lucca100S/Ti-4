@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1410539435014431100}
   - component: {fileID: 8575232071863916478}
   - component: {fileID: 5698235759100446564}
-  m_Layer: 0
+  - component: {fileID: 54524320034667852}
+  m_Layer: 6
   m_Name: StoneSmall1_Model
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +87,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &54524320034667852
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2912215753165823538}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6965628804893904969, guid: 96f5fabc6fa6c824eafa67705b9a5389, type: 3}
 --- !u!1 &8934977197689706308
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,9 +118,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 516236186839601037}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StoneSmall
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

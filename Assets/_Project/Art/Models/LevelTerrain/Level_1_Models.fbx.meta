@@ -3,7 +3,22 @@ guid: 0c0a7523255d19b45bf1a49a7d752df8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grama
+    second: {fileID: 2100000, guid: 49658e1e42f95f74ebd393cd710dd0a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pedra
+    second: {fileID: 2100000, guid: bd8e1ca2d1661834a8766119ea96da72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Terra
+    second: {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

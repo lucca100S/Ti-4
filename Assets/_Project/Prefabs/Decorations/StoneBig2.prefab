@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 9160164839442262918}
   - component: {fileID: 4133585806883574789}
   - component: {fileID: 573269367593993360}
-  m_Layer: 0
+  - component: {fileID: 5392139843991119284}
+  m_Layer: 6
   m_Name: StoneBig2_Model
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +87,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5392139843991119284
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2968809905744573048}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1525836676499234877, guid: 96f5fabc6fa6c824eafa67705b9a5389, type: 3}
 --- !u!1 &4166523117093936187
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,9 +118,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5801280496495156675}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StoneBig2
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

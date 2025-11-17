@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7771124220125432743}
   - component: {fileID: 2703446016553243354}
   - component: {fileID: 2899342048610601443}
+  - component: {fileID: 856686825082633434}
   m_Layer: 6
   m_Name: IslandMudAreaMound_3_Model
-  m_TagString: Untagged
+  m_TagString: Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9056721744414212461, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
+  - {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,6 +87,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &856686825082633434
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641425141108501223}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7866502905691619692, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
 --- !u!1 &3243263620445251865
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,9 +120,10 @@ GameObject:
   - component: {fileID: 1549490309165799508}
   - component: {fileID: 2551507562942170498}
   - component: {fileID: 2391230367955268059}
+  - component: {fileID: 9077099388508677993}
   m_Layer: 6
   m_Name: IslandMudAreaMound_1_Model
-  m_TagString: Untagged
+  m_TagString: Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +174,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9056721744414212461, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
+  - {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,6 +196,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9077099388508677993
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243263620445251865}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8777579320341174265, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
 --- !u!1 &3819678266826436776
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,9 +229,10 @@ GameObject:
   - component: {fileID: 4393787175421189364}
   - component: {fileID: 2070113747531658168}
   - component: {fileID: 3300199882449037748}
+  - component: {fileID: 8482755834437273469}
   m_Layer: 6
   m_Name: IslandMudAreaMound_5_Model
-  m_TagString: Untagged
+  m_TagString: Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,7 +283,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9056721744414212461, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
+  - {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -258,6 +305,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8482755834437273469
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3819678266826436776}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6661877237901651751, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
 --- !u!1 &4697886318624457666
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,9 +338,10 @@ GameObject:
   - component: {fileID: 3856951796526029872}
   - component: {fileID: 1935018413490692543}
   - component: {fileID: 2930983942563684207}
+  - component: {fileID: 94055009436382101}
   m_Layer: 6
   m_Name: IslandMudAreaMound_4_Model
-  m_TagString: Untagged
+  m_TagString: Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,7 +392,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9056721744414212461, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
+  - {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -344,6 +414,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &94055009436382101
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697886318624457666}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8903863149879193107, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
 --- !u!1 &5191022448120667965
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,9 +447,10 @@ GameObject:
   - component: {fileID: 2092890109914606553}
   - component: {fileID: 8848352414064994224}
   - component: {fileID: 1233491474337477036}
+  - component: {fileID: 8341087113379417195}
   m_Layer: 6
   m_Name: IslandMudAreaStone_Model
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -408,8 +501,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8941902344618706013, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
-  - {fileID: 4033888712307490927, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
+  - {fileID: 2100000, guid: 49658e1e42f95f74ebd393cd710dd0a0, type: 2}
+  - {fileID: 2100000, guid: bd8e1ca2d1661834a8766119ea96da72, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -431,6 +524,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8341087113379417195
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191022448120667965}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -746223631806489591, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
 --- !u!1 &5207936298747861458
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,9 +591,10 @@ GameObject:
   - component: {fileID: 8603706634300332364}
   - component: {fileID: 3323548775733673698}
   - component: {fileID: 8184113454576713439}
+  - component: {fileID: 2663918387071741265}
   m_Layer: 6
   m_Name: IslandMudAreaMound_2_Model
-  m_TagString: Untagged
+  m_TagString: Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -529,7 +645,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9056721744414212461, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
+  - {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -551,6 +667,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2663918387071741265
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5643039653582354044}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1214743702351181736, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
 --- !u!1 &6091544300750822570
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,9 +736,10 @@ GameObject:
   - component: {fileID: 9092982787750124241}
   - component: {fileID: 8736951108602510632}
   - component: {fileID: 5251352326813648385}
+  - component: {fileID: 2378493395054620238}
   m_Layer: 6
   m_Name: IslandMudAreaDirt_Model
-  m_TagString: Untagged
+  m_TagString: Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -651,7 +790,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9056721744414212461, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
+  - {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -673,3 +812,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2378493395054620238
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7094825446153294770}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4014133695747974416, guid: 0c0a7523255d19b45bf1a49a7d752df8, type: 3}
