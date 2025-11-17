@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// Representa um coletável no cenário.
-/// Notifica observadores quando é coletado.
+/// Representa um coletï¿½vel no cenï¿½rio.
+/// Notifica observadores quando ï¿½ coletado.
 /// </summary>
 public class Collectables : OptionalInteractableObjects
 {
@@ -35,6 +35,7 @@ public class Collectables : OptionalInteractableObjects
 
         transform.DOKill();
 
+        AudioPlayer.Play(AudioId.CollectablePickUp);
         Destroy(this.gameObject, 2f);
     }
 

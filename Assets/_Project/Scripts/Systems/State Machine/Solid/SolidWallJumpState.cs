@@ -2,7 +2,7 @@ using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - WallJump
-/// <summary>Wall jump no modo Sólido.</summary>
+/// <summary>Wall jump no modo Sï¿½lido.</summary>
 public class SolidWallJumpState : IState
 {
     private SolidoState parent;
@@ -27,11 +27,12 @@ public class SolidWallJumpState : IState
         if (!executed)
         {
             Debug.Log("Executed");
-            // Impulso longe da parede: como não temos a normal do movimento aqui, usamos a normal do hit
+            // Impulso longe da parede: como nï¿½o temos a normal do movimento aqui, usamos a normal do hit
             Vector3 normal = player.PlayerController.LastNormal;
             // aplicar jump com componente para cima
             player?.SetVelocity(normal * player.solidWallJumpForce);
             player.SetGravityDirection(Vector3.up);
+            AudioPlayer.Play(AudioId.SolidJump);
             player?.AddJump(player.solidWallJumpHeight);
             Debug.Log($"[SolidWallJump] Executando walljump com push {normal}");
             
