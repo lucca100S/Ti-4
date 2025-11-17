@@ -53,6 +53,15 @@ public class AudioManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
+        EventBus.Subscribe<MasterVolumeChangeEvent>(e => MasterVolume = Mathf.Clamp01(e.NewVolume));
+        EventBus.Subscribe<MusicVolumeChangeEvent>(SetMusicVolume);
+        EventBus.Subscribe<SFXVolumeChangeEvent>(e => SFXVolume = Mathf.Clamp01(e.NewVolume));
+    }
+
+    public void SetMusicVolume(MusicVolumeChangeEvent evt) 
+    { 
+        Debug.Log($"[AudioManager] Setting Music Volume to {evt.NewVolume}");
+        MusicVolume = Mathf.Clamp01(evt.NewVolume); 
     }
 
     private void Update()
@@ -184,4 +193,8 @@ public class AudioManager : MonoBehaviour
     }
 
     #endregion
+
+    //UI Event
+
+
 }
