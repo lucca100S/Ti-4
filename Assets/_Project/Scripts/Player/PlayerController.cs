@@ -158,6 +158,9 @@ namespace Player
 
             _liquidModel.SetActive(false);
             _solidModel.SetActive(true);
+
+            AudioPlayer.Play(AudioId.Transformation);
+            AudioPlayer.Stop(AudioId.WalkingLiquid);
         }
 
         private void ToggleFormModels(IState state)

@@ -33,6 +33,7 @@ public class LiquidJumpState : IState
         Debug.Log("[LiquidJump] Enter");
         if (player.CanJump)
         {
+            AudioPlayer.Play(AudioId.SolidJump);
             player.AddJump(player.LiquidJump);
             player.DidJump = true;
         }
