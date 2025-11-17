@@ -55,9 +55,12 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 _gravityDirection = Vector3.up;
     private Vector3 verticalVelocity = Vector3.up;
 
+    private Vector3 _directionLerp = Vector3.zero;
+
     #endregion
 
     private Vector3 _directionInput = Vector3.zero;
+    private Vector3 _lastDirectionInput = Vector3.forward;
     private InputInfo _jumpInput = new InputInfo { };
     private InputInfo _transformInput = new InputInfo { };
     private Vector3 _currentVelocity = Vector3.zero;
@@ -81,11 +84,16 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Start()
     {
+        _lastDirectionInput = transform.forward;
+
         macroStateMachine.ChangeState(solidoState);
+        ActionsManager.Instance.OnFormChanged?.Invoke(solidoState);
     }
 
     private void Update()
     {
+        GetMovingDirection(_directionInput);
+
         // Gravity & movement commit (reseta accumulated horizontal a cada frame)
         ApplyGravity();
 
@@ -97,10 +105,23 @@ public class PlayerStateMachine : MonoBehaviour
 
         _currentVelocity = Vector3.MoveTowards(_currentVelocity, totalMove, (totalMove.magnitude > _currentVelocity.magnitude ? _acceleration : IsGrounded ? _deceleration : _airDeceleration) * Time.deltaTime);
 
-        _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("Speed", _currentVelocity.magnitude);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("SpeedFactor", _currentVelocity.magnitude/solidMoveSpeedStone);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("VerticalVelocity", _rigidBody.linearVelocity.y);
 
         // Reset horizontal for next frame (vertical is persistent)
         accumulatedHorizontalMovement = Vector3.zero;
+    }
+
+    private void FixedUpdate()
+    {
+        
+        _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
+
+        if (IsGrounded)
+        {
+            DidJump = false;
+        }
     }
     #endregion
 
@@ -128,19 +149,17 @@ public class PlayerStateMachine : MonoBehaviour
     public void AddJump(float jumpForce)
     {
         verticalVelocity = jumpForce * _gravityDirection;
-        Debug.Log($"[Player] Jump applied: {jumpForce}");
     }
     public void AddJump(float jumpForce, Vector3 direction)
     {
         verticalVelocity = jumpForce * direction;
-        Debug.Log($"[Player] Jump applied: {jumpForce}");
     }
     #endregion
 
     #region Macro State Control
     private void ToggleMacroState()
     {
-        this.GetComponent<Animator>().SetBool("KeepAtState", false);
+        //this.GetComponent<Animator>().SetBool("KeepAtState", false);
         if (macroStateMachine.CurrentState == solidoState)
         {
             macroStateMachine.ChangeState(liquidoState);
@@ -161,6 +180,14 @@ public class PlayerStateMachine : MonoBehaviour
     public string CurrentMacroName => macroStateMachine.CurrentState?.GetType().Name ?? "None";
     #endregion
 
+    private void GetMovingDirection(Vector3 direction)
+    {
+        _directionLerp = Vector3.Lerp(_directionLerp, direction, Time.deltaTime * 5f);
+
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("HorizontalMovement", _directionLerp.x);
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("VerticalMovement", _directionLerp.z);
+    }
+
     internal void ApplyGravity()
     {
         float magnitude = verticalVelocity.magnitude;
@@ -177,6 +204,7 @@ public class PlayerStateMachine : MonoBehaviour
         if (IsGrounded && IsGoingDown)
         {
             // Mantém levemente negativo para garantir contato com CharacterController
+            _rigidBody.linearVelocity = new Vector3(_rigidBody.linearVelocity.x, 0f, _rigidBody.linearVelocity.z);
             verticalVelocity = -2f * _gravityDirection;
         }
         else
@@ -206,6 +234,10 @@ public class PlayerStateMachine : MonoBehaviour
     internal void GetDirectionInput(Vector3 direction)
     {
         _directionInput = direction;
+        if(direction != Vector3.zero)
+        {
+            _lastDirectionInput = DirectionInput;
+        }
     }
 
     internal void GetJumpInput(InputInfo info)
@@ -250,7 +282,7 @@ public class PlayerStateMachine : MonoBehaviour
             }
         }
     } 
-        
+    public StateMachine MacroStateMachine => macroStateMachine;
     public float LiquidSpeed
     {
         get
@@ -292,6 +324,10 @@ public class PlayerStateMachine : MonoBehaviour
             return direction.normalized;
         }
     }
+    public Vector3 LastDirectionInput
+    {
+        get { return _lastDirectionInput; }
+    }
     public Vector3 DirectionInputClimb
     {
         get
@@ -328,7 +364,7 @@ public class PlayerStateMachine : MonoBehaviour
     public InputInfo TransformInput => _transformInput;
     public Transform Orientation => playerController.Orientation;
     public bool CoyoteTime => LastTimeOnGround + JumpInput.BufferTime > Time.time;
-    public bool CanJump { get { return JumpInput.GetDelayInput(LastJumpInputOnGround) || IsGrounded || (CoyoteTime && _jumpInput.IsDown); } private set { } }
+    public bool CanJump { get { return !DidJump && (JumpInput.GetDelayInput(LastJumpInputOnGround) || IsGrounded || (CoyoteTime && _jumpInput.IsDown)); } private set { } }
     public bool DidJump { get { return _didJump; } set { _didJump = value; } }
     #endregion
 }

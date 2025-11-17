@@ -31,6 +31,8 @@ namespace Player
         private SurfaceMaterial _previousMaterial = SurfaceMaterial.None;
         private SurfaceMaterial _currentMaterial = SurfaceMaterial.None;
 
+        private Vector3 _lastNormal = Vector3.up;
+
         public enum State
         {
             Air,
@@ -52,6 +54,7 @@ namespace Player
 
         public float LastTimeOnGround { get; private set; }
         public Transform Orientation { get { return _orientation; } private set { _orientation = value; } }
+        public Vector3 LastNormal { get { return _lastNormal; } set { _lastNormal = value; } }
 
         #endregion
 
@@ -76,6 +79,7 @@ namespace Player
             _surfaceDetection.OnSurfaceHit += OnSurfaceHit;
 
             ActionsManager.Instance.OnFormChanged += ChangeForm;
+            ActionsManager.Instance.OnTransformAnimationEnded += ToggleFormModels;
         }
 
         private void OnDisable()
@@ -89,6 +93,7 @@ namespace Player
             _surfaceDetection.OnSurfaceHit -= OnSurfaceHit;
 
             ActionsManager.Instance.OnFormChanged -= ChangeForm;
+            ActionsManager.Instance.OnTransformAnimationEnded -= ToggleFormModels;
         }
 
         #region StateMachine
@@ -127,7 +132,7 @@ namespace Player
                     ChangeMaterial(hit.material);
                     break;
             }
-
+            _lastNormal = hit.hit.normal;
         }
 
         private void OnSurfaceNull()
@@ -149,9 +154,19 @@ namespace Player
         {
             bool isLiquid = state is LiquidoState;
             _liquidCollider.enabled = isLiquid;
-            _liquidModel.SetActive(isLiquid);
-          
             _solidCollider.enabled = !isLiquid;
+
+            _liquidModel.SetActive(false);
+            _solidModel.SetActive(true);
+
+            AudioPlayer.Play(AudioId.Transformation);
+            AudioPlayer.Stop(AudioId.WalkingLiquid);
+        }
+
+        private void ToggleFormModels(IState state)
+        {
+            bool isLiquid = state is LiquidoState;
+            _liquidModel.SetActive(isLiquid);
             _solidModel.SetActive(!isLiquid);
         }
 

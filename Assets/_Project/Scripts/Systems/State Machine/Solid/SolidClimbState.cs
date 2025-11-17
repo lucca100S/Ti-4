@@ -9,6 +9,10 @@ public class SolidClimbState : IState
     private SurfaceDetection surface;
     private PlayerStateMachine player;
 
+    private bool _didStart = false;
+
+    public StateType StateType => StateType.Climb;
+
     public SolidClimbState(SolidoState parent, SurfaceDetection surface)
     {
         this.parent = parent;
@@ -29,17 +33,16 @@ public class SolidClimbState : IState
             case SurfaceMaterial.Vines:
                 player.AddJump(0);
                 player.SetGravityDirection(Vector3.zero);
-                if (player.DirectionInput != Vector3.zero)
+
+                Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
+                player?.SetVelocity(move);
+
+                if (!_didStart)
                 {
-                    player.GetComponent<Animator>().SetTrigger("Climbing");
-                    Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
-                    player?.SetMovement(move);
+                    _didStart = true;
+                    player.SetVelocity(Vector3.zero);
                 }
-                else 
-                {
-                    player.GetComponent<Animator>().SetTrigger("IdleClimbing");
-                }
-                    break;
+                break;
             case SurfaceMaterial.Earth:
                 player.AddJump(player.gravity * 0.1f);
                 player.SetGravityDirection(Vector3.up);
@@ -47,15 +50,25 @@ public class SolidClimbState : IState
             case SurfaceMaterial.Stone:
                 player.SetGravityDirection(Vector3.zero);
                 player.AddJump(0);
+
+                if (!_didStart)
+                {
+                    _didStart = true;
+                    player.SetVelocity(Vector3.zero);
+                }
                 break;
         }
     }
 
-    public void Exit() => Debug.Log("[SolidClimb] Exit");
+    public void Exit()
+    {
+        Debug.Log("[SolidClimb] Exit");
+        _didStart = false;
+    }
 
     public void OnJumpInput(InputInfo input)
     {
-        
+
     }
 }
 #endregion

@@ -33,7 +33,9 @@ public class StateMachine
         CurrentState?.Exit();
         CurrentState = newState;
         _timeInState = 0;
+        ActionsManager.Instance.OnStateChanged?.Invoke(newState.StateType);
         CurrentState.Enter();
+
     }
 
     /// <summary>Chama Update no estado atual.</summary>
