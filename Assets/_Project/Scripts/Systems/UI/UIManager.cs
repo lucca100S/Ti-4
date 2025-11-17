@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 public class UIManager : MonoBehaviour
 {
-    [Tooltip("Lista de pain�is dispon�veis na cena.")]
-    public List<GameObject> panels = new();
-
+    public GameObject volume;
     private void OnEnable()
     {
         EventBus.Subscribe<SceneChangeEvent>(OnSceneChange);
@@ -16,6 +16,15 @@ public class UIManager : MonoBehaviour
         EventBus.Subscribe<SelectButtonEvent>(SelectButton);
     }
 
+    void Update()
+    {
+        // Verifica o botão Escape do teclado
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
+        {
+            this.GetComponent<TogglePanelButton>().OnTrigger();
+            volume.SetActive(!this.GetComponent<TogglePanelButton>().activate);
+        }
+    }
     private void OnDisable()
     {
         EventBus.Unsubscribe<SceneChangeEvent>(OnSceneChange);
