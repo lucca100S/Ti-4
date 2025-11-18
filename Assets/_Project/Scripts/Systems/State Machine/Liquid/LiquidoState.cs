@@ -1,5 +1,6 @@
 ﻿using Systems.Input;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 
 #region Macros - Liquido
 /// <summary>
@@ -20,6 +21,8 @@ public class LiquidoState : IState
     public LiquidJumpState JumpState { get; private set; }
     public LiquidWallJumpState WallJumpState { get; private set; }
     public Vector3 NormalDirection => _normalDirection;
+
+    public StateType StateType => StateType.Idle;
     #endregion
 
     #region Constructor
@@ -41,9 +44,20 @@ public class LiquidoState : IState
     #region IState
     public void Enter()
     {
+        if(surface.CurrentSurface.HasValue)
+        {
+            Vector3 normal = surface.CurrentSurface.Value.hit.normal;
+            Vector3 hitPos = surface.CurrentSurface.Value.hit.point;
+
+            Quaternion alignRotation = Quaternion.FromToRotation(player.transform.up, normal) * player.transform.rotation;
+            player.PlayerController.RotateModelTowardsInstant(alignRotation);
+
+            player.RigidBody.MovePosition(hitPos);
+        }
+
         Debug.Log("[Macro] Entrou em Líquido");
-        player.GetComponent<Animator>().SetBool("IsSolid", false);
-        player.GetComponent<Animator>().SetBool("KeepAtState", true);
+        //player.GetComponent<Animator>().SetBool("IsSolid", false);
+        //player.GetComponent<Animator>().SetBool("KeepAtState", true);
         subStateMachine.ChangeState(IdleState);
     }
 
@@ -58,11 +72,9 @@ public class LiquidoState : IState
                 case SurfaceType.Wall:
                 case SurfaceType.Floor:
                 case SurfaceType.Ceiling:
-                    Debug.Log("IsGoingDown here: " + player.IsGoingDown);
                     if (player.IsGoingDown)
                     {
                         Vector3 dir = player.DirectionInputNormal;
-                        Debug.Log("Dir here: " + dir);
                         if (dir.magnitude > 0.01f)
                         {
                             subStateMachine.ChangeState(WalkState);

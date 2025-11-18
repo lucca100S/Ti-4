@@ -2,13 +2,15 @@ using Systems.Input;
 using UnityEngine;
 
 #region Substates - Solid - WallJump
-/// <summary>Wall jump no modo Sólido.</summary>
+/// <summary>Wall jump no modo Sï¿½lido.</summary>
 public class SolidWallJumpState : IState
 {
     private SolidoState parent;
     private SurfaceDetection surface;
     private PlayerStateMachine player;
     private bool executed = false;
+
+    public StateType StateType => StateType.WallJump;
 
     public SolidWallJumpState(SolidoState parent, SurfaceDetection surface)
     {
@@ -25,16 +27,15 @@ public class SolidWallJumpState : IState
         if (!executed)
         {
             Debug.Log("Executed");
-            // Impulso longe da parede: como não temos a normal do movimento aqui, usamos a normal do hit
-            if (surface.CurrentSurface.HasValue && surface.CurrentSurface.Value.type == SurfaceType.Wall)
-            {
-                Vector3 normal = surface.CurrentSurface.Value.hit.normal;
-                // aplicar jump com componente para cima
-                player?.SetVelocity(normal * player.solidWallJumpForce);
-                player.SetGravityDirection(Vector3.up);
-                player?.AddJump(player.solidWallJumpHeight);
-                Debug.Log($"[SolidWallJump] Executando walljump com push {normal}");
-            }
+            // Impulso longe da parede: como nï¿½o temos a normal do movimento aqui, usamos a normal do hit
+            Vector3 normal = player.PlayerController.LastNormal;
+            // aplicar jump com componente para cima
+            player?.SetVelocity(normal * player.solidWallJumpForce);
+            player.SetGravityDirection(Vector3.up);
+            AudioPlayer.Play(AudioId.SolidJump);
+            player?.AddJump(player.solidWallJumpHeight);
+            Debug.Log($"[SolidWallJump] Executando walljump com push {normal}");
+            
             executed = true;
         }
     }
@@ -43,7 +44,11 @@ public class SolidWallJumpState : IState
     {
     }
 
-    public void Exit() => Debug.Log("[SolidWallJump] Exit");
+    public void Exit() 
+    { 
+        Debug.Log("[SolidWallJump] Exit");
+        player.DidJump = false;
+    }
 
     public void OnJumpInput(InputInfo input)
     {

@@ -3,7 +3,22 @@ guid: 56d9db773479d3c49bb843439d806d5c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Folhas
+    second: {fileID: 2100000, guid: 071e5a2aba45e1d4093c0a5687017198, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lama
+    second: {fileID: 2100000, guid: 9ae09bd0ecffae84b86aef2909458690, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nariz
+    second: {fileID: 2100000, guid: 9ae09bd0ecffae84b86aef2909458690, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

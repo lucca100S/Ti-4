@@ -12,6 +12,8 @@ public class LiquidIdleState : IState
     private readonly PlayerStateMachine player;
     private readonly SurfaceDetection surface;
 
+    public StateType StateType => StateType.Idle;
+
     public LiquidIdleState(LiquidoState parent, PlayerStateMachine player, SurfaceDetection surface)
     {
         this.parent = parent;

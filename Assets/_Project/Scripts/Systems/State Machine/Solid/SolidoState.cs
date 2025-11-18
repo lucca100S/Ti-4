@@ -20,6 +20,9 @@ public class SolidoState : IState
     public SolidWallJumpState WallJumpState { get; private set; }
     public SolidClimbState ClimbState { get; private set; }
     public IState LastState => subStateMachine.LastState;
+
+    public StateType StateType => StateType.Idle;
+    public float TimeInState => subStateMachine.TimeInState;
     #endregion
 
     #region Constructor
@@ -43,9 +46,9 @@ public class SolidoState : IState
     public void Enter()
     {
         //Change later to maintin relative forward direction
-        player.PlayerController.RotateModelTowardsInstant(Vector3.forward);
-        player.GetComponent<Animator>().SetBool("IsSolid", true);
-        player.GetComponent<Animator>().SetBool("KeepAtState", true);
+
+        player.PlayerController.RotateModelTowardsInstant(player.LastDirectionInput);
+
         Debug.Log("[Macro] Entrou em Sólido");
         subStateMachine.ChangeState(IdleState);
     }
@@ -60,18 +63,16 @@ public class SolidoState : IState
             {
                 case SurfaceType.Floor:
                     // andar/idle/pular
-                    if (player.CurrentVelocity.y <= 0)
+                    if (player.CanJump)
                     {
                         Vector3 dir = player.DirectionInput;
                         if (dir.magnitude > 0.001f)
                         {
                             player.PlayerController.RotateModelTowards(dir);
-                            player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(WalkState);
                         }
                         else
                         {
-                            player.GetComponent<Animator>().SetTrigger("MeetGround");
                             subStateMachine.ChangeState(IdleState);
                         }
                     }
@@ -80,11 +81,12 @@ public class SolidoState : IState
                 case SurfaceType.Wall:
                     Vector3 hitNormal = surface.CurrentSurface.Value.hit.normal;
                     // escalar e walljump
-                    float DOTProduct = Vector3.Dot(player.DirectionInput.normalized, -hitNormal);
-                    if (DOTProduct > 0.8f)
+                    IState currentState = subStateMachine.CurrentState;
+                    if (player.CurrentVelocity.y <= 0 && !player.IsGrounded && currentState != WallJumpState)
+                    {
                         subStateMachine.ChangeState(ClimbState);
-
-                    player.PlayerController.RotateModelTowards(-hitNormal);
+                        player.PlayerController.RotateModelTowardsInstant(-hitNormal);
+                    }
                     break;
 
                 case SurfaceType.Ceiling:
