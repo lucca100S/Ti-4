@@ -18,6 +18,7 @@ namespace Player
         [SerializeField] private GameObject _solidModel;
         [SerializeField] private Collider _solidCollider;
         [SerializeField] private GameObject _liquidModel;
+        [SerializeField] private GameObject _liquidVisual;
         [SerializeField] private Collider _liquidCollider;
 
         private SurfaceDetection _surfaceDetection;
@@ -190,6 +191,18 @@ namespace Player
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
             _orientation.rotation = Quaternion.Lerp(_orientation.rotation, targetRotation, Time.deltaTime * 10f);
+
+            direction = _rigidBody.linearVelocity;
+
+            if(_playerStateMachine.IsGrounded)
+            {
+                direction.y = 0;
+            }
+
+            if(direction != Vector3.zero)
+                targetRotation = Quaternion.LookRotation(direction.normalized);
+
+            _liquidVisual.transform.rotation = Quaternion.Lerp(_liquidVisual.transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
 
         public void RotateModelTowards(Quaternion targetRotation)
@@ -199,12 +212,37 @@ namespace Player
                 targetRotation,
                 10f * Time.deltaTime
             );
+
+            Vector3 direction = _rigidBody.linearVelocity;
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                direction.y = 0;
+            }
+
+            if (direction != Vector3.zero)
+                targetRotation = Quaternion.LookRotation(direction.normalized);
+
+            _liquidVisual.transform.rotation = Quaternion.Lerp(_liquidVisual.transform.rotation, targetRotation, Time.deltaTime * 10f);
+
         }
 
         internal void RotateModelTowardsInstant(Vector3 direction)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
             _orientation.rotation = targetRotation;
+
+            direction = _rigidBody.linearVelocity;
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                direction.y = 0;
+            }
+
+            if (direction != Vector3.zero)
+                targetRotation = Quaternion.LookRotation(direction.normalized);
+
+            _liquidVisual.transform.rotation = targetRotation;
         }
 
         internal void RotateModelTowardsInstant(Quaternion direction)

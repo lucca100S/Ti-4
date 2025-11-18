@@ -1095,6 +1095,7 @@ MonoBehaviour:
   _solidModel: {fileID: 5948759138022621721}
   _solidCollider: {fileID: 24506430698536637}
   _liquidModel: {fileID: 2656318270235332554}
+  _liquidVisual: {fileID: 6252205854995348845}
   _liquidCollider: {fileID: 9109924603936484855}
 --- !u!114 &6743708650874918643
 MonoBehaviour:
@@ -3822,6 +3823,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+--- !u!1 &6252205854995348845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+  m_PrefabInstance: {fileID: 6486632381864230972}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6741779472211322839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
