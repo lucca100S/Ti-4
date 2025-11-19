@@ -41,8 +41,8 @@ namespace Player
             _playerActions.Jump.performed += _jumpInput.GetInput;
             _playerActions.Jump.canceled += _jumpInput.GetInput;
 
-            _playerActions.Transform.performed += _transformInput.GetInput;
-            _playerActions.Transform.canceled += _transformInput.GetInput;
+            //_playerActions.Transform.performed += _transformInput.GetInput;
+            //_playerActions.Transform.canceled += _transformInput.GetInput;
         }
 
         private void MovePerformed(InputAction.CallbackContext context)

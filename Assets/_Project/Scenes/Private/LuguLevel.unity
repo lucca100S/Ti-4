@@ -16629,13 +16629,17 @@ PrefabInstance:
       propertyPath: _playerGameplay
       value: 
       objectReference: {fileID: 907889493}
+    - target: {fileID: 1046178675399757557, guid: a3524153e521d5440a8c1368eb972c25, type: 3}
+      propertyPath: _transformAction
+      value: 
+      objectReference: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 1264716052373859463, guid: a3524153e521d5440a8c1368eb972c25, type: 3}
       propertyPath: m_Name
       value: PlayerStartPoint
       objectReference: {fileID: 0}
     - target: {fileID: 1264716052373859463, guid: a3524153e521d5440a8c1368eb972c25, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4196401960361225972, guid: a3524153e521d5440a8c1368eb972c25, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16736,7 +16740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3112733754245621094, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4461126628504018758, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
       propertyPath: solidWallJumpForce
