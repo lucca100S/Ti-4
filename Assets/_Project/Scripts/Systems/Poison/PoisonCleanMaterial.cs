@@ -6,6 +6,8 @@ public class PoisonCleanMaterial : MonoBehaviour
 {
     private Renderer m_renderer;
 
+    [SerializeField] private float _startClean = 0;
+
     private List<Material> m_materials = new List<Material>();
 
     [SerializeField] private float _cleanDuration = 1f;
@@ -20,6 +22,7 @@ public class PoisonCleanMaterial : MonoBehaviour
         for (int i = 0; i < m_renderer.materials.Length; i++)
         {
             m_materials.Add(m_renderer.materials[i]);
+            m_materials[i].SetFloat("_MaterialBlend", _startClean);
         }
     }
 
