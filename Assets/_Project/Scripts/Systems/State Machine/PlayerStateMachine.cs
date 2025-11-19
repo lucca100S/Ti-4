@@ -115,8 +115,17 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
+        Vector3 velocity = (_currentVelocity);
+
+        if (Physics.Raycast(transform.position, velocity.normalized, out RaycastHit hit, 0.7f, LayerMask.GetMask("Map")))
+        {
+            float hitDist = hit.distance;
+            velocity -= (velocity - (velocity.normalized * hitDist));
+        }
+
+        velocity += verticalVelocity;
+
+        _rigidBody.linearVelocity = velocity;
 
         if (IsGrounded)
         {
