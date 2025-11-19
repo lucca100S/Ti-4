@@ -17172,7 +17172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7155241837118054796, guid: 619ae970d6fbced498e85aea71b87473, type: 3}
       propertyPath: _poisonListeners.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7155241837118054796, guid: 619ae970d6fbced498e85aea71b87473, type: 3}
       propertyPath: '_poisonListeners.Array.data[0]'
@@ -17198,6 +17198,10 @@ PrefabInstance:
       propertyPath: '_poisonListeners.Array.data[5]'
       value: 
       objectReference: {fileID: 6347623982003246556}
+    - target: {fileID: 7155241837118054796, guid: 619ae970d6fbced498e85aea71b87473, type: 3}
+      propertyPath: '_poisonListeners.Array.data[6]'
+      value: 
+      objectReference: {fileID: 672001793}
     - target: {fileID: 8586106513298197563, guid: 619ae970d6fbced498e85aea71b87473, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.017974854
