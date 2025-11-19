@@ -123,6 +123,12 @@ public class PlayerStateMachine : MonoBehaviour
             DidJump = false;
         }
     }
+
+    private void OnDisable()
+    {
+        _rigidBody.linearVelocity = Vector3.zero;
+        ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("SpeedFactor", 0);
+    }
     #endregion
 
     #region Movement API for States
