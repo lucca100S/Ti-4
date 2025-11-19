@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5348099554473838634
+--- !u!1 &1673651966488677718
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5305934014269305607}
-  - component: {fileID: 3620561616544368686}
-  - component: {fileID: 5459488983433127226}
+  - component: {fileID: 8586106513298197563}
+  - component: {fileID: 4593500627269621095}
+  - component: {fileID: 7155241837118054796}
   m_Layer: 0
-  m_Name: PoisonVolume
+  m_Name: PoisonObserver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &5305934014269305607
+--- !u!4 &8586106513298197563
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5348099554473838634}
+  m_GameObject: {fileID: 1673651966488677718}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8860965, y: 15.079933, z: 25.161835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.017974854, y: 15.079937, z: 22.536554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3620561616544368686
+--- !u!65 &4593500627269621095
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5348099554473838634}
+  m_GameObject: {fileID: 1673651966488677718}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -52,22 +52,22 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 58.827763, y: 74.12637, z: 60.550686}
-  m_Center: {x: -6.6887836, y: -25.95693, z: -10.577139}
---- !u!114 &5459488983433127226
+  m_Size: {x: 5.109493, y: 4.1737413, z: 4.909136}
+  m_Center: {x: -0.6650703, y: 1.5927787, z: 0.20860577}
+--- !u!114 &7155241837118054796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5348099554473838634}
+  m_GameObject: {fileID: 1673651966488677718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Script: {fileID: 11500000, guid: 3555f47fcf710e844b69b8b47c173593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsGlobal: 0
-  priority: 1
-  blendDistance: 10
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 1561bd1b95049d346baca1b821eed11a, type: 2}
+  _cleanDelay: 1
+  _cleanDuration: 2
+  _poisonListeners:
+  - {fileID: 0}
+  - {fileID: 0}
