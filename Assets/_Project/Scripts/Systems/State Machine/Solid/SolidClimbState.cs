@@ -1,5 +1,4 @@
 using Systems.Input;
-using UnityEditor;
 using UnityEngine;
 
 #region Substates - Solid - Climb
@@ -65,8 +64,6 @@ public class SolidClimbState : IState
     {
         Debug.Log("[SolidClimb] Exit");
         _didStart = false;
-
-        EditorApplication.isPaused = true;
     }
 
     public void OnJumpInput(InputInfo input)
