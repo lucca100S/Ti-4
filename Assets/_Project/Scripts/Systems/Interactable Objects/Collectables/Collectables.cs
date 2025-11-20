@@ -17,7 +17,8 @@ public class Collectables : OptionalInteractableObjects
 
     private void Start()
     {
-        transform.DOScale(Vector3.one, 1).From(Vector3.zero).SetEase(Ease.OutElastic);
+        Vector3 originalScale = transform.localScale;
+        transform.DOScale(originalScale, 1).From(Vector3.zero).SetEase(Ease.OutElastic);
 
         transform.DORotate(new Vector3(0, 360, 0), _spinDuration, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Restart)
