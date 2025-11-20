@@ -123,7 +123,7 @@ public class PlayerStateMachine : MonoBehaviour
         if (Physics.Raycast(pos, velocity.normalized, out RaycastHit hit, 0.7f, LayerMask.GetMask("Map")))
         {
             pos += transform.up * 0.4f;
-            if (Physics.Raycast(pos, velocity.normalized, 0.7f, LayerMask.GetMask("Map")))
+            if (Physics.Raycast(pos, velocity.normalized, 0.7f, LayerMask.GetMask("Map")) || !IsGrounded)
             {
                 float hitDist = hit.distance;
                 velocity -= (velocity - (velocity.normalized * hitDist));
@@ -136,7 +136,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         
 
-        if (IsGrounded && (Time.time-LastJumpInputOnGround) > 0.3f)
+        if (IsGrounded && (Time.time-LastJumpInputOnGround) > 0.4f)
         {
             DidJump = false;
         }

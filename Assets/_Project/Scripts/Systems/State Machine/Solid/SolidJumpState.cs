@@ -88,6 +88,8 @@ public class SolidJumpState : IState
         }
         else if (player.CanJump && input.IsDown && !player.DidJump)
         {
+            AudioPlayer.Play(AudioId.SolidJump);
+            ActionsManager.Instance.OnPlayerJumped?.Invoke();
             player?.AddJump(player.SolidJump);
             player.DidJump = true;
         }

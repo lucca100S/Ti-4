@@ -24,6 +24,8 @@ public class SolidClimbState : IState
     {
         Debug.Log("[SolidClimb] Enter");
         AudioPlayer.Stop(AudioId.SolidStep);
+
+        player.DidJump = false;
     }
 
     public void Update()
