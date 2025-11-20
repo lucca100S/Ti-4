@@ -22,7 +22,7 @@ public class SolidWallJumpState : IState
     public void Enter()
     {
         Debug.Log("[SolidWallJump] Enter");
-        executed = false;
+        executed = player.DidJump;
 
         if (!executed)
         {
@@ -37,6 +37,7 @@ public class SolidWallJumpState : IState
             Debug.Log($"[SolidWallJump] Executando walljump com push {normal}");
             
             executed = true;
+            player.DidJump = true;
         }
     }
 
@@ -47,7 +48,7 @@ public class SolidWallJumpState : IState
     public void Exit() 
     { 
         Debug.Log("[SolidWallJump] Exit");
-        player.DidJump = false;
+        executed = false;
     }
 
     public void OnJumpInput(InputInfo input)
