@@ -56,15 +56,13 @@ public class PlayerStartAnimationHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        _transformAction.action.performed += StartAnimation;
     }
 
     private void OnDisable()
     {
-        _transformAction.action.performed -= StartAnimation;
     }
 
-    public void StartAnimation(InputAction.CallbackContext context)
+    public void StartAnimation()
     {
         if (_isPlaying)
             return;
