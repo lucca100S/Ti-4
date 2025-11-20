@@ -33,18 +33,17 @@ public class LiquidJumpState : IState
         Debug.Log("[LiquidJump] Enter");
         if (player.CanJump)
         {
-            AudioPlayer.Play(AudioId.SolidJump);
             player.AddJump(player.LiquidJump);
             player.DidJump = true;
         }
 
-        if (player.DidJump)
-        {
-            ActionsManager.Instance.OnPlayerJumped?.Invoke();
-            player.LastJumpInputOnGround = -Mathf.Infinity;
-        }
-
         _didJump = player.DidJump && !_didJump;
+
+        if(_didJump)
+        {
+            AudioPlayer.Play(AudioId.SolidJump);
+            ActionsManager.Instance.OnPlayerJumped?.Invoke();
+        }
     }
 
     public void Update()

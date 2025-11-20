@@ -117,17 +117,26 @@ public class PlayerStateMachine : MonoBehaviour
     {
         Vector3 velocity = (_currentVelocity);
 
-        if (Physics.Raycast(transform.position, velocity.normalized, out RaycastHit hit, 0.7f, LayerMask.GetMask("Map")))
+        Vector3 pos = transform.position;
+        pos += transform.up * 0.3f;
+
+        if (Physics.Raycast(pos, velocity.normalized, out RaycastHit hit, 0.7f, LayerMask.GetMask("Map")))
         {
-            float hitDist = hit.distance;
-            velocity -= (velocity - (velocity.normalized * hitDist));
+            pos += transform.up * 0.4f;
+            if (Physics.Raycast(pos, velocity.normalized, 0.7f, LayerMask.GetMask("Map")))
+            {
+                float hitDist = hit.distance;
+                velocity -= (velocity - (velocity.normalized * hitDist));
+            }
         }
 
         velocity += verticalVelocity;
 
         _rigidBody.linearVelocity = velocity;
 
-        if (IsGrounded)
+        
+
+        if (IsGrounded && (Time.time-LastJumpInputOnGround) > 0.3f)
         {
             DidJump = false;
         }

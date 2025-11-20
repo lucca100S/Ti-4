@@ -1,4 +1,5 @@
 using Systems.Input;
+using UnityEditor;
 using UnityEngine;
 
 #region Substates - Solid - Climb
@@ -31,8 +32,8 @@ public class SolidClimbState : IState
         switch (player.PlayerController.CurrentMaterial)
         {
             case SurfaceMaterial.Vines:
-                player.AddJump(0);
-                player.SetGravityDirection(Vector3.zero);
+                player.AddJump(1f);
+                player.SetGravityDirection(-surface.CurrentSurface.Value.hit.normal);
 
                 Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
                 player?.SetVelocity(move);
@@ -64,6 +65,8 @@ public class SolidClimbState : IState
     {
         Debug.Log("[SolidClimb] Exit");
         _didStart = false;
+
+        EditorApplication.isPaused = true;
     }
 
     public void OnJumpInput(InputInfo input)

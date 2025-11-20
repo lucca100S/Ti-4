@@ -29,7 +29,7 @@ public class SolidJumpState : IState
         if (player.CanJump)
         {
             //player.GetComponent<Animator>().SetTrigger("Jump");
-            AudioPlayer.Play(AudioId.SolidJump);
+            
             player?.AddJump(player.SolidJump);
 
             player.DidJump = true;
@@ -39,14 +39,15 @@ public class SolidJumpState : IState
             player.DidJump = true;
         }
 
-        if (player.DidJump)
-        {
-            ActionsManager.Instance.OnPlayerJumped?.Invoke();
-            player.LastJumpInputOnGround = -Mathf.Infinity;
-        }
         player.SetGravityDirection(Vector3.up);
 
         _didJump = player.DidJump && !_didJump;
+
+        if(_didJump)
+        {
+            AudioPlayer.Play(AudioId.SolidJump);
+            ActionsManager.Instance.OnPlayerJumped?.Invoke();
+        }
     }
 
     public void Update()
@@ -69,7 +70,9 @@ public class SolidJumpState : IState
     public void Exit()
     {
         Debug.Log("[SolidJump] Exit");
-        ActionsManager.Instance.OnPlayerLanded?.Invoke();
+
+        if(player.IsGrounded)
+            ActionsManager.Instance.OnPlayerLanded?.Invoke();
     }
 
     public void OnJumpInput(InputInfo input)
