@@ -26,15 +26,13 @@ public class Pause : Panel
         switch (next)
         {
             case HUD:
-                Debug.Log("Exited to Main Menu");
+                var FadeTransition = new FadeTransition(0.5f);
+                FadeTransition.PlayExit(this, () =>
+                {
+                    Debug.Log("Exited to HUD");
+                });
                 break;
         }
-        if (next is HUD)
-        {
-            Debug.Log("Resumed to HUD");
-            DistortionEffectGlobalVolume.SetActive(false);
-        }
-
         this.gameObject.SetActive(false);
     }
 }

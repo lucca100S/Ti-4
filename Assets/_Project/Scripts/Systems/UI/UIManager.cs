@@ -1,22 +1,35 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject transitionPanel;
-    public UnityEngine.Video.VideoPlayer transitionVideo;
+    public static UIManager Instance;
+    public static GameLanguages CurrentLanguage;
     void Awake()
     {
-        EventBus.Subscribe<ChangePanelEvent>(OnChangePanel);
-                var videoTransition = new VideoWipeTransition(
-            transitionPanel,
-            transitionVideo,
-            this
-        );
-    }
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
 
-    void OnChangePanel(ChangePanelEvent eventData)
+        EventBus.Subscribe<ChangePanelEvent>(OnChangePanel);
+        EventBus.Subscribe<GameLanguageChangeEvent>(OnChangeLanguage);
+        //Substitute the language arbitrarly selection after Save System implementation
+        EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.English));
+    }
+    static void OnChangePanel(ChangePanelEvent eventData)
     {
         eventData.currentPanel.OnExit(eventData.targetPanel);
         eventData.targetPanel.OnEnter(eventData.currentPanel);
+    }
+
+    static void OnChangeLanguage(GameLanguageChangeEvent eventData)
+    {
+        CurrentLanguage = eventData.CurrentLanguage;
     }
 }
