@@ -137,6 +137,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _rigidBody.linearVelocity = Vector3.zero;
         ActionsManager.Instance.OnAnimatorFloatChanged?.Invoke("SpeedFactor", 0);
+        AudioPlayer.Stop(AudioId.SolidStep);
     }
     #endregion
 
