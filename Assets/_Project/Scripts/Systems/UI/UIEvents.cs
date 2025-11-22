@@ -73,3 +73,9 @@ public struct ChangePanelEvent
         this.currentPanel = currentPanel;
     }
 }
+
+//COLLECTABLE COUNT EVENT
+public struct AddCollectableCountEvent{}
+
+//APPLICATION QUIT EVENT
+public struct ApplicationQuitEvent {}

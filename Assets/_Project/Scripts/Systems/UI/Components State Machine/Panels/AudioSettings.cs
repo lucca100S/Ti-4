@@ -4,11 +4,11 @@ public class AudioSettings : Panel
 {
     public override void OnEnter(Panel previous)
     {
-        throw new System.NotImplementedException();
+        this.gameObject.SetActive(true);
     }
 
     public override void OnExit(Panel next)
     {
-        throw new System.NotImplementedException();
+        this.gameObject.SetActive(false);
     }
 }

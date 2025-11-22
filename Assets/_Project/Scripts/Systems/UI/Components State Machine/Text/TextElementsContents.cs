@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 [System.Serializable]
 public struct TextElementsContent
 {
+    public static GameLanguages currentLanguage;
     [SerializeField]
     public string _defaultTextVersion;
     [SerializeField]
