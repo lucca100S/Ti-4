@@ -1,8 +1,13 @@
+using UnityEngine;
+using UnityEngine.UI;
 public class MasterVolumeSlider : VolumeSlider<ChangeMasterVolumeEvent>
 {
+    public void OnEnable()
+    {
+        this.Set(AudioManager.Instance.MasterVolume);        
+    }
     public override void OnVolumeChanged()
     {
-        this.Set(this.GetComponent<UnityEngine.UI.Slider>().value);
         EventBus.Publish(new ChangeMasterVolumeEvent(this.Get()));
     }
 }

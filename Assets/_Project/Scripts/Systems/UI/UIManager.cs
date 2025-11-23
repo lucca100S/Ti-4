@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
 
         EventBus.Subscribe<ChangePanelEvent>(OnChangePanel);
         EventBus.Subscribe<GameLanguageChangeEvent>(OnChangeLanguage);
+        EventBus.Subscribe<ActivateSubPanelEvent>(OnActivateSubPanel);
         //Substitute the language arbitrarly selection after Save System implementation
         EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.Spanish));
     }
@@ -28,6 +29,14 @@ public class UIManager : MonoBehaviour
         eventData.targetPanel.OnEnter(eventData.targetPanel);
     }
 
+    static void OnActivateSubPanel(ActivateSubPanelEvent eventData)
+    {
+        eventData.subPanel.OnEnter(eventData.subPanel);
+        foreach (var panel in eventData.otherSubPanels)
+        {
+            panel.OnExit(panel);
+        }
+    }
     static void OnChangeLanguage(GameLanguageChangeEvent eventData)
     {
         CurrentLanguage = eventData.CurrentLanguage;

@@ -1,8 +1,11 @@
 public class MusicVolumeSlider : VolumeSlider<ChangeMusicVolumeEvent>
 {
+    public void OnEnable()
+    {
+        this.Set(AudioManager.Instance.MusicVolume);        
+    }
     public override void OnVolumeChanged()
     {
-        this.Set(this.GetComponent<UnityEngine.UI.Slider>().value);
         EventBus.Publish(new ChangeMusicVolumeEvent(this.Get()));
     }
 }

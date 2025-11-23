@@ -5,6 +5,10 @@ public class UITextMeshProElement : UIComponent
     public TextElementsContent textElementsContent;
     public TMPro.TMP_Text textMeshProComponent;
     void Awake() => EventBus.Subscribe<GameLanguageChangeEvent>(UpdateTextLanguage);
+    void OnEnable()
+    {
+        UpdateTextLanguage(new GameLanguageChangeEvent(UIManager.CurrentLanguage));        
+    }
     void UpdateTextLanguage(GameLanguageChangeEvent eventData)
     {
         if (textMeshProComponent != null)

@@ -73,6 +73,18 @@ public struct ChangePanelEvent
         this.currentPanel = currentPanel;
     }
 }
+//SUBPANEL ACTIVATION EVENT
+[System.Serializable]
+public struct ActivateSubPanelEvent
+{
+    public Panel subPanel;
+    public Panel[] otherSubPanels;
+    public ActivateSubPanelEvent(Panel subPanel, Panel[] otherSubPanels)
+    {
+        this.subPanel = subPanel;
+        this.otherSubPanels = otherSubPanels;
+    }
+}
 
 //COLLECTABLE COUNT EVENT
 public struct AddCollectableCountEvent{}
