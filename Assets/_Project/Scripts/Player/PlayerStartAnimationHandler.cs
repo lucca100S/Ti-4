@@ -83,6 +83,8 @@ public class PlayerStartAnimationHandler : MonoBehaviour
         _transformationVFX.gameObject.SetActive(true);
         _transformationVFX.Play();
 
+        AudioPlayer.Play(AudioId.Transformation);
+
         while (_animationTime < _animationDuration)
         {
             _animationTime += Time.deltaTime;

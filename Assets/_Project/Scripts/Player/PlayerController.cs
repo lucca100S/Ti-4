@@ -33,6 +33,8 @@ namespace Player
 
         private Vector3 _lastNormal = Vector3.up;
 
+        private bool _hasStarted = false;
+
         public enum State
         {
             Air,
@@ -159,7 +161,15 @@ namespace Player
             _liquidModel.SetActive(false);
             _solidModel.SetActive(true);
 
-            AudioPlayer.Play(AudioId.Transformation);
+            if (_hasStarted)
+            {
+                AudioPlayer.Play(AudioId.Transformation);
+            }
+            else
+            {
+                _hasStarted = true;
+            }
+
             AudioPlayer.Stop(AudioId.WalkingLiquid);
         }
 
