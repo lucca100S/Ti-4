@@ -54,15 +54,6 @@ public class PlayerStartAnimationHandler : MonoBehaviour
         _playerGameplay.transform.position = _solidStill.transform.position;
     }
 
-    private void OnEnable()
-    {
-        StartAnimation();
-    }
-
-    private void OnDisable()
-    {
-    }
-
     public void StartAnimation()
     {
         if (_isPlaying)

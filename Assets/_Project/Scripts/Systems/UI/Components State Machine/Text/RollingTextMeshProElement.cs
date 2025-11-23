@@ -1,8 +1,9 @@
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class RollingTextMeshProElement : UITextMeshProElement
+public class RollingTextMeshProElement : MonoBehaviour
 {
     [Tooltip("O RectTransform do conteúdo que deve rolar (geralmente o Text ou um container).")]
     public RectTransform content;
@@ -49,6 +50,9 @@ public class RollingTextMeshProElement : UITextMeshProElement
 
         // Para ao atingir o limite
         if (content.anchoredPosition.y >= maxScrollHeight)
+        {
             isScrolling = false;
+            SceneManager.LoadScene("Level1");
+        }         
     }
 }
