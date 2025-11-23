@@ -13,12 +13,12 @@ public class Pause : Panel
             case HUD:
                 Debug.Log("Paused from HUD");
                 DistortionEffectGlobalVolume.SetActive(true);
-                this.gameObject.SetActive(true);
                 break;
             default:
                 Debug.Log("Paused from unknown panel");
                 break;
         }
+        this.gameObject.SetActive(true);
     }
     public override void OnExit(Panel next)
     {

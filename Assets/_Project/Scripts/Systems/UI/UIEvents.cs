@@ -85,6 +85,17 @@ public struct ActivateSubPanelEvent
         this.otherSubPanels = otherSubPanels;
     }
 }
+[System.Serializable]
+public struct ToggleSubPanelEvent
+{
+    public Panel subPanel;
+    public bool activate;
+    public ToggleSubPanelEvent(Panel subPanel, bool activate)
+    {
+        this.subPanel = subPanel;
+        this.activate = activate;
+    }
+}
 
 //COLLECTABLE COUNT EVENT
 public struct AddCollectableCountEvent{}
