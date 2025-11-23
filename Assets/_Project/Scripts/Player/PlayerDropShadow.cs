@@ -14,6 +14,11 @@ public class PlayerDropShadow : MonoBehaviour
     private const float SPHERE_CAST_RADIUS = 0.3f;
     private const float SHADOW_Y_OFFSET = 0.1f;
 
+    private void Start()
+    {
+        transform.parent = null;
+    }
+
     private void LateUpdate()
     {
 
