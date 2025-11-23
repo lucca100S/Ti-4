@@ -56,6 +56,7 @@ public class PlayerStartAnimationHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        StartAnimation();
     }
 
     private void OnDisable()
