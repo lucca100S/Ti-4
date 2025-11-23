@@ -18,7 +18,11 @@ public class CollectableCounterAnimationHandler : MonoBehaviour
     private void OnAddCollectableCount(AddCollectableCountEvent evt)
     {
         Debug.Log("Collectable Count Added Event Received");
-        if(isActive) return;
+        if(isActive)
+        {
+            collectableCounterHandler.UpdateCollectableText();
+            return;
+        }
         // Trigger the collectable counter animation
         PlayCollectableCounterAnimationReveal();
     }
@@ -28,7 +32,7 @@ public class CollectableCounterAnimationHandler : MonoBehaviour
         // Animation logic here
         Debug.Log("Playing Collectable Counter Animation Reveal");
         this.animationComponent.Play(revealAnimation.name);
-        StartCoroutine(WaitTimeToIncreaseCounter());
+        StartCoroutine(WaitTimeToIncreaseCounter(.1f));
         StartCoroutine(WaitTimeDoDeactivate(animationDuration)); // Assuming 1 second animation duration
     }
     private void PlayCollectableCounterAnimationHide()
