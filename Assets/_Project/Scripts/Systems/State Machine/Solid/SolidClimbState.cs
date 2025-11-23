@@ -43,12 +43,12 @@ public class SolidClimbState : IState
 
                 if (move != Vector3.zero && !_isPlayingClimbingSFX)
                 {
-                    AudioPlayer.Play(AudioId.ClimbingVines);
+                    AudioPlayer.Play(AudioId.SolidStep);
                     _isPlayingClimbingSFX = true;
                 }
                 else if (move == Vector3.zero && _isPlayingClimbingSFX)
                 {
-                    AudioPlayer.Stop(AudioId.ClimbingVines);
+                    AudioPlayer.Stop(AudioId.SolidStep);
                     _isPlayingClimbingSFX = false;
                 }
 
