@@ -322,9 +322,9 @@ public class PlayerStateMachine : MonoBehaviour
     public float LiquidJump => liquidJumpForce;
     public float LastTimeOnGround => playerController.LastTimeOnGround;
     public float LastJumpInputOnGround { get { return _lastJumpInputOnGround; } set { _lastJumpInputOnGround = value; } }
-    public bool IsGrounded => (
+    public bool IsGrounded => 
         (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor) ||
-        (macroStateMachine.CurrentState == liquidoState) && surfaceDetection.CurrentSurface.HasValue);
+        (macroStateMachine.CurrentState == liquidoState && surfaceDetection.CurrentSurface.HasValue);
     public bool IsGoingDown
     {
         get { return Vector3.Dot(verticalVelocity.normalized, _gravityDirection) <= 0.2f; }

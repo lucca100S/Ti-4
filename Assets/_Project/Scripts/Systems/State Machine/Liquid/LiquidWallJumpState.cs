@@ -32,10 +32,10 @@ public class LiquidWallJumpState : IState
             Vector3 normal = parent.NormalDirection;
             Vector3 push = (normal).normalized;
             player.AddJump(player.liquidWallJumpForce);
-            AudioPlayer.Play(AudioId.SolidJump);
+            //AudioPlayer.Play(AudioId.SolidJump);
             Debug.Log($"[LiquidWallJump] Executado com push {push}");
             executed = true;
-            player.DidJump = true;
+            //player.DidJump = true;
         }
 
         if(executed)
