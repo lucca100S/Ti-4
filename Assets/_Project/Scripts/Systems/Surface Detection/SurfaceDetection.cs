@@ -98,10 +98,10 @@ public class SurfaceDetection : MonoBehaviour, ICollisionFilterDetection
         foreach (var list in detectedHits.Values)
             list.Clear();
 
-        Vector3 origin = transform.position;
 
         foreach (var config in rayDirectionsConfig)
         {
+            Vector3 origin = config.target.position;
             if (UnityEngine.Physics.Raycast(origin, config.direction, out RaycastHit hit, config.distance, CollisionMask))
             {
                 SurfaceType type = ClassifySurface(hit.normal);

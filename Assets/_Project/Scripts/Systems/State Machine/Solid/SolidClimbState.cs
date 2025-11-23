@@ -24,6 +24,8 @@ public class SolidClimbState : IState
     {
         Debug.Log("[SolidClimb] Enter");
         AudioPlayer.Stop(AudioId.SolidStep);
+
+        player.DidJump = false;
     }
 
     public void Update()
@@ -31,8 +33,8 @@ public class SolidClimbState : IState
         switch (player.PlayerController.CurrentMaterial)
         {
             case SurfaceMaterial.Vines:
-                player.AddJump(0);
-                player.SetGravityDirection(Vector3.zero);
+                player.AddJump(1f);
+                player.SetGravityDirection(-surface.CurrentSurface.Value.hit.normal);
 
                 Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
                 player?.SetVelocity(move);
