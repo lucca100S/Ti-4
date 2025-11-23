@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6488a000468d1947967f3f2a69449d3, type: 3}
   m_Name: CollectablePickUp
   m_EditorClassIdentifier: 
-  Id: 1
+  Id: 3
   Clips:
   - {fileID: 8300000, guid: de55dbc4878bd19459fc35e5b1d54883, type: 3}
   LoopByDefault: 0
   DefaultGain: 1
   Description: 
-  PitchRange: {x: 0.1, y: 1}
+  PitchRange: {x: 0.9, y: 1.1}
   MaxSimultaneousInstances: 4
   Cooldown: 0
   Priority: 128

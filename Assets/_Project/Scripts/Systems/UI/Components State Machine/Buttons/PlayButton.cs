@@ -8,5 +8,6 @@ public class PlayButton : Button
         FindAnyObjectByType<PlayerStartAnimationHandler>().StartAnimation();
         FindAnyObjectByType<MainMenu>().OnExit(FindAnyObjectByType<HUD>());
         hud.OnEnter(FindAnyObjectByType<MainMenu>());
+        AudioPlayer.Play(AudioId.InGameMusic);
     }
 }

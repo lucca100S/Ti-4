@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6488a000468d1947967f3f2a69449d3, type: 3}
   m_Name: SolidStep
   m_EditorClassIdentifier: 
-  Id: 6
+  Id: 10
   Clips:
   - {fileID: 8300000, guid: 3b601896dbb4eb8419e12c8aa8afe95c, type: 3}
   LoopByDefault: 1
   DefaultGain: 0.1
   Description: 
-  PitchRange: {x: 0.1, y: 1}
+  PitchRange: {x: 0.9, y: 1.1}
   MaxSimultaneousInstances: 1
   Cooldown: 0.5
   Priority: 128

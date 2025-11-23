@@ -41,7 +41,7 @@ public class LiquidJumpState : IState
 
         if(_didJump)
         {
-            AudioPlayer.Play(AudioId.SolidJump);
+            AudioPlayer.Play(AudioId.JumpLiquid);
             ActionsManager.Instance.OnPlayerJumped?.Invoke();
         }
     }
