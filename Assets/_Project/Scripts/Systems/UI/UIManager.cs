@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
         EventBus.Subscribe<ActivateSubPanelEvent>(OnActivateSubPanel);
         EventBus.Subscribe<ToggleSubPanelEvent>(OnToggleSubPanel);
         //Substitute the language arbitrarly selection after Save System implementation
-        EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.Spanish));
+        EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.English));
     }
     static void OnChangePanel(ChangePanelEvent eventData)
     {
