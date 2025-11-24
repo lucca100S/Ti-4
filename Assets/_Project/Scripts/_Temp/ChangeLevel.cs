@@ -9,6 +9,7 @@ public class ChangeLevel : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            EventBus.ClearAll();
             SceneManager.LoadScene(targetScene);
         }
     }
