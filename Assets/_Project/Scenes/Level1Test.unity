@@ -638,6 +638,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8763359546866615152, guid: 311a9c104e8b30f46adf3a157ec0c1dc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
     - target: {fileID: 8850416824294106898, guid: 311a9c104e8b30f46adf3a157ec0c1dc, type: 3}
       propertyPath: m_Name
       value: IslandEndingArea
@@ -51485,6 +51489,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: bd90b283b7262864d8d3113b76106298, type: 2}
+    - target: {fileID: 5285335138632958410, guid: 8733a8b8300e47b4383550fcd89cf788, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d96b4957f39b27c409ef9eac7ce903b6, type: 2}
     - target: {fileID: 5596391829204274864, guid: 8733a8b8300e47b4383550fcd89cf788, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.7300001
@@ -51710,7 +51718,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2061296316}
+  - {fileID: 1205863336}
   m_Father: {fileID: 1793742261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &612942609
@@ -84376,6 +84384,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b29d44da9472ec34584445b50f10cd70, type: 3}
+--- !u!4 &1205863336 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6755898607967449827, guid: b29d44da9472ec34584445b50f10cd70, type: 3}
+  m_PrefabInstance: {fileID: 1205863335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1206590007
 GameObject:
   m_ObjectHideFlags: 0
@@ -136366,7 +136379,7 @@ PrefabInstance:
     - target: {fileID: 5680302520710956829, guid: 6628de1ed3edaac46b356a8465a4176d, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 08b51e2f542d3d24d8bf1f7ca3f12458, type: 2}
+      objectReference: {fileID: 2100000, guid: bd90b283b7262864d8d3113b76106298, type: 2}
     - target: {fileID: 6589804617389051968, guid: 6628de1ed3edaac46b356a8465a4176d, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -137277,11 +137290,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 911077460010367354, guid: 612e72883b39a294c9dd504df0abd57c, type: 3}
   m_PrefabInstance: {fileID: 2051057659}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2061296316 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1944212297370716870, guid: b29d44da9472ec34584445b50f10cd70, type: 3}
-  m_PrefabInstance: {fileID: 1205863335}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2069246133
 PrefabInstance:
