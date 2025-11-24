@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6488a000468d1947967f3f2a69449d3, type: 3}
   m_Name: WalkingLiquid
   m_EditorClassIdentifier: 
-  Id: 8
+  Id: 12
   Clips:
-  - {fileID: 8300000, guid: fb5d982433b5b884281e665024b30b92, type: 3}
+  - {fileID: 8300000, guid: 5d7dfd36aee1dfb4ab675e88c5c0dc5d, type: 3}
   LoopByDefault: 1
   DefaultGain: 1
   Description: 
-  PitchRange: {x: 1, y: 1}
+  PitchRange: {x: 0.9, y: 1.1}
   MaxSimultaneousInstances: 4
   Cooldown: 0
   Priority: 128

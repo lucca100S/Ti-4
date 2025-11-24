@@ -1,76 +1,57 @@
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
+
 public class UIManager : MonoBehaviour
 {
-    public GameObject volume;
-    private void OnEnable()
+    public static UIManager Instance;
+    public static GameLanguages CurrentLanguage;
+    void Awake()
     {
-        EventBus.Subscribe<SceneChangeEvent>(OnSceneChange);
-        EventBus.Subscribe<GameObjectRevealButton>(OnPanelToggle);
-        EventBus.Subscribe<ComponentTriggeredEvent>(OnComponentTrigger);
-        EventBus.Subscribe<EndApplicationEvent>(evt => OnCloseApplication());
-        EventBus.Subscribe<SelectButtonEvent>(SelectButton);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        EventBus.Subscribe<ChangePanelEvent>(OnChangePanel);
+        EventBus.Subscribe<GameLanguageChangeEvent>(OnChangeLanguage);
+        EventBus.Subscribe<ActivateSubPanelEvent>(OnActivateSubPanel);
+        EventBus.Subscribe<ToggleSubPanelEvent>(OnToggleSubPanel);
+        //Substitute the language arbitrarly selection after Save System implementation
+        EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.Spanish));
+    }
+    static void OnChangePanel(ChangePanelEvent eventData)
+    {
+        eventData.currentPanel.OnExit(eventData.currentPanel);
+        eventData.targetPanel.OnEnter(eventData.targetPanel);
     }
 
-    void Update()
+    static void OnActivateSubPanel(ActivateSubPanelEvent eventData)
     {
-        // Verifica o botão Escape do teclado
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
+        eventData.subPanel.OnEnter(eventData.subPanel);
+        foreach (var panel in eventData.otherSubPanels)
         {
-            this.GetComponent<TogglePanelButton>().OnTrigger();
-            volume.SetActive(!this.GetComponent<TogglePanelButton>().activate);
+            panel.OnExit(panel);
         }
     }
-    private void OnDisable()
-    {
-        EventBus.Unsubscribe<SceneChangeEvent>(OnSceneChange);
-        EventBus.Unsubscribe<GameObjectRevealButton>(OnPanelToggle);
-        EventBus.Unsubscribe<ComponentTriggeredEvent>(OnComponentTrigger);
-        EventBus.Unsubscribe<EndApplicationEvent>(evt => OnCloseApplication());
-        EventBus.Unsubscribe<SelectButtonEvent>(SelectButton);
-    }
 
-    private void SelectButton(SelectButtonEvent evt)
+    static void OnToggleSubPanel(ToggleSubPanelEvent eventData)
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(evt.obj);
-    }
-    private void OnSceneChange(SceneChangeEvent evt)
-    {
-        Debug.Log($"Mudando para a cena: {evt.SceneName}");
-        SceneManager.LoadScene(evt.SceneName);
-    }
-
-    private void OnPanelToggle(GameObjectRevealButton evt)
-    {
-        if (evt.GameObject == null)
+        if (eventData.activate)
         {
-            Debug.LogWarning("Evento GameObjectRevealButton recebido com Panel nulo.");
-            return;
+            eventData.subPanel.OnEnter(eventData.subPanel);
         }
-        if (evt.HideOthers.Count > 0)
+        else
         {
-            foreach (var panel in evt.HideOthers)
-            {
-                panel.SetActive(false);
-            }
+            eventData.subPanel.OnExit(eventData.subPanel);
         }
-        evt.GameObject.SetActive(evt.Active);
-        Debug.Log($"Painel {evt.GameObject.name} -> {(evt.Active ? "Ativado" : "Desativado")}");
     }
-
-    private void OnCloseApplication()
+    static void OnChangeLanguage(GameLanguageChangeEvent eventData)
     {
-        Debug.Log("Fechando a aplica��o...");
-        Application.Quit();
-    }
-
-    private void OnComponentTrigger(ComponentTriggeredEvent evt)
-    {
-        Debug.Log($"Componente '{evt.ComponentName}' utilizado!");
+        CurrentLanguage = eventData.CurrentLanguage;
     }
 }

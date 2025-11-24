@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6488a000468d1947967f3f2a69449d3, type: 3}
   m_Name: SolidJump
   m_EditorClassIdentifier: 
-  Id: 5
+  Id: 9
   Clips:
   - {fileID: 8300000, guid: 633a2d04478f0dd448ce4de538996be4, type: 3}
   LoopByDefault: 0
   DefaultGain: 0.7
   Description: 
-  PitchRange: {x: 1, y: 1}
+  PitchRange: {x: 0.9, y: 1.1}
   MaxSimultaneousInstances: 4
   Cooldown: 0
   Priority: 128

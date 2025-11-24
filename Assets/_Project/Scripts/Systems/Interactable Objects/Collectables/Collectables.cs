@@ -28,11 +28,11 @@ public class Collectables : OptionalInteractableObjects
     public override void Interaction()
     {
         Debug.Log($"[Collectable] Coletado: {this.gameObject.name}");
+        EventBus.Publish(new AddCollectableCountEvent());
         CollectableObservable.Instance?.NotifyListeners(this);
         _collider.enabled = false;
         _renderer.enabled = false;
         _collectEffect.Play();
-
         transform.DOKill();
 
         AudioPlayer.Play(AudioId.CollectablePickUp);

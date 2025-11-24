@@ -53,20 +53,19 @@ public class AudioManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        EventBus.Subscribe<MasterVolumeChangeEvent>(e => MasterVolume = Mathf.Clamp01(e.NewVolume));
-        EventBus.Subscribe<MusicVolumeChangeEvent>(SetMusicVolume);
-        EventBus.Subscribe<SFXVolumeChangeEvent>(e => SFXVolume = Mathf.Clamp01(e.NewVolume));
-    }
 
-    public void SetMusicVolume(MusicVolumeChangeEvent evt) 
-    { 
-        Debug.Log($"[AudioManager] Setting Music Volume to {evt.NewVolume}");
-        MusicVolume = Mathf.Clamp01(evt.NewVolume); 
-    }
-
-    private void Update()
-    {
-        // Could update real-time DSP effects or global mix automation here.
+        EventBus.Subscribe<ChangeMasterVolumeEvent>(evt =>
+        {
+            Instance.MasterVolume = evt.MasterVolume;
+        });
+        EventBus.Subscribe<ChangeMusicVolumeEvent>(evt =>
+        {
+            Instance.MusicVolume = evt.MusicVolume;
+        });
+        EventBus.Subscribe<ChangeSFXVolumeEvent>(evt =>
+        {
+            Instance.SFXVolume = evt.SFXVolume;
+        });
     }
 
     #region Public low-level API (used by AudioPlayer)
@@ -127,6 +126,11 @@ public class AudioManager : MonoBehaviour
         float typeMultiplier = 1f;
         if (audio is MusicSO) typeMultiplier = MusicVolume;
         else typeMultiplier = SFXVolume;
+        if(audio is SoundEffectSO sfx)
+        {
+            typeMultiplier *= UnityEngine.Random.Range(sfx.PitchRange.x, sfx.PitchRange.y);
+            Debug.Log(typeMultiplier);
+        }
 
         src.volume = Mathf.Clamp01(audio.DefaultGain * MasterVolume * typeMultiplier);
         src.spatialBlend = spatial ? 1f : 0f;

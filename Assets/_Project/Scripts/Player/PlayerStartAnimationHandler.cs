@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,6 +26,8 @@ public class PlayerStartAnimationHandler : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject _gameplayCanvas;
     [SerializeField] private GameObject _startCanvas;
+
+    [SerializeField] private bool _debugStart = false;
 
 
     #region Properties
@@ -56,15 +59,22 @@ public class PlayerStartAnimationHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        _transformAction.action.performed += StartAnimation;
+        if(_debugStart)
+            _transformAction.action.performed += StartAnimation;
     }
 
     private void OnDisable()
     {
-        _transformAction.action.performed -= StartAnimation;
+        if(_debugStart)
+            _transformAction.action.performed -= StartAnimation;
     }
 
-    public void StartAnimation(InputAction.CallbackContext context)
+    private void StartAnimation(InputAction.CallbackContext context)
+    {
+        StartAnimation();
+    }
+
+    public void StartAnimation()
     {
         if (_isPlaying)
             return;
