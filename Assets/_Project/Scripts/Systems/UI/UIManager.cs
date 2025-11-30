@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
         EventBus.Subscribe<GameLanguageChangeEvent>(OnChangeLanguage);
         EventBus.Subscribe<ActivateSubPanelEvent>(OnActivateSubPanel);
         EventBus.Subscribe<ToggleSubPanelEvent>(OnToggleSubPanel);
+        EventBus.Subscribe<OpenSectionEvent>(OpenSection);
+        EventBus.Subscribe<CloseSectionEvent>(CloseSection);
         //Substitute the language arbitrarly selection after Save System implementation
         EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.English));
     }
@@ -53,5 +55,24 @@ public class UIManager : MonoBehaviour
     static void OnChangeLanguage(GameLanguageChangeEvent eventData)
     {
         CurrentLanguage = eventData.CurrentLanguage;
+    }
+
+    static void OpenSection(OpenSectionEvent eventData)
+    {
+        Debug.Log("Opening Section: " + eventData.section.name);
+        eventData.section.SetActive(true);
+        foreach (var section in eventData.sectionsToClose)
+        {
+            section.SetActive(false);
+        }
+    }
+
+    static void CloseSection(CloseSectionEvent eventData)
+    {
+        foreach (var section in eventData.section)
+        {
+            Debug.Log("Closing Section: " + section.name);
+            section.SetActive(false);
+        }
     }
 }

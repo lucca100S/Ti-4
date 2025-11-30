@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 //LANGUAGE SETTINGS EVENTS
 public struct GameLanguageChangeEvent
@@ -102,3 +103,35 @@ public struct AddCollectableCountEvent{}
 
 //APPLICATION QUIT EVENT
 public struct ApplicationQuitEvent {}
+[System.Serializable]
+public struct OpenSectionEvent
+{
+    public GameObject section;
+    public List<GameObject> sectionsToClose;
+    public OpenSectionEvent(GameObject section, List<GameObject> sectionsToClose)
+    {
+        this.section = section;
+        this.sectionsToClose = sectionsToClose;
+    }
+}
+[System.Serializable]
+public struct CloseSectionEvent
+{
+    public List<GameObject> section;
+    public CloseSectionEvent(List<GameObject> section)
+    {
+        this.section = section;
+    }
+}
+
+public struct OnSensibilityChange
+{
+    float sensibilityX;
+    float sensibilityY;
+
+    public OnSensibilityChange(float sensibilityX, float sensibilityY)
+    {
+        this.sensibilityX = sensibilityX;
+        this.sensibilityY = sensibilityY;
+    }
+}
