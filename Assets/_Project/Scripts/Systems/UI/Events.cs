@@ -135,3 +135,6 @@ public struct OnSensibilityChange
         this.sensibilityY = sensibilityY;
     }
 }
+
+public struct SaveData{}
+public struct LoadData{}
