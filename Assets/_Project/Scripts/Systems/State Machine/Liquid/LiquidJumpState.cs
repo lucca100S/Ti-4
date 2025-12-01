@@ -37,13 +37,13 @@ public class LiquidJumpState : IState
             player.DidJump = true;
         }
 
-        if (player.DidJump)
-        {
-            ActionsManager.Instance.OnPlayerJumped?.Invoke();
-            player.LastJumpInputOnGround = -Mathf.Infinity;
-        }
-
         _didJump = player.DidJump && !_didJump;
+
+        if(_didJump)
+        {
+            AudioPlayer.Play(AudioId.SolidJump);
+            ActionsManager.Instance.OnPlayerJumped?.Invoke();
+        }
     }
 
     public void Update()
@@ -81,6 +81,8 @@ public class LiquidJumpState : IState
         }
         else if (player.CanJump && input.IsDown && !player.DidJump)
         {
+            AudioPlayer.Play(AudioId.SolidJump);
+            ActionsManager.Instance.OnPlayerJumped?.Invoke();
             player?.AddJump(player.LiquidJump);
             _didJump = true;
         }

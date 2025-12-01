@@ -1,8 +1,9 @@
 using Systems.Input;
+using Unity.VisualScripting;
 using UnityEngine;
 
 #region Substates - Solid - Climb
-/// <summary>Escalada em Sólido.</summary>
+/// <summary>Escalada em Sï¿½lido.</summary>
 public class SolidClimbState : IState
 {
     private SolidoState parent;
@@ -10,6 +11,7 @@ public class SolidClimbState : IState
     private PlayerStateMachine player;
 
     private bool _didStart = false;
+    private bool _isPlayingClimbingSFX = false;
 
     public StateType StateType => StateType.Climb;
 
@@ -24,6 +26,8 @@ public class SolidClimbState : IState
     {
         Debug.Log("[SolidClimb] Enter");
         AudioPlayer.Stop(AudioId.SolidStep);
+
+        player.DidJump = false;
     }
 
     public void Update()
@@ -31,11 +35,22 @@ public class SolidClimbState : IState
         switch (player.PlayerController.CurrentMaterial)
         {
             case SurfaceMaterial.Vines:
-                player.AddJump(0);
-                player.SetGravityDirection(Vector3.zero);
+                player.AddJump(1f);
+                player.SetGravityDirection(-surface.CurrentSurface.Value.hit.normal);
 
                 Vector3 move = player.DirectionInputClimb * (player != null ? player.SolidSpeed * 0.6f : 3f);
                 player?.SetVelocity(move);
+
+                if (move != Vector3.zero && !_isPlayingClimbingSFX)
+                {
+                    AudioPlayer.Play(AudioId.SolidStep);
+                    _isPlayingClimbingSFX = true;
+                }
+                else if (move == Vector3.zero && _isPlayingClimbingSFX)
+                {
+                    AudioPlayer.Stop(AudioId.SolidStep);
+                    _isPlayingClimbingSFX = false;
+                }
 
                 if (!_didStart)
                 {

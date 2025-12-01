@@ -115,10 +115,28 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        _rigidBody.linearVelocity = (_currentVelocity + verticalVelocity);
+        Vector3 velocity = (_currentVelocity);
 
-        if (IsGrounded)
+        Vector3 pos = transform.position;
+        pos += transform.up * 0.3f;
+
+        if (Physics.Raycast(pos, velocity.normalized, out RaycastHit hit, 0.7f, LayerMask.GetMask("Map")))
+        {
+            pos += transform.up * 0.4f;
+            if (Physics.Raycast(pos, velocity.normalized, 0.7f, LayerMask.GetMask("Map")) || !IsGrounded)
+            {
+                float hitDist = hit.distance;
+                velocity -= (velocity - (velocity.normalized * hitDist));
+            }
+        }
+
+        velocity += verticalVelocity;
+
+        _rigidBody.linearVelocity = velocity;
+
+        
+
+        if (IsGrounded && (Time.time-LastJumpInputOnGround) > 0.4f)
         {
             DidJump = false;
         }
@@ -304,9 +322,9 @@ public class PlayerStateMachine : MonoBehaviour
     public float LiquidJump => liquidJumpForce;
     public float LastTimeOnGround => playerController.LastTimeOnGround;
     public float LastJumpInputOnGround { get { return _lastJumpInputOnGround; } set { _lastJumpInputOnGround = value; } }
-    public bool IsGrounded => (
+    public bool IsGrounded => 
         (surfaceDetection.CurrentSurface.HasValue && surfaceDetection.CurrentSurface.Value.type == SurfaceType.Floor) ||
-        (macroStateMachine.CurrentState == liquidoState) && surfaceDetection.CurrentSurface.HasValue);
+        (macroStateMachine.CurrentState == liquidoState && surfaceDetection.CurrentSurface.HasValue);
     public bool IsGoingDown
     {
         get { return Vector3.Dot(verticalVelocity.normalized, _gravityDirection) <= 0.2f; }

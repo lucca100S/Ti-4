@@ -25,15 +25,17 @@ public class LiquidWallJumpState : IState
     public void Enter()
     {
         Debug.Log("[LiquidWallJump] Enter");
-        executed = false;
+        executed = player.DidJump;
 
         if (!executed && player.IsGrounded)
         {
             Vector3 normal = parent.NormalDirection;
             Vector3 push = (normal).normalized;
             player.AddJump(player.liquidWallJumpForce);
+            //AudioPlayer.Play(AudioId.SolidJump);
             Debug.Log($"[LiquidWallJump] Executado com push {push}");
             executed = true;
+            //player.DidJump = true;
         }
 
         if(executed)
@@ -53,6 +55,8 @@ public class LiquidWallJumpState : IState
         player.SetGravityDirection(Vector3.up);
 
         Debug.Log("[LiquidWallJump] Exit");
+
+        executed = false;
     }
 
     public void OnJumpInput(InputInfo input)

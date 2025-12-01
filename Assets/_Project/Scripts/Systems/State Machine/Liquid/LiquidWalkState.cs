@@ -24,6 +24,7 @@ public class LiquidWalkState : IState
     public void Enter()
     {
         Debug.Log("[LiquidWalk] Enter");
+        AudioPlayer.Play(AudioId.WalkingLiquid);
     }
 
     public void Update()
@@ -35,6 +36,7 @@ public class LiquidWalkState : IState
     public void Exit()
     {
         Debug.Log("[LiquidWalk] Exit");
+        AudioPlayer.Stop(AudioId.WalkingLiquid);
     }
 
     public void OnJumpInput(InputInfo input)

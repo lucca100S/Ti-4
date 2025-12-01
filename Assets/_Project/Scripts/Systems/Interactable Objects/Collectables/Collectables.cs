@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// Representa um coletável no cenário.
-/// Notifica observadores quando é coletado.
+/// Representa um coletï¿½vel no cenï¿½rio.
+/// Notifica observadores quando ï¿½ coletado.
 /// </summary>
 public class Collectables : OptionalInteractableObjects
 {
@@ -28,13 +28,14 @@ public class Collectables : OptionalInteractableObjects
     public override void Interaction()
     {
         Debug.Log($"[Collectable] Coletado: {this.gameObject.name}");
+        EventBus.Publish(new AddCollectableCountEvent());
         CollectableObservable.Instance?.NotifyListeners(this);
         _collider.enabled = false;
         _renderer.enabled = false;
         _collectEffect.Play();
-
         transform.DOKill();
 
+        AudioPlayer.Play(AudioId.CollectablePickUp);
         Destroy(this.gameObject, 2f);
     }
 
