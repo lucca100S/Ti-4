@@ -53,6 +53,7 @@ namespace Player
         public static void GoToScene(string sceneName)
         {
             SceneManager.LoadScene(sceneName);
+            FindAnyObjectByType<UIManager>().AbrirMenu();
         }
     }
 }

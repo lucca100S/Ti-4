@@ -61,20 +61,26 @@ public class UIManager : MonoBehaviour
 
     public void AbrirMenu()
     {
-        cinemachineInput.enabled = false;     // Para a câmera de capturar o mouse
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Time.timeScale = 0f;
-        volume.SetActive(true);
+        if (cinemachineInput != null)
+        {
+            cinemachineInput.enabled = false;     // Para a câmera de capturar o mouse
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f;
+            volume.SetActive(true);
+        }
     }
 
     public void FecharMenu()
     {
-        Time.timeScale = 1f;
-        cinemachineInput.enabled = true;      // Reativa a câmera
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        volume.SetActive(false);
+        if (cinemachineInput != null)
+        {
+            Time.timeScale = 1f;
+            cinemachineInput.enabled = true;      // Reativa a câmera
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            volume.SetActive(false);
+        }
     }
     static void OnChangePanel(ChangePanelEvent eventData)
     {

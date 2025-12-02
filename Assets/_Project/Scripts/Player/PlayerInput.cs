@@ -13,9 +13,9 @@ namespace Player
         [SerializeField] private InputInfo _jumpInput;
         [SerializeField] private InputInfo _transformInput;
 
-        public string level01Name;
-        public string level02Name;
-        public string level03Name;
+        public static string level01Name = "Level1Entrega";
+        public static string level02Name = "LuguFase2";
+        public static string level03Name = "LuguFase3";
         #region Properties
 
         public Action<Vector3> OnMove { get; set; }
@@ -39,8 +39,8 @@ namespace Player
             _playerActions.Enable();
             _playerActions.Move.performed += MovePerformed;
             _playerActions.Move.canceled += MovePerformed;
-            _playerActions.ChangeToLevel01.performed += ctx => PlayerCheats.GoToScene(level01Name);
-            _playerActions.ChangeToLevel01.canceled += ctx => PlayerCheats.GoToScene(level01Name);
+            //_playerActions.ChangeToLevel01.performed += ctx => PlayerCheats.GoToScene(level01Name);
+            //_playerActions.ChangeToLevel01.canceled += ctx => PlayerCheats.GoToScene(level01Name);
             _playerActions.ChangeToLevel02.performed += ctx => PlayerCheats.GoToScene(level02Name);
             _playerActions.ChangeToLevel02.canceled += ctx => PlayerCheats.GoToScene(level02Name);
             _playerActions.ChangeToLevel03.performed += ctx => PlayerCheats.GoToScene(level03Name);

@@ -16,7 +16,10 @@ public class Collectables : OptionalInteractableObjects, ILoadable
     [SerializeField] private Collider _collider;
 
     public CollectableSaveData collectableSaveData;
-
+    void Start()
+    {
+        LoadData();
+    }
     public void LoadData()
     {
         if (!collectableSaveData.isCollected)
