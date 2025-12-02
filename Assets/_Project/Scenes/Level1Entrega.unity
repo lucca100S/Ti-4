@@ -48135,6 +48135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2076339622523840259, guid: 751285e419f33f04ab810f618c70941f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 380.76
+      objectReference: {fileID: 0}
     - target: {fileID: 2655155009960763226, guid: 751285e419f33f04ab810f618c70941f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -48214,6 +48218,18 @@ PrefabInstance:
     - target: {fileID: 2655155009960763226, guid: 751285e419f33f04ab810f618c70941f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159778303776619200, guid: 751285e419f33f04ab810f618c70941f, type: 3}
+      propertyPath: collectableCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847264297971059989, guid: 751285e419f33f04ab810f618c70941f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923383997548820419, guid: 751285e419f33f04ab810f618c70941f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
