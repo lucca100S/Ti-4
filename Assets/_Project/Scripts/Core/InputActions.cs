@@ -171,6 +171,42 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeToLevel01"",
+                    ""type"": ""Button"",
+                    ""id"": ""e428ff49-f1de-46fa-8779-bae4a70d6f0a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeToLevel02"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a02bf75-20cb-4692-ab99-240dc38b56f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeToLevel03"",
+                    ""type"": ""Button"",
+                    ""id"": ""a057c5b3-0393-4d69-8804-7bb62610d473"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""72dcdcb6-1bd9-47ec-84b5-60ab93d4976f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -556,6 +592,61 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Transform"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d53a2ce8-4fca-4a5a-8f36-5a90b893843d"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ChangeToLevel01"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fb820ba-9efd-4b59-a62d-b560c423edc8"",
+                    ""path"": ""<Keyboard>/f2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ChangeToLevel02"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""733e3a4d-702e-44a2-a532-b84fbb81bd0a"",
+                    ""path"": ""<Keyboard>/f3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ChangeToLevel03"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e94037f3-1429-4b02-9c40-1b6a2df129d0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62fccd50-d260-434a-9b7f-b177afde96fa"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1200,6 +1291,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Transform = m_Player.FindAction("Transform", throwIfNotFound: true);
+        m_Player_ChangeToLevel01 = m_Player.FindAction("ChangeToLevel01", throwIfNotFound: true);
+        m_Player_ChangeToLevel02 = m_Player.FindAction("ChangeToLevel02", throwIfNotFound: true);
+        m_Player_ChangeToLevel03 = m_Player.FindAction("ChangeToLevel03", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1307,6 +1402,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Transform;
+    private readonly InputAction m_Player_ChangeToLevel01;
+    private readonly InputAction m_Player_ChangeToLevel02;
+    private readonly InputAction m_Player_ChangeToLevel03;
+    private readonly InputAction m_Player_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1354,6 +1453,22 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Transform".
         /// </summary>
         public InputAction @Transform => m_Wrapper.m_Player_Transform;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ChangeToLevel01".
+        /// </summary>
+        public InputAction @ChangeToLevel01 => m_Wrapper.m_Player_ChangeToLevel01;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ChangeToLevel02".
+        /// </summary>
+        public InputAction @ChangeToLevel02 => m_Wrapper.m_Player_ChangeToLevel02;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ChangeToLevel03".
+        /// </summary>
+        public InputAction @ChangeToLevel03 => m_Wrapper.m_Player_ChangeToLevel03;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1407,6 +1522,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Transform.started += instance.OnTransform;
             @Transform.performed += instance.OnTransform;
             @Transform.canceled += instance.OnTransform;
+            @ChangeToLevel01.started += instance.OnChangeToLevel01;
+            @ChangeToLevel01.performed += instance.OnChangeToLevel01;
+            @ChangeToLevel01.canceled += instance.OnChangeToLevel01;
+            @ChangeToLevel02.started += instance.OnChangeToLevel02;
+            @ChangeToLevel02.performed += instance.OnChangeToLevel02;
+            @ChangeToLevel02.canceled += instance.OnChangeToLevel02;
+            @ChangeToLevel03.started += instance.OnChangeToLevel03;
+            @ChangeToLevel03.performed += instance.OnChangeToLevel03;
+            @ChangeToLevel03.canceled += instance.OnChangeToLevel03;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -1445,6 +1572,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Transform.started -= instance.OnTransform;
             @Transform.performed -= instance.OnTransform;
             @Transform.canceled -= instance.OnTransform;
+            @ChangeToLevel01.started -= instance.OnChangeToLevel01;
+            @ChangeToLevel01.performed -= instance.OnChangeToLevel01;
+            @ChangeToLevel01.canceled -= instance.OnChangeToLevel01;
+            @ChangeToLevel02.started -= instance.OnChangeToLevel02;
+            @ChangeToLevel02.performed -= instance.OnChangeToLevel02;
+            @ChangeToLevel02.canceled -= instance.OnChangeToLevel02;
+            @ChangeToLevel03.started -= instance.OnChangeToLevel03;
+            @ChangeToLevel03.performed -= instance.OnChangeToLevel03;
+            @ChangeToLevel03.canceled -= instance.OnChangeToLevel03;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -1915,6 +2054,34 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTransform(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeToLevel01" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeToLevel01(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeToLevel02" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeToLevel02(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeToLevel03" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeToLevel03(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

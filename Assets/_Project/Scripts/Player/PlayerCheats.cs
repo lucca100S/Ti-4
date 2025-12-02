@@ -1,6 +1,7 @@
 using Player.Movement;
 using UnityEngine;
 using Lugu.Console;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -47,5 +48,11 @@ namespace Player
             Controller.ChangeCameraSensitivity(sensitivity);
         }
 
+        [DebugMethod("go_to_scene", "Changes scenes")]
+
+        public static void GoToScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

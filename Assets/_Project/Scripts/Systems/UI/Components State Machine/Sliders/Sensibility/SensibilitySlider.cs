@@ -1,9 +1,17 @@
+using System.Linq;
+using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SensibilitySlider<T> : SliderBase<SensibilitySliderLimits> where T : struct
+public class SensibilitySlider : SliderBase<SensibilitySliderLimits>
 {
+    public PlayerController playerController;
+    public void OnEnable()
+    {
+        this.GetComponent<Slider>().value = playerController.CameraInputs.Controllers.First().Input.Gain;
+    }
     public virtual void OnSensibiltyChanged()
     {
-        Debug.Log(base.ToString() + "is being called on base class instead on concrete class");
+        playerController.ChangeCameraSensitivity(this.GetComponent<Slider>().value);
     }
 }
