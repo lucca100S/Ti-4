@@ -67,14 +67,14 @@ public class SceneData : MonoBehaviour
         }
         sceneSaveData.collectablesData = collectablesData.ToArray();
 
-        // ------------------ CHECKPOINTS ------------------
+        /* // ------------------ CHECKPOINTS ------------------
         List<CheckPointSaveData> checkPointsData = new();
         foreach (var cp in checkPoints)
         {
             checkPointsData.Add(cp.checkPointSaveData);
             Debug.Log($"Salvando CheckPoint {cp.checkPointSaveData.checkPointID} | Ativado: {cp.checkPointSaveData.isActivated}");
         }
-        sceneSaveData.checkPointsData = checkPointsData.ToArray();
+        sceneSaveData.checkPointsData = checkPointsData.ToArray(); */
 
         Directory.CreateDirectory(Path.GetDirectoryName(SceneSavePath));
 
@@ -131,7 +131,7 @@ public class SceneData : MonoBehaviour
             c.LoadData();
         }
 
-        // ------------------ CHECKPOINTS ------------------
+        /* // ------------------ CHECKPOINTS ------------------
         foreach (var saved in loadedData.checkPointsData)
         {
             var cp = checkPoints.Find(x => x.checkPointSaveData.checkPointID == saved.checkPointID);
@@ -144,7 +144,7 @@ public class SceneData : MonoBehaviour
 
             cp.checkPointSaveData.isActivated = saved.isActivated;
             Debug.Log($"Restaurado CheckPoint {saved.checkPointID} = {saved.isActivated}");
-        }
+        } */
 
         Debug.Log("<color=green>[SceneData]</color> LOAD COMPLETO!");
     }
@@ -185,7 +185,7 @@ public class SceneData : MonoBehaviour
         }
         defaultData.collectablesData = collectablesData.ToArray();
 
-        // CHECKPOINTS
+        /* // CHECKPOINTS
         List<CheckPointSaveData> checkPointsData = new();
         foreach (var cp in checkPoints)
         {
@@ -195,7 +195,7 @@ public class SceneData : MonoBehaviour
                 isActivated = false // padrão
             });
         }
-        defaultData.checkPointsData = checkPointsData.ToArray();
+        defaultData.checkPointsData = checkPointsData.ToArray(); */
 
         // GARANTIR DIRETÓRIO
         Directory.CreateDirectory(Path.GetDirectoryName(SceneSavePath));
