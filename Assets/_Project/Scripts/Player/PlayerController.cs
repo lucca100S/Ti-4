@@ -13,6 +13,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private CinemachineInputAxisController _cameraInputs;
+        public CinemachineInputAxisController CameraInputs { get { return _cameraInputs; }}
         [SerializeField] private Transform _orientation;
 
         [SerializeField] private GameObject _solidModel;

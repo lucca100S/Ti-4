@@ -9,6 +9,6 @@ public class Credits : Panel
 
     public override void OnExit(Panel next)
     {
-        this.gameObject.SetActive(false);
+        //base.OnExit(next);
     }
 }
