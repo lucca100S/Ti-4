@@ -2239,7 +2239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 951.5, y: -2261.58}
+  m_AnchoredPosition: {x: 951.5, y: -4205.94}
   m_SizeDelta: {x: 1833, y: 1031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8819972888326127464
@@ -5181,7 +5181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 951.5, y: -3322.58}
+  m_AnchoredPosition: {x: 951.5, y: -5266.94}
   m_SizeDelta: {x: 1833, y: 1031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2695766696140901155
@@ -8572,7 +8572,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 3838.08}
+  m_SizeDelta: {x: 0, y: 5782.44}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7083179512704327225
 MonoBehaviour:
@@ -9480,7 +9480,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 951.5, y: -1200.5801}
+  m_AnchoredPosition: {x: 951.5, y: -3144.94}
   m_SizeDelta: {x: 1833, y: 1031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &610930941045908444
@@ -10592,7 +10592,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7194064062200263352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.71860933}
+  m_AnchorMin: {x: 0, y: 0.81322765}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -10793,7 +10793,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7985961345244001944}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.2813907
+  m_Size: 0.18677236
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12178,8 +12178,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 951.5, y: -327.54}
-  m_SizeDelta: {x: 1833, y: 655.08}
+  m_AnchoredPosition: {x: 951.5, y: -1299.72}
+  m_SizeDelta: {x: 1833, y: 2599.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1673698096155223573
 CanvasRenderer:
@@ -12209,10 +12209,26 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<size=250><u><align=\"center\">Features</u></size></align>\n\u2022 Ferramenta
-    de cria\xE7\xE3o de meshs\n\u2022 M\xFAsica original\n\u2022 M\xFAltiplos idiomas
-    - Local: Tela de Settings -> Aba General -> Aba Language\n\u2022 Shader de ilumina\xE7\xE3o
-    customizado\n\u2022 Concepts para personagem e cen\xE1rio:\n"
+  m_text: "<size=250><u><align=\"center\">Features</u></size></align>\n\u2022 M\xFAsica
+    original\n\u2022 M\xFAltiplos idiomas - Local: Tela de Settings -> Aba General
+    -> Aba Language\n\u2022 Shader de ilumina\xE7\xE3o customizado\n\u2022 Ferramentas
+    que facilitaram o desenvolvimento dentro da Unity:\n\n\t\u2022 Gerador de mesh
+    procedural - Utilizado para prototipar fases de forma r\xE1pida.\n\r\n\t\u2022
+    DebugController - Utilizado para agrupar mensagens de debug para poder desativar
+    e ativar grupos de mensagens, deixando o processo de teste mais simples.\n\r\n\t\u2022
+    ConsoleDebug - Ferramenta que cria comandos por textos para acessar fun\xE7\xF5es
+    direto de uma build ou em Runtime dentro da Unity, utilizado durante o processo
+    de desenvolvimento dos controles do jogador para facilitar a troca de valores
+    e evitar a necessidade de criar build novas para fazer pequenas altera\xE7\xF5es.\n\r\n\t\u2022
+    Batch Renamer - Ferramenta que permite renomear objetos selecionados, podendo
+    adicionar prefixos, substituir o nome completamente, adicionar sufixos e adicionar
+    uma numera\xE7\xE3o para diferenciar todos os objetos selecionados.\n\r\n\t\u2022
+    Scene Loader - Ferramenta que facilita a navega\xE7\xE3o entre cenas dentro da
+    Unity, permitindo que cada membro do grupo crie um conjunto de atalhos para troca
+    entre cenas que est\xE3o atualmente mexendo.\n\r\n\t\u2022 Game Object Replacer
+    - Ferramenta que permite a substitui\xE7\xE3o de objetos dentro de uma cena por
+    um prefab selecionado, podendo manter a escala, rota\xE7\xE3o e/ou nome dos objetos
+    selecionados.\n\n\u2022 Concepts para personagem e cen\xE1rio:\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2654535662455c4a86582612a6456b6, type: 2}
   m_sharedMaterial: {fileID: 8197492522365540459, guid: d2654535662455c4a86582612a6456b6, type: 2}
