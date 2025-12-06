@@ -126,13 +126,19 @@ public class AudioManager : MonoBehaviour
         float typeMultiplier = 1f;
         if (audio is MusicSO) typeMultiplier = MusicVolume;
         else typeMultiplier = SFXVolume;
-        if(audio is SoundEffectSO sfx)
+
+        if (audio is SoundEffectSO sfx)
         {
-            typeMultiplier *= UnityEngine.Random.Range(sfx.PitchRange.x, sfx.PitchRange.y);
-            Debug.Log(typeMultiplier);
+            float randomPitch = UnityEngine.Random.Range(sfx.PitchRange.x, sfx.PitchRange.y);
+            src.pitch = randomPitch; 
+        }
+        else
+        {
+            src.pitch = 1f; // pitch padrão
         }
 
-        src.volume = Mathf.Clamp01(audio.DefaultGain * MasterVolume * typeMultiplier);
+
+        src.volume = audio.DefaultGain * MasterVolume * typeMultiplier;
         src.spatialBlend = spatial ? 1f : 0f;
 
         src.Play();

@@ -1,19 +1,26 @@
 using UnityEngine;
 
 /// <summary>
-/// Representa um checkpoint interagível no cenário.
+/// Representa um checkpoint interagï¿½vel no cenï¿½rio.
 /// </summary>
-public class CheckPoint : OptionalInteractableObjects
+public class CheckPoint : OptionalInteractableObjects,ILoadable
 {
     public GameObject spawnPoint;
+    public CheckPointSaveData checkPointSaveData;
     public override void Interaction()
     {
+         Debug.Log($"[CheckPoint] CheckPoint ativado: {this.gameObject.name}");
         FindFirstObjectByType<PlayerSpawnpoint>().SetSpawnPoint(spawnPoint.transform.position);
+        checkPointSaveData.isActivated = true;
+    }
+
+    public void LoadData()
+    {      
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player") && !checkPointSaveData.isActivated)
         {
             Interaction();
         }
