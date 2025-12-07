@@ -115,7 +115,8 @@ public class PrefabPaintWindow : EditorWindow
         int prefabCount = Random.Range(Mathf.RoundToInt(_prefabMinCount), Mathf.RoundToInt(_prefabMaxCount) + 1);
         for (int i = 0; i < prefabCount; i++)
         {
-            GetRandomPointInCircle(point, normal);
+            Vector3 randompos = GetRandomPointInCircle(point, normal);
+            GetFixedPosition(randompos, normal);
         }
     }
 
@@ -130,17 +131,32 @@ public class PrefabPaintWindow : EditorWindow
         }
     }
 
-    private void GetRandomPointInCircle(Vector3 point, Vector3 normal)
+    private Vector3 GetRandomPointInCircle(Vector3 point, Vector3 normal)
     {
         Vector2 randomPoint = Random.insideUnitCircle * _brushSize;
+
         Vector3 tangent = Vector3.Cross(normal, Vector3.up).normalized;
+
+        if (tangent == Vector3.zero)
+        {
+            tangent = Vector3.Cross(normal, Vector3.right).normalized;
+        }
+
         Vector3 bitangent = Vector3.Cross(normal, tangent).normalized;
+
         Vector3 offset = tangent * randomPoint.x + bitangent * randomPoint.y;
         point += offset;
 
+        return point;
+    }
+
+    private void GetFixedPosition(Vector3 point, Vector3 normal)
+    {
         Ray ray = new Ray(point + normal * RAYCAST_HEIGHT_OFFSET, -normal);
+        //Debug.Log("Raycast from: " + ray.origin);
         if (Physics.Raycast(ray, out RaycastHit hit, RAYCAST_MAX_DISTANCE))
         {
+            
             PlacePrefabAtPoint(hit.point, hit.normal);
         }
     }
