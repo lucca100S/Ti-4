@@ -12,6 +12,10 @@ public class LiquidIdleState : IState
     private readonly PlayerStateMachine player;
     private readonly SurfaceDetection surface;
 
+    private float _variationTimeMin = 10f;
+    private float _variationTimeMax = 15f;
+
+    private float _currentVariationTime;
     public StateType StateType => StateType.Idle;
 
     public LiquidIdleState(LiquidoState parent, PlayerStateMachine player, SurfaceDetection surface)
@@ -24,11 +28,17 @@ public class LiquidIdleState : IState
     public void Enter()
     {
         Debug.Log("[LiquidIdle] Enter");
+
+        _currentVariationTime = Random.Range(_variationTimeMin, _variationTimeMax);
     }
 
     public void Update()
     {
-        // Idle não faz nada além de aguardar inputs e mudanças de superfície
+        if (parent.TimeInState >= _currentVariationTime)
+        {
+            ActionsManager.Instance.OnStateAnimationChanged?.Invoke("LookAround", 0.2f);
+            _currentVariationTime += Random.Range(_variationTimeMin, _variationTimeMax);
+        }
     }
 
     public void Exit()

@@ -21,6 +21,8 @@ namespace Player
         [SerializeField] private GameObject _liquidModel;
         [SerializeField] private Collider _liquidCollider;
 
+        [SerializeField] private GameObject _liquidVisual;
+
         private SurfaceDetection _surfaceDetection;
         private PlayerStateMachine _playerStateMachine;
         private PlayerInput _playerInput;
@@ -204,6 +206,25 @@ namespace Player
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
             _orientation.rotation = Quaternion.Lerp(_orientation.rotation, targetRotation, Time.deltaTime * 10f);
+
+            direction = _rigidBody.linearVelocity;
+
+            
+
+            if (direction != Vector3.zero)
+                targetRotation = Quaternion.LookRotation(direction.normalized);
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                targetRotation = Quaternion.Euler(0, 0, 0);
+            }
+
+            //Rotate Only in X axis
+            _liquidVisual.transform.localRotation = Quaternion.Euler(
+                Mathf.LerpAngle(_liquidVisual.transform.localRotation.eulerAngles.x, targetRotation.eulerAngles.x, Time.deltaTime * 10f),
+                _liquidVisual.transform.localRotation.eulerAngles.y,
+                _liquidVisual.transform.localRotation.eulerAngles.z
+            );
         }
 
         public void RotateModelTowards(Quaternion targetRotation)
@@ -213,12 +234,47 @@ namespace Player
                 targetRotation,
                 10f * Time.deltaTime
             );
+
+            Vector3 direction = _rigidBody.linearVelocity;
+
+            if (direction != Vector3.zero)
+                targetRotation = Quaternion.LookRotation(direction.normalized);
+
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                targetRotation = Quaternion.Euler(0, 0, 0);
+            }
+            
+            //Rotate Only in X axis
+            _liquidVisual.transform.localRotation = Quaternion.Euler(
+                Mathf.LerpAngle(_liquidVisual.transform.localRotation.eulerAngles.x, targetRotation.eulerAngles.x, Time.deltaTime * 10f),
+                _liquidVisual.transform.localRotation.eulerAngles.y,
+                _liquidVisual.transform.localRotation.eulerAngles.z
+            );
         }
 
         internal void RotateModelTowardsInstant(Vector3 direction)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
             _orientation.rotation = targetRotation;
+
+            direction = _rigidBody.linearVelocity;
+
+            if (direction != Vector3.zero)
+                targetRotation = Quaternion.LookRotation(direction.normalized);
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                targetRotation = Quaternion.Euler(0, 0, 0);
+            }
+
+            //Rotate Only in X axis
+            _liquidVisual.transform.localRotation = Quaternion.Euler(
+                targetRotation.eulerAngles.x,
+                _liquidVisual.transform.localRotation.eulerAngles.y,
+                _liquidVisual.transform.localRotation.eulerAngles.z
+            );
         }
 
         internal void RotateModelTowardsInstant(Quaternion direction)

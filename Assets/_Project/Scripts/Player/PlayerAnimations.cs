@@ -9,6 +9,7 @@ namespace Player
     {
         //[SerializeField] private Animator _mudAnimator;
         [SerializeField] private Animator _solidAnimator;
+        [SerializeField] private Animator _liquidAnimator;
         [SerializeField] private PlayerTransformationGroundVFX _transformationVFX;
         [SerializeField] private PlayerStateMachine _playerStateMachine;
 
@@ -109,6 +110,11 @@ namespace Player
 
         private void ChangeStateAnimation(string stateAnimation, float transitionDuration = 0.2f)
         {
+            if(_liquidAnimator.isActiveAndEnabled)
+            {
+                _liquidAnimator.CrossFade(stateAnimation, transitionDuration);
+            }
+
             if (!_currentAnimator.gameObject.activeSelf)
                 return;
 
@@ -126,6 +132,10 @@ namespace Player
                 return;
 
             _currentAnimator.SetFloat(animatorFloat, value);
+            if (_liquidAnimator.isActiveAndEnabled)
+            {
+                _liquidAnimator.SetFloat(animatorFloat, value);
+            }
         }
 
         private IEnumerator DisableTransformation(float time, IState newState)
