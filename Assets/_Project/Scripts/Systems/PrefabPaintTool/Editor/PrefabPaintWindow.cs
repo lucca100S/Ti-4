@@ -103,7 +103,12 @@ public class PrefabPaintWindow : EditorWindow
             //Checking for paint input
             if (CheckPaintInput())
             {
+                Undo.SetCurrentGroupName("Paint Prefab Group");
+                int group = Undo.GetCurrentGroup();
+
                 PlaceAllPrefabs(point, normal);
+
+                Undo.CollapseUndoOperations(group);
             }
         }
 
