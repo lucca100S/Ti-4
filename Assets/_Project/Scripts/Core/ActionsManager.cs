@@ -21,4 +21,6 @@ public class ActionsManager : Singleton<ActionsManager>
 
 
     #endregion
+
+    public Action OnFinalLevelCompleted;
 }

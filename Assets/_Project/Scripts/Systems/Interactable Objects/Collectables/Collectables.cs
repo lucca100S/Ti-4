@@ -17,18 +17,24 @@ public class Collectables : OptionalInteractableObjects, ILoadable
 
     public CollectableSaveData collectableSaveData;
 
-    public void LoadData()
+    private void Start()
     {
-        if (!collectableSaveData.isCollected)
-        {
-            transform.DORotate(new Vector3(0, 360, 0), _spinDuration, RotateMode.FastBeyond360)
+        transform.DORotate(new Vector3(0, 360, 0), _spinDuration, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.Linear);
-            transform.DOMoveY(transform.position.y + _bounceHeight, _bounceDuration)
-            .SetLoops(-1, LoopType.Yoyo)
-            .SetEase(Ease.InOutSine);
-        }
-        else
+        transform.DOMoveY(transform.position.y + _bounceHeight, _bounceDuration)
+        .SetLoops(-1, LoopType.Yoyo)
+        .SetEase(Ease.InOutSine);
+    }
+
+    private void OnDisable()
+    {
+        transform.DOKill();
+    }
+
+    public void LoadData()
+    {
+        if(collectableSaveData.isCollected)
         {
             this.gameObject.SetActive(false);
         }
@@ -42,7 +48,6 @@ public class Collectables : OptionalInteractableObjects, ILoadable
         _collider.enabled = false;
         _renderer.enabled = false;
         _collectEffect.Play();
-        transform.DOKill();
         AudioPlayer.Play(AudioId.CollectablePickUp);
         Destroy(this.gameObject, 2f);
     }
