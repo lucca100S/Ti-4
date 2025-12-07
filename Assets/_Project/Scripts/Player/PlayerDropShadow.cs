@@ -34,7 +34,7 @@ public class PlayerDropShadow : MonoBehaviour
             Vector3 targetPosition = _target.transform.position;
 
 
-            if (Physics.SphereCast(targetPosition + _target.transform.up * SPHERE_CAST_RADIUS, SPHERE_CAST_RADIUS, -_target.transform.up, out RaycastHit hitInfo, Mathf.Infinity, ~LayerMask.GetMask("Player")))
+            if (Physics.SphereCast(targetPosition + _target.transform.up * SPHERE_CAST_RADIUS, SPHERE_CAST_RADIUS, -_target.transform.up, out RaycastHit hitInfo, Mathf.Infinity, ~LayerMask.GetMask("Player"), QueryTriggerInteraction.Ignore))
             {
                 _visuals.enabled = true;
                 targetPosition.y = hitInfo.point.y + SHADOW_Y_OFFSET;
