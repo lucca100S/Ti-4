@@ -7,16 +7,19 @@ public class PrefabPaintWindow : EditorWindow
 {
     [SerializeField] private float _brushSize = 1.0f;
     [SerializeField] private GameObject _prefabToPaint;
-    [SerializeField] private float _prefabMinCount = 1;
-    [SerializeField] private float _prefabMaxCount = 5;
+    [SerializeField] private int _prefabMinCount = 1;
+    [SerializeField] private int _prefabMaxCount = 5;
+    [SerializeField] private int _layerMask = 0;
 
     private SerializedObject _paintWindowSO;
     private SerializedProperty _brushSizeProp;
     private SerializedProperty _prefabToPaintProp;
     private SerializedProperty _prefabMinCountProp;
     private SerializedProperty _prefabMaxCountProp;
+    private SerializedProperty _layerMaskProp;
 
     private const float RAYCAST_HEIGHT_OFFSET = 3f;
+    private const float RAYCAST_MAX_DISTANCE = 10f;
 
     void OnEnable() 
     { 
@@ -27,6 +30,7 @@ public class PrefabPaintWindow : EditorWindow
         _prefabToPaintProp = _paintWindowSO.FindProperty("_prefabToPaint");
         _prefabMinCountProp = _paintWindowSO.FindProperty("_prefabMinCount");
         _prefabMaxCountProp = _paintWindowSO.FindProperty("_prefabMaxCount");
+        _layerMaskProp = _paintWindowSO.FindProperty("_layerMask");
     }
     void OnDisable() 
     { 
@@ -45,14 +49,18 @@ public class PrefabPaintWindow : EditorWindow
     {
         _paintWindowSO.Update();
 
-        _brushSize = EditorGUILayout.FloatField("Brush Size", _brushSize);
-        _prefabToPaint = (GameObject)EditorGUILayout.ObjectField("Prefab to Paint", _prefabToPaint, typeof(GameObject), false);
+        _brushSizeProp.floatValue = EditorGUILayout.FloatField("Brush Size", _brushSize);
+        _prefabToPaintProp.objectReferenceValue = (GameObject)EditorGUILayout.ObjectField("Prefab to Paint", _prefabToPaint, typeof(GameObject), false);
 
+        Rect rect = GUILayoutUtility.GetRect(0, 20);
+        //_layerMaskProp.intValue = EditorGUI.LayerField(rect, "Layer Mask", _layerMask); // Placeholder for Layer Mask field
+
+        Debug.Log("Layer Mask Value: " + _layerMask);
 
         GUILayout.Label("Prefab Count", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
-        _prefabMinCount = EditorGUILayout.FloatField("Min", _prefabMinCount);
-        _prefabMaxCount = EditorGUILayout.FloatField("Max", _prefabMaxCount);
+        _prefabMinCountProp.intValue = EditorGUILayout.IntField("Min", _prefabMinCount);
+        _prefabMaxCountProp.intValue = EditorGUILayout.IntField("Max", _prefabMaxCount);
         EditorGUILayout.EndHorizontal();
 
         _paintWindowSO.ApplyModifiedProperties();
@@ -79,11 +87,13 @@ public class PrefabPaintWindow : EditorWindow
 
         Event e = Event.current;
         Ray ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
         {
             point = hit.point;
             normal = hit.normal;
+            Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
             Handles.DrawWireDisc(hit.point, hit.normal, _brushSize);
+            Handles.zTest = UnityEngine.Rendering.CompareFunction.Always;
             return true;
         }
 
@@ -131,7 +141,7 @@ public class PrefabPaintWindow : EditorWindow
         point += offset;
 
         Ray ray = new Ray(point + normal * RAYCAST_HEIGHT_OFFSET, -normal);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, RAYCAST_MAX_DISTANCE))
         {
             PlacePrefabAtPoint(hit.point, hit.normal);
         }
