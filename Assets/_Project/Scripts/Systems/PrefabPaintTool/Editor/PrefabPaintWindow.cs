@@ -55,8 +55,6 @@ public class PrefabPaintWindow : EditorWindow
         Rect rect = GUILayoutUtility.GetRect(0, 20);
         //_layerMaskProp.intValue = EditorGUI.LayerField(rect, "Layer Mask", _layerMask); // Placeholder for Layer Mask field
 
-        Debug.Log("Layer Mask Value: " + _layerMask);
-
         GUILayout.Label("Prefab Count", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
         _prefabMinCountProp.intValue = EditorGUILayout.IntField("Min", _prefabMinCount);
