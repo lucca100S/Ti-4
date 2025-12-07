@@ -99,7 +99,8 @@ public struct ToggleSubPanelEvent
 }
 
 //COLLECTABLE COUNT EVENT
-public struct AddCollectableCountEvent{}
+public struct AddCommonCollectableCountEvent{}
+public struct AddHiddenCollectableCountEvent{}
 
 //APPLICATION QUIT EVENT
 public struct ApplicationQuitEvent {}
@@ -138,3 +139,9 @@ public struct OnSensibilityChange
 
 public struct SaveData{}
 public struct LoadData{}
+
+[System.Serializable]
+public struct DeviceChangeEvent
+{
+    public bool isUsingGamepad;
+}

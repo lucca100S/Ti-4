@@ -14,7 +14,8 @@ public class Collectables : OptionalInteractableObjects, ILoadable
     [SerializeField] private ParticleSystem _collectEffect;
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Collider _collider;
-
+    
+    public CollectableType collectableType;
     public CollectableSaveData collectableSaveData;
 
     public void LoadData()
@@ -37,7 +38,15 @@ public class Collectables : OptionalInteractableObjects, ILoadable
     public override void Interaction()
     {
         Debug.Log($"[Collectable] Coletado: {this.gameObject.name}");
-        EventBus.Publish(new AddCollectableCountEvent());
+        switch(collectableType)
+        {
+            case CollectableType.Common:
+                EventBus.Publish(new AddCommonCollectableCountEvent());
+                break;
+            case CollectableType.Hidden:
+                EventBus.Publish(new AddHiddenCollectableCountEvent());
+                break;
+        }
         CollectableObservable.Instance?.NotifyListeners(this);
         _collider.enabled = false;
         _renderer.enabled = false;
@@ -54,4 +63,9 @@ public class Collectables : OptionalInteractableObjects, ILoadable
             Interaction();
         }
     }
+}
+
+public enum CollectableType
+{
+    Common, Hidden
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class CollectableCounterAnimationHandler : MonoBehaviour
 {
     public Animation animationComponent;
+    public CollectableType collectableTypeDisplayed;
     public AnimationClip revealAnimation;
     public AnimationClip hideAnimation;
     bool isActive = false;
@@ -12,13 +13,32 @@ public class CollectableCounterAnimationHandler : MonoBehaviour
     public CollectableCounterHandler collectableCounterHandler;
     public void Awake()
     {
-        // Subscribe to the AddCollectableCountEvent
-        EventBus.Subscribe<AddCollectableCountEvent>(OnAddCollectableCount);
+        switch (collectableTypeDisplayed)
+        {
+            case CollectableType.Common:
+                EventBus.Subscribe<AddCommonCollectableCountEvent>(OnAddCommonCollectableCount);
+                break;
+            case CollectableType.Hidden:
+                EventBus.Subscribe<AddHiddenCollectableCountEvent>(OnAddHiddenCollectableCount);
+                break;
+        }
+
     }
-    private void OnAddCollectableCount(AddCollectableCountEvent evt)
+    private void OnAddCommonCollectableCount(AddCommonCollectableCountEvent evt)
     {
         Debug.Log("Collectable Count Added Event Received");
-        if(isActive)
+        if (isActive)
+        {
+            collectableCounterHandler.UpdateCollectableText();
+            return;
+        }
+        // Trigger the collectable counter animation
+        PlayCollectableCounterAnimationReveal();
+    }
+    private void OnAddHiddenCollectableCount(AddHiddenCollectableCountEvent evt)
+    {
+        Debug.Log("Collectable Count Added Event Received");
+        if (isActive)
         {
             collectableCounterHandler.UpdateCollectableText();
             return;
@@ -54,3 +74,4 @@ public class CollectableCounterAnimationHandler : MonoBehaviour
         collectableCounterHandler.UpdateCollectableText();
     }
 }
+
