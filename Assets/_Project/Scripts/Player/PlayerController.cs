@@ -67,7 +67,7 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
             _surfaceDetection = GetComponent<SurfaceDetection>();
             _rigidBody = GetComponentInChildren<Rigidbody>();
-
+            EventBus.Subscribe<OnSensibilityChange>(OnSensitivityChanged);
             Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -182,7 +182,10 @@ namespace Player
         }
 
         #endregion
-
+        private void OnSensitivityChanged(OnSensibilityChange change)
+        {
+            ChangeCameraSensitivity(change.sensibility);
+        }
         public void ChangeCameraSensitivity(float sensitivity)
         {
             sensitivity = Mathf.Abs(sensitivity);

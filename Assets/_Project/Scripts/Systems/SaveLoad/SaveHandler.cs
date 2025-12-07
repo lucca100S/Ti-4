@@ -9,10 +9,11 @@ public class SaveHandler : MonoBehaviour
     [Header("Objetos encontrados na cena (somente leitura)")]
     [SerializeField] private PlayerStartAnimationHandler foundPlayer;
     [SerializeField] private List<Collectables> foundCollectables = new List<Collectables>();
-    [SerializeField] private List<CheckPoint> foundCheckpoints = new List<CheckPoint>(); 
+    [SerializeField] private List<CheckPoint> foundCheckpoints = new List<CheckPoint>();
     [SerializeField] private PlayerSpawnpoint playerSpawnpoint;
     [SerializeField] public GameSettingsData gameSettingsData;
     [SerializeField] public SessionProgressionData sessionProgressionData;
+    public UIManager uiManager;
     private string sceneName;
 
     void Awake()
@@ -22,6 +23,20 @@ public class SaveHandler : MonoBehaviour
         EventBus.Subscribe<ChangeMasterVolumeEvent>(OnMasterVolumeChanged);
         EventBus.Subscribe<ChangeMusicVolumeEvent>(OnMusicVolumeChanged);
         EventBus.Subscribe<ChangeSFXVolumeEvent>(OnSFXVolumeChanged);
+        EventBus.Subscribe<GameLanguageChangeEvent>(OnGameLanguageChanged);
+        EventBus.Subscribe<OnSensibilityChange>(OnSensitivityChanged);
+    }
+
+    private void OnSensitivityChanged(OnSensibilityChange change)
+    {
+        gameSettingsData.sensitivity = change.sensibility;
+        SaveGameSettings(gameSettingsData);
+    }
+
+    private void OnGameLanguageChanged(GameLanguageChangeEvent @event)
+    {
+        gameSettingsData.gameLanguages = @event.CurrentLanguage;
+        SaveGameSettings(gameSettingsData);
     }
 
     private void OnSFXVolumeChanged(ChangeSFXVolumeEvent @event)
@@ -140,7 +155,7 @@ public class SaveHandler : MonoBehaviour
             foundPlayer.transform.position = data.playerSaveData.startPosition;
             playerSpawnpoint.SetSpawnPoint(data.playerSaveData.startPosition);
         }
-        
+
         // Collectables
         foreach (var col in foundCollectables)
         {
@@ -163,6 +178,12 @@ public class SaveHandler : MonoBehaviour
         }
 
         sessionProgressionData = LoadProgression();
+        gameSettingsData = LoadGameSettings();
+        EventBus.Publish(new ChangeMasterVolumeEvent(gameSettingsData.masterVolume));
+        EventBus.Publish(new ChangeMusicVolumeEvent(gameSettingsData.musicVolume));
+        EventBus.Publish(new ChangeSFXVolumeEvent(gameSettingsData.sfxVolume));
+        EventBus.Publish(new GameLanguageChangeEvent(gameSettingsData.gameLanguages));
+        EventBus.Publish(new OnSensibilityChange { sensibility = gameSettingsData.sensitivity });
     }
 
 
@@ -249,6 +270,7 @@ public class SaveHandler : MonoBehaviour
                     isActivated = cp.checkPointSaveData.isActivated
                 });
             }
+            sessionProgressionData.lastSceneName = SceneManager.GetActiveScene().name;;
             SaveProgression(sessionProgressionData);
             File.WriteAllText(path, JsonUtility.ToJson(data, true));
             Debug.Log($"<color=green> Cena salva com sucesso:</color> {path}");
@@ -319,7 +341,8 @@ public class SaveHandler : MonoBehaviour
             SessionProgressionData defaultData = new SessionProgressionData
             {
                 CommonCollectablesCount = 0,
-                HiddenCollectablesCount = 0
+                HiddenCollectablesCount = 0,
+                lastSceneName = SceneManager.GetSceneByBuildIndex(0).name
             };
             SaveProgression(defaultData);
             return defaultData;
@@ -334,7 +357,8 @@ public class SaveHandler : MonoBehaviour
         SessionProgressionData defaultData = new SessionProgressionData
         {
             CommonCollectablesCount = 0,
-            HiddenCollectablesCount = 0
+            HiddenCollectablesCount = 0,
+            lastSceneName = SceneManager.GetSceneByBuildIndex(0).name
         };
         SaveProgression(defaultData);
         Debug.Log("<color=green> SessionProgression resetado com sucesso!</color>");

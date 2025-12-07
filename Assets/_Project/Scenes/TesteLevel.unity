@@ -19391,6 +19391,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1870535286162270648, guid: 7d6a744fe93bef84d95e91388b1f2268, type: 3}
   m_PrefabInstance: {fileID: 690774021}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &691063764 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6829163027166621946, guid: d8bdd3a953f90814fb68c1b93e0bc934, type: 3}
+  m_PrefabInstance: {fileID: 2126253634}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &692024785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22334,13 +22345,13 @@ MonoBehaviour:
   mainMenu: {fileID: 1551858777}
   hud: {fileID: 8752990}
   sections:
+  - {fileID: 8752989}
   - {fileID: 1551858776}
   - {fileID: 68760897}
   - {fileID: 1711103131}
   - {fileID: 2138304384}
   - {fileID: 647018464}
   - {fileID: 532828787}
-  - {fileID: 8752989}
   collectableCounters:
   - {fileID: 444093546}
   - {fileID: 475459196}
@@ -42466,7 +42477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3144177635159221869, guid: f3e90306253b6554e86577edb9199f57, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.69819576
       objectReference: {fileID: 0}
     - target: {fileID: 4332938031014163555, guid: f3e90306253b6554e86577edb9199f57, type: 3}
       propertyPath: saveHandler
@@ -42476,9 +42487,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6907960389810020171, guid: f3e90306253b6554e86577edb9199f57, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 6347623982003246554}
     - target: {fileID: 7923383997548820419, guid: f3e90306253b6554e86577edb9199f57, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154804014807585395, guid: f3e90306253b6554e86577edb9199f57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8346686585933235312, guid: f3e90306253b6554e86577edb9199f57, type: 3}
       propertyPath: m_SizeDelta.y
@@ -53802,6 +53821,8 @@ MonoBehaviour:
   sessionProgressionData:
     CommonCollectablesCount: 0
     HiddenCollectablesCount: 0
+    lastSceneName: 
+  uiManager: {fileID: 813331409}
 --- !u!1001 &1900974198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60493,6 +60514,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 810013788994359655, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: _cameraInputs
+      value: 
+      objectReference: {fileID: 691063764}
     - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.1
@@ -60724,6 +60749,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41e3a0f98b880f64a9f4f42af3f7fc54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6347623982003246554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 810013788994359655, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+  m_PrefabInstance: {fileID: 5726532894067115417}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907889493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d9e104a5be0b2458501e20e5eaf63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

@@ -38,6 +38,7 @@ public class SessionProgressionData
 {
     public int CommonCollectablesCount; //Default: 0
     public int HiddenCollectablesCount; //Default: 0
+    public string lastSceneName; //Default: first scene in build settings
 }
 
 //Scene

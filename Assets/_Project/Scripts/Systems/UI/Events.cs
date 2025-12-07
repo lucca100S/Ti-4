@@ -127,14 +127,7 @@ public struct CloseSectionEvent
 
 public struct OnSensibilityChange
 {
-    float sensibilityX;
-    float sensibilityY;
-
-    public OnSensibilityChange(float sensibilityX, float sensibilityY)
-    {
-        this.sensibilityX = sensibilityX;
-        this.sensibilityY = sensibilityY;
-    }
+    public float sensibility;
 }
 
 public struct SaveData{}
