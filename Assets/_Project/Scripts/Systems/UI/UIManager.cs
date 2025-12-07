@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public MainMenu mainMenu;
     public HUD hud;
     public List<GameObject> sections = new List<GameObject>();
+    public List<CollectableCounterAnimationHandler> collectableCounters = new List<CollectableCounterAnimationHandler>();
     public bool isGamePaused = false;
     public GameObject volume;
     CinemachineInputAxisController cinemachineInput;
@@ -72,6 +73,13 @@ public class UIManager : MonoBehaviour
         {
             pause.gameObject.SetActive(!pause.isActiveAndEnabled);
             isGamePaused = true;
+            foreach (var counter in collectableCounters)
+            {
+                if(counter.isActive)
+                {
+                    counter.PlayCollectableCounterAnimationHide();
+                }
+            }
             AbrirMenu();
         }
     }

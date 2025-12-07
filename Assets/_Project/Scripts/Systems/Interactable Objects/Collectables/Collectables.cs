@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 /// Representa um colet�vel no cen�rio.
 /// Notifica observadores quando � coletado.
 /// </summary>
-public class Collectables : OptionalInteractableObjects, ILoadable
+public class Collectables : OptionalInteractableObjects
 {
     [SerializeField] private float _spinDuration = 1;
     [SerializeField] private float _bounceHeight = 0.5f;
@@ -14,7 +14,7 @@ public class Collectables : OptionalInteractableObjects, ILoadable
     [SerializeField] private ParticleSystem _collectEffect;
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Collider _collider;
-    
+
     public CollectableType collectableType;
     public CollectableSaveData collectableSaveData;
 
@@ -31,14 +31,15 @@ public class Collectables : OptionalInteractableObjects, ILoadable
         }
         else
         {
-            this.gameObject.SetActive(false);
+            _collider.enabled = false;
+            _renderer.enabled = false;
         }
     }
 
     public override void Interaction()
     {
         Debug.Log($"[Collectable] Coletado: {this.gameObject.name}");
-        switch(collectableType)
+        switch (collectableType)
         {
             case CollectableType.Common:
                 EventBus.Publish(new AddCommonCollectableCountEvent());
@@ -53,7 +54,7 @@ public class Collectables : OptionalInteractableObjects, ILoadable
         _collectEffect.Play();
         transform.DOKill();
         AudioPlayer.Play(AudioId.CollectablePickUp);
-        Destroy(this.gameObject, 2f);
+        collectableSaveData.isCollected = true;
     }
 
     private void OnTriggerEnter(Collider other)
