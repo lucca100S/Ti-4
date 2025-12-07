@@ -105,53 +105,55 @@ public class AudioManager : MonoBehaviour
 
         if (audio.Id == AudioId.None)
         {
-            Debug.LogWarning($"[AudioManager] AudioSO '{audio.name}' has Id == None. Ensure CodeGen populated AudioId or assign manually.");
+            Debug.LogWarning($"[AudioManager] AudioSO '{audio.name}' has Id == None.");
         }
 
-        // Manage existing instances
-        if (active.TryGetValue(audio.Id, out var list))
-        {
-            bool anyPlaying = list.Exists(s => s != null && s.isPlaying);
-            if (force == PlaybackForce.IgnoreIfPlaying && anyPlaying)
-                return list.Find(s => s != null && s.isPlaying); // return a playing source
-
-            if (force == PlaybackForce.ForceRestart)
-            {
-                // stop & cleanup existing
-                foreach (var s in list)
-                {
-                    if (s != null) StopAndCleanupSource(s);
-                }
-                list.Clear();
-            }
-            // else Normal: allow multiple instances
-        }
-        else
+        // Obtém lista de instâncias ativas ou cria uma nova
+        if (!active.TryGetValue(audio.Id, out var list))
         {
             list = new List<AudioSource>();
             active[audio.Id] = list;
         }
 
-        var clip = audio.GetRandomClip();
+        // Limite de instâncias para MusicSO
+        if (audio is MusicSO music && list.Count >= music.MaxSimultaneousInstances)
+        {
+            // Retorna a instância mais antiga para não criar som duplicado
+            return list[0];
+        }
+
+        // Controle de PlaybackForce
+        bool anyPlaying = list.Exists(s => s != null && s.isPlaying);
+        if (force == PlaybackForce.IgnoreIfPlaying && anyPlaying)
+            return list.Find(s => s != null && s.isPlaying);
+
+        if (force == PlaybackForce.ForceRestart)
+        {
+            foreach (var s in list)
+                if (s != null) StopAndCleanupSource(s);
+            list.Clear();
+        }
+
+        // Escolhe o clip a tocar
+        AudioClip clip = (audio is MusicSO musicSO) ? musicSO.GetLoopClip() : audio.GetRandomClip();
         if (clip == null)
         {
             Debug.LogWarning($"[AudioManager] AudioSO '{audio.name}' has no clips.");
             return null;
         }
 
+        // Cria o GameObject e AudioSource
         GameObject go = new GameObject($"Audio_{audio.name}");
         if (spatial && worldPosition.HasValue)
             go.transform.position = worldPosition.Value;
         else
             go.transform.SetParent(this.transform, false);
 
-        var src = go.AddComponent<AudioSource>();
+        AudioSource src = go.AddComponent<AudioSource>();
         src.clip = clip;
         src.loop = audio.LoopByDefault;
-        float typeMultiplier = 1f;
-        if (audio is MusicSO) typeMultiplier = MusicVolume;
-        else typeMultiplier = SFXVolume;
 
+        // Ajusta pitch se SFX
         if (audio is SoundEffectSO sfx)
         {
             float randomPitch = UnityEngine.Random.Range(sfx.PitchRange.x, sfx.PitchRange.y);
@@ -159,16 +161,18 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            src.pitch = 1f; // pitch padrão
+            src.pitch = 1f;
         }
 
-
+        // Volume ajustado
+        float typeMultiplier = (audio is MusicSO) ? MusicVolume : SFXVolume;
         src.volume = audio.DefaultGain * MasterVolume * typeMultiplier;
         src.spatialBlend = spatial ? 1f : 0f;
 
         src.Play();
         list.Add(src);
 
+        // AutoDestroy se necessário
         if (AutoDestroyNonLooping && !audio.LoopByDefault)
         {
             StartCoroutine(DoAutoCleanup(src, audio.Id, clip.length));
@@ -176,6 +180,7 @@ public class AudioManager : MonoBehaviour
 
         return src;
     }
+
 
     public void Stop(AudioSO audio)
     {

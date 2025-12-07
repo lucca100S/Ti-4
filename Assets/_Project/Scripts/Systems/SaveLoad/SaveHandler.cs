@@ -321,6 +321,12 @@ void Awake()
                 sensitivity = 1f,
                 gameLanguages = GameLanguages.English
             };
+            EventBus.Publish<ChangeMasterVolumeEvent>(new ChangeMasterVolumeEvent(defaultData.masterVolume));
+            EventBus.Publish<ChangeMusicVolumeEvent>(new ChangeMusicVolumeEvent(defaultData.musicVolume));
+            EventBus.Publish<ChangeSFXVolumeEvent>(new ChangeSFXVolumeEvent(defaultData.sfxVolume));
+            EventBus.Publish<OnSensibilityChange>(new OnSensibilityChange{sensibility = defaultData.sensitivity});
+
+
             SaveGameSettings(defaultData);
             return defaultData;
         }
