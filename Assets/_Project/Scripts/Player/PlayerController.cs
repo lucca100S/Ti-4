@@ -206,13 +206,15 @@ namespace Player
 
             direction = _rigidBody.linearVelocity;
 
-            if (_playerStateMachine.IsGrounded && !_playerStateMachine.IsGoingDown)
-            {
-                direction.y = 0;
-            }
+            
 
             if (direction != Vector3.zero)
                 targetRotation = Quaternion.LookRotation(direction.normalized);
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                targetRotation = Quaternion.Euler(0, 0, 0);
+            }
 
             //Rotate Only in X axis
             _liquidVisual.transform.localRotation = Quaternion.Euler(
@@ -232,14 +234,15 @@ namespace Player
 
             Vector3 direction = _rigidBody.linearVelocity;
 
-            if (_playerStateMachine.IsGrounded && !_playerStateMachine.IsGoingDown)
-            {
-                direction.y = 0;
-            }
-
             if (direction != Vector3.zero)
                 targetRotation = Quaternion.LookRotation(direction.normalized);
 
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                targetRotation = Quaternion.Euler(0, 0, 0);
+            }
+            
             //Rotate Only in X axis
             _liquidVisual.transform.localRotation = Quaternion.Euler(
                 Mathf.LerpAngle(_liquidVisual.transform.localRotation.eulerAngles.x, targetRotation.eulerAngles.x, Time.deltaTime * 10f),
@@ -255,13 +258,13 @@ namespace Player
 
             direction = _rigidBody.linearVelocity;
 
-            if (_playerStateMachine.IsGrounded && !_playerStateMachine.IsGoingDown)
-            {
-                direction.y = 0;
-            }
-
             if (direction != Vector3.zero)
                 targetRotation = Quaternion.LookRotation(direction.normalized);
+
+            if (_playerStateMachine.IsGrounded)
+            {
+                targetRotation = Quaternion.Euler(0, 0, 0);
+            }
 
             //Rotate Only in X axis
             _liquidVisual.transform.localRotation = Quaternion.Euler(
