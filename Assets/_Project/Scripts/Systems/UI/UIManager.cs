@@ -30,7 +30,10 @@ public class UIManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         //Lógica integrada com save para mudar estado do cursor
-        SetCursorState(true, CursorLockMode.None);
+        if (mainMenu.isActiveAndEnabled)
+        {
+            SetCursorState(true, CursorLockMode.None);
+        }
         cinemachineInput = FindAnyObjectByType<CinemachineInputAxisController>();
         EventBus.Subscribe<ChangePanelEvent>(OnChangePanel);
         EventBus.Subscribe<GameLanguageChangeEvent>(OnChangeLanguage);
