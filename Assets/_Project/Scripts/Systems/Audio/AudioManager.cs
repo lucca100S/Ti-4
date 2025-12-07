@@ -43,6 +43,28 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(go);
     }
 
+    private void UpdateActiveVolumes()
+    {
+        foreach (var kvp in active)
+        {
+            AudioId id = kvp.Key;
+            List<AudioSource> sources = kvp.Value;
+
+            // Determina se é música ou SFX com base no tipo de AudioId
+            bool isMusic = id.ToString().Contains("Music"); // ou outro critério do seu projeto
+            float typeMultiplier = isMusic ? MusicVolume : SFXVolume;
+
+            foreach (var src in sources)
+            {
+                if (src == null) continue;
+                // Ajusta volume usando apenas DefaultGain do audio que você já conhece
+                src.volume = MasterVolume * typeMultiplier; // se quiser multiplicar DefaultGain, armazene junto no dicionário
+            }
+        }
+    }
+
+
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -57,14 +79,17 @@ public class AudioManager : MonoBehaviour
         EventBus.Subscribe<ChangeMasterVolumeEvent>(evt =>
         {
             Instance.MasterVolume = evt.MasterVolume;
+            UpdateActiveVolumes();
         });
         EventBus.Subscribe<ChangeMusicVolumeEvent>(evt =>
         {
             Instance.MusicVolume = evt.MusicVolume;
+            UpdateActiveVolumes();
         });
         EventBus.Subscribe<ChangeSFXVolumeEvent>(evt =>
         {
             Instance.SFXVolume = evt.SFXVolume;
+            UpdateActiveVolumes();
         });
     }
 
@@ -130,7 +155,7 @@ public class AudioManager : MonoBehaviour
         if (audio is SoundEffectSO sfx)
         {
             float randomPitch = UnityEngine.Random.Range(sfx.PitchRange.x, sfx.PitchRange.y);
-            src.pitch = randomPitch; 
+            src.pitch = randomPitch;
         }
         else
         {

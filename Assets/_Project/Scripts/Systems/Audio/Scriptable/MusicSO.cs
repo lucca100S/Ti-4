@@ -10,6 +10,9 @@ public class MusicSO : AudioSO
     [Tooltip("Clip principal utilizado em loop (se diferente do primeiro elemento em Clips).")]
     public AudioClip LoopClip;
 
+    [Tooltip("Número máximo recomendado de instâncias simultâneas deste SFX.")]
+    public int MaxSimultaneousInstances = 1;
+
     [Tooltip("Tempo padrão de crossfade (segundos) ao trocar para esta música.")]
     public float CrossfadeTime = 1.0f;
 
