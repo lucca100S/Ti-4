@@ -110,9 +110,10 @@ namespace Player
 
         private void ChangeStateAnimation(string stateAnimation, float transitionDuration = 0.2f)
         {
-            if(_liquidAnimator.isActiveAndEnabled)
+            if (_liquidAnimator.isActiveAndEnabled)
             {
-                _liquidAnimator.CrossFade(stateAnimation, transitionDuration);
+                if(_liquidAnimator.HasState(0, Animator.StringToHash(stateAnimation)))
+                    _liquidAnimator.CrossFade(stateAnimation, transitionDuration);
             }
 
             if (!_currentAnimator.gameObject.activeSelf)
@@ -132,9 +133,28 @@ namespace Player
                 return;
 
             _currentAnimator.SetFloat(animatorFloat, value);
+
             if (_liquidAnimator.isActiveAndEnabled)
             {
-                _liquidAnimator.SetFloat(animatorFloat, value);
+
+                bool containsName = false;
+                for (int i = 0; i < _liquidAnimator.parameters.Length; i++)
+                {
+
+                    if (_liquidAnimator.parameters[i].name == animatorFloat)
+                    {
+
+                        containsName = true;
+                        break;
+
+                    }
+
+                }
+
+                if (containsName)
+                {
+                    _liquidAnimator.SetFloat(animatorFloat, value);
+                }
             }
         }
 
