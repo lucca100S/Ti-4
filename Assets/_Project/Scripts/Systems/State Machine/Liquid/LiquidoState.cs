@@ -23,6 +23,8 @@ public class LiquidoState : IState
     public Vector3 NormalDirection => _normalDirection;
 
     public StateType StateType => StateType.Idle;
+
+    public float TimeInState => subStateMachine.TimeInState;
     #endregion
 
     #region Constructor
