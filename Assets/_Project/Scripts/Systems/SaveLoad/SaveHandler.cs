@@ -16,16 +16,33 @@ public class SaveHandler : MonoBehaviour
     public UIManager uiManager;
     private string sceneName;
 
-    void Awake()
+void Awake()
+{
+    sceneName = SceneManager.GetActiveScene().name;
+
+    sessionProgressionData = SaveHandler.LoadProgression();
+
+    if (!string.IsNullOrEmpty(sessionProgressionData.lastSceneName) &&
+        sessionProgressionData.lastSceneName != sceneName)
     {
-        EventBus.Subscribe<AddCommonCollectableCountEvent>(OnAddCommonCollectable);
-        EventBus.Subscribe<AddHiddenCollectableCountEvent>(OnAddHiddenCollectable);
-        EventBus.Subscribe<ChangeMasterVolumeEvent>(OnMasterVolumeChanged);
-        EventBus.Subscribe<ChangeMusicVolumeEvent>(OnMusicVolumeChanged);
-        EventBus.Subscribe<ChangeSFXVolumeEvent>(OnSFXVolumeChanged);
-        EventBus.Subscribe<GameLanguageChangeEvent>(OnGameLanguageChanged);
-        EventBus.Subscribe<OnSensibilityChange>(OnSensitivityChanged);
+        Debug.Log($"Última cena: {sessionProgressionData.lastSceneName}, carregando a cena correta...");
+        SceneManager.LoadScene(sessionProgressionData.lastSceneName);
+        return; 
     }
+
+    ScanSceneObjects();
+    SceneSaveData sceneData = LoadOrCreateScene(foundCollectables, foundCheckpoints, playerSpawnpoint);
+    ApplySceneData(sceneData);
+
+    EventBus.Subscribe<AddCommonCollectableCountEvent>(OnAddCommonCollectable);
+    EventBus.Subscribe<AddHiddenCollectableCountEvent>(OnAddHiddenCollectable);
+    EventBus.Subscribe<ChangeMasterVolumeEvent>(OnMasterVolumeChanged);
+    EventBus.Subscribe<ChangeMusicVolumeEvent>(OnMusicVolumeChanged);
+    EventBus.Subscribe<ChangeSFXVolumeEvent>(OnSFXVolumeChanged);
+    EventBus.Subscribe<GameLanguageChangeEvent>(OnGameLanguageChanged);
+    EventBus.Subscribe<OnSensibilityChange>(OnSensitivityChanged);
+}
+
 
     private void OnSensitivityChanged(OnSensibilityChange change)
     {
@@ -65,12 +82,6 @@ public class SaveHandler : MonoBehaviour
     private void OnAddCommonCollectable(AddCommonCollectableCountEvent @event)
     {
         sessionProgressionData.CommonCollectablesCount++;
-    }
-
-    void Start()
-    {
-        sceneName = SceneManager.GetActiveScene().name;
-        ApplySceneData(LoadOrCreateScene(foundCollectables, foundCheckpoints, playerSpawnpoint));
     }
 
     //===========================================================
@@ -270,7 +281,8 @@ public class SaveHandler : MonoBehaviour
                     isActivated = cp.checkPointSaveData.isActivated
                 });
             }
-            sessionProgressionData.lastSceneName = SceneManager.GetActiveScene().name;;
+            sessionProgressionData.lastSceneName = SceneManager.GetActiveScene().name; ;
+            Debug.Log($"<color=blue> Salvando progresso cena:</color> {sessionProgressionData.lastSceneName}");
             SaveProgression(sessionProgressionData);
             File.WriteAllText(path, JsonUtility.ToJson(data, true));
             Debug.Log($"<color=green> Cena salva com sucesso:</color> {path}");
@@ -342,12 +354,12 @@ public class SaveHandler : MonoBehaviour
             {
                 CommonCollectablesCount = 0,
                 HiddenCollectablesCount = 0,
-                lastSceneName = SceneManager.GetSceneByBuildIndex(0).name
+                lastSceneName = "TesteLevel"
             };
+            Debug.Log($"<color=blue> Salvando progresso cena:</color> {defaultData.lastSceneName}");
             SaveProgression(defaultData);
             return defaultData;
         }
-
         string json = File.ReadAllText(path);
         return JsonUtility.FromJson<SessionProgressionData>(json);
     }

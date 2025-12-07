@@ -138,3 +138,14 @@ public struct DeviceChangeEvent
 {
     public bool isUsingGamepad;
 }
+
+public struct GamepadTypeChangeEvent
+{
+    public GamepadType gamepadType;
+    public GamepadTypeChangeEvent(GamepadType gamepadType)
+    {
+        this.gamepadType = gamepadType;
+    }
+}
+
+public enum GamepadType{Xbox, PlayStation,None}
