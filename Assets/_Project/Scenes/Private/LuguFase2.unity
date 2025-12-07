@@ -1123,6 +1123,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1268652646 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2253806846938125, guid: b26238de816f24c4b9a1416f54684a9a, type: 3}
+  m_PrefabInstance: {fileID: 5318836812674541021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1268652647 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3948079852131297193, guid: b26238de816f24c4b9a1416f54684a9a, type: 3}
+  m_PrefabInstance: {fileID: 5318836812674541021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268652646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1268652648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268652646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f949de4a65640054a85d0ea421b16de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textElementsContent:
+    _defaultTextVersion: Sprout can <b><color=#FFF>Climb Vines</b></color=#FFF>
+    _portugueseVersion: Sprout pode <b><color=#FFF>escalar vinhas</b></color=#FFF>
+    _englishVersion: Sprout can <b><color=#FFF>Climb Vines</b></color=#FFF>
+    _spanishVersion: "Sprout puede <b><color=#FFF>escalar vi\xF1edos</b></color=#FFF>"
+    _frenchVersion: Sprout peut <b><color=#FFF>grimper aux vignes</b></color=#FFF>
+  textMeshProComponent: {fileID: 1268652647}
+--- !u!1 &1458249656 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8477169165117654679, guid: b26238de816f24c4b9a1416f54684a9a, type: 3}
+  m_PrefabInstance: {fileID: 5318836812674541021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1458249657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458249656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f949de4a65640054a85d0ea421b16de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textElementsContent:
+    _defaultTextVersion: While <color=#FFF><b>Transformed</b></color=#FFF>  Sprout
+      can <color=#FFF><b>Go Through</b></color=#FFF> <color=#FFF><b>Vines</b></color=#FFF>
+    _portugueseVersion: Enquanto <color=#FFF><b>transformado</b></color=#FFF> Sprout
+      pode <color=#FFF><b>atravessar</b></color=#FFF> <color=#FFF><b>vinhas</b></color=#FFF>
+    _englishVersion: While <color=#FFF><b>Transformed</b></color=#FFF>  Sprout can
+      <color=#FFF><b>Go Through</b></color=#FFF> <color=#FFF><b>Vines</b></color=#FFF>
+    _spanishVersion: "Mientras que <color=#FFF><b>transformado</b></color=#FFF> Sprout
+      puede <color=#FFF><b>atravesar</b></color=#FFF> <color=#FFF><b>vi\xF1edos</b></color=#FFF>"
+    _frenchVersion: "Alors que <color=#FFF><b>transform\xE9</b></color=#FFF> Sprout
+      peut <color=#FFF><b>traverser</b></color=#FFF> <color=#FFF><b>des vignes</b></color=#FFF>"
+  textMeshProComponent: {fileID: 0}
 --- !u!1001 &1478154360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1941,7 +2005,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2253806846938125, guid: b26238de816f24c4b9a1416f54684a9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1268652648}
+    - targetCorrespondingSourceObject: {fileID: 8477169165117654679, guid: b26238de816f24c4b9a1416f54684a9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1458249657}
   m_SourcePrefab: {fileID: 100100000, guid: b26238de816f24c4b9a1416f54684a9a, type: 3}
 --- !u!114 &5318836812674541022 stripped
 MonoBehaviour:
