@@ -99,7 +99,8 @@ public struct ToggleSubPanelEvent
 }
 
 //COLLECTABLE COUNT EVENT
-public struct AddCollectableCountEvent{}
+public struct AddCommonCollectableCountEvent{}
+public struct AddHiddenCollectableCountEvent{}
 
 //APPLICATION QUIT EVENT
 public struct ApplicationQuitEvent {}
@@ -126,15 +127,25 @@ public struct CloseSectionEvent
 
 public struct OnSensibilityChange
 {
-    float sensibilityX;
-    float sensibilityY;
-
-    public OnSensibilityChange(float sensibilityX, float sensibilityY)
-    {
-        this.sensibilityX = sensibilityX;
-        this.sensibilityY = sensibilityY;
-    }
+    public float sensibility;
 }
 
 public struct SaveData{}
 public struct LoadData{}
+
+[System.Serializable]
+public struct DeviceChangeEvent
+{
+    public bool isUsingGamepad;
+}
+
+public struct GamepadTypeChangeEvent
+{
+    public GamepadType gamepadType;
+    public GamepadTypeChangeEvent(GamepadType gamepadType)
+    {
+        this.gamepadType = gamepadType;
+    }
+}
+
+public enum GamepadType{Xbox, PlayStation,None}

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class BackButton : Button
 {
     public GameObject target;
@@ -8,5 +8,6 @@ public class BackButton : Button
     public override void OnClik()
     {
         EventBus.Publish(new OpenSectionEvent(target, toDisable));
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

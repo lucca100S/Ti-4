@@ -3,12 +3,19 @@ using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.InputSystem;
 using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     public static GameLanguages CurrentLanguage;
     public Pause pause;
     public MainMenu mainMenu;
+    public HUD hud;
+    public GameConclusion gameConclusion;
+    public Credits finalCredits;
+    public List<GameObject> sections = new List<GameObject>();
+    public List<CollectableCounterAnimationHandler> collectableCounters = new List<CollectableCounterAnimationHandler>();
     public bool isGamePaused = false;
     public GameObject volume;
     CinemachineInputAxisController cinemachineInput;
@@ -17,13 +24,14 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
-
+        //Lógica integrada com save para mudar estado do cursor
+        SetCursorState(true, CursorLockMode.None);
+        cinemachineInput = FindAnyObjectByType<CinemachineInputAxisController>();
         EventBus.Subscribe<ChangePanelEvent>(OnChangePanel);
         EventBus.Subscribe<GameLanguageChangeEvent>(OnChangeLanguage);
         EventBus.Subscribe<ActivateSubPanelEvent>(OnActivateSubPanel);
@@ -33,47 +41,80 @@ public class UIManager : MonoBehaviour
         //Substitute the language arbitrarly selection after Save System implementation
         EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.English));
     }
+
+    void SetCursorState(bool visible, CursorLockMode lockMode)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = lockMode;
+    }
+    public void HandleEscPress()
+    {
+        if(gameConclusion.isActiveAndEnabled || finalCredits.isActiveAndEnabled)
+        {
+            return;
+        }
+        // Se HUD (volume desligado/menus fechados) -> pausa normalmente
+        if (!isGamePaused)
+        {
+            PauseGame();
+            return;
+        }
+        Debug.Log("<color=yellow>[UI MANAGER]</color> Fechando menus e retornando ao jogo via ESC");
+        // Desativar todos os menus
+        foreach (var section in sections)
+        {
+            section.SetActive(false);
+        }
+        // Reactivar HUD (CASO mantenha referência separada, ative aqui)
+        hud.gameObject.SetActive(true);
+        AudioPlayer.Stop(AudioId.MenuMusic);
+        AudioPlayer.Play(AudioId.InGameMusic);
+        FecharMenu(); // restaura câmera, inputs e cursor
+    }
+
     public void PauseGame()
     {
-        Debug.Log("Pausing Game");
+        Debug.Log($"<color=purple>[UI MANAGER]</color> Pausando jogo");
         if (!pause.isActiveAndEnabled && !isGamePaused)
         {
             pause.gameObject.SetActive(!pause.isActiveAndEnabled);
             isGamePaused = true;
+            foreach (var counter in collectableCounters)
+            {
+                if(counter.isActive)
+                {
+                    counter.PlayCollectableCounterAnimationHide();
+                }
+            }
             AbrirMenu();
         }
     }
 
     public void ResumeGame()
     {
-        Debug.Log("Resuming Game");
+        Debug.Log($"<color=purple>[UI MANAGER]</color> Voltando ao jogo");
         if (pause.isActiveAndEnabled || mainMenu.isActiveAndEnabled && isGamePaused)
         {
             pause.gameObject.SetActive(!pause.isActiveAndEnabled);
-            isGamePaused = false;
             FecharMenu();
         }
-    }
-    void Start()
-    {
-        cinemachineInput = FindAnyObjectByType<CinemachineInputAxisController>();
     }
 
     public void AbrirMenu()
     {
         cinemachineInput.enabled = false;     // Para a câmera de capturar o mouse
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Time.timeScale = 0f;
+        SetCursorState(true, CursorLockMode.None);
+        FindAnyObjectByType<Player.PlayerInput>().DisableMovementInputs();
         volume.SetActive(true);
     }
 
     public void FecharMenu()
     {
-        Time.timeScale = 1f;
+        isGamePaused = false;
         cinemachineInput.enabled = true;      // Reativa a câmera
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        SetCursorState(false, CursorLockMode.Locked);
+        FindAnyObjectByType<Player.PlayerInput>().EnableMovementInputs();
+        EventSystem.current.SetSelectedGameObject(null);
         volume.SetActive(false);
     }
     static void OnChangePanel(ChangePanelEvent eventData)

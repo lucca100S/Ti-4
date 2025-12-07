@@ -4,21 +4,44 @@ using UnityEngine;
 public class CollectableCounterAnimationHandler : MonoBehaviour
 {
     public Animation animationComponent;
+    public CollectableType collectableTypeDisplayed;
     public AnimationClip revealAnimation;
     public AnimationClip hideAnimation;
-    bool isActive = false;
+    public bool isActive = false;
     [SerializeField]
     float animationDuration = 1.0f;
     public CollectableCounterHandler collectableCounterHandler;
-    public void Awake()
+    public SaveHandler saveHandler;
+    public void Start()
     {
-        // Subscribe to the AddCollectableCountEvent
-        EventBus.Subscribe<AddCollectableCountEvent>(OnAddCollectableCount);
+        switch (collectableTypeDisplayed)
+        {
+            case CollectableType.Common:
+                EventBus.Subscribe<AddCommonCollectableCountEvent>(OnAddCommonCollectableCount);
+                collectableCounterHandler.collectableCount = saveHandler.sessionProgressionData.CommonCollectablesCount;
+                break;
+            case CollectableType.Hidden:
+                EventBus.Subscribe<AddHiddenCollectableCountEvent>(OnAddHiddenCollectableCount);
+                collectableCounterHandler.collectableCount = saveHandler.sessionProgressionData.HiddenCollectablesCount;
+                break;
+        }
+
     }
-    private void OnAddCollectableCount(AddCollectableCountEvent evt)
+    private void OnAddCommonCollectableCount(AddCommonCollectableCountEvent evt)
     {
         Debug.Log("Collectable Count Added Event Received");
-        if(isActive)
+        if (isActive)
+        {
+            collectableCounterHandler.UpdateCollectableText();
+            return;
+        }
+        // Trigger the collectable counter animation
+        PlayCollectableCounterAnimationReveal();
+    }
+    private void OnAddHiddenCollectableCount(AddHiddenCollectableCountEvent evt)
+    {
+        Debug.Log("Collectable Count Added Event Received");
+        if (isActive)
         {
             collectableCounterHandler.UpdateCollectableText();
             return;
@@ -35,7 +58,7 @@ public class CollectableCounterAnimationHandler : MonoBehaviour
         StartCoroutine(WaitTimeToIncreaseCounter(.1f));
         StartCoroutine(WaitTimeDoDeactivate(animationDuration)); // Assuming 1 second animation duration
     }
-    private void PlayCollectableCounterAnimationHide()
+    public void PlayCollectableCounterAnimationHide()
     {
         isActive = false;
         // Animation logic here
@@ -54,3 +77,4 @@ public class CollectableCounterAnimationHandler : MonoBehaviour
         collectableCounterHandler.UpdateCollectableText();
     }
 }
+

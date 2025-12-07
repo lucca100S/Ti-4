@@ -84,6 +84,7 @@ public class PlayerStartAnimationHandler : MonoBehaviour
 
     private IEnumerator HandleAnimation()
     {
+        _playerGameplay.transform.position = this.transform.position;
         _startCamera.SetActive(false);
         _panCamera.SetActive(true);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerSpawnpoint : MonoBehaviour
 {
     private Vector3 _originalSpawnPoint;
-    private Vector3 _spawnPoint;
+    [SerializeField]private Vector3 _spawnPoint;
     [SerializeField] private float _killZoneY;
 
     [SerializeField] private List<Transform> _teleportPoints;
@@ -62,7 +62,15 @@ public class PlayerSpawnpoint : MonoBehaviour
     {
         _spawnPoint = pos;
     }
+    public Vector3 GetSpawnPoint()
+    {
+        return _spawnPoint;
+    }    
 
+    public Vector3 GetOriginalSpawnPoint()
+    {
+       return _originalSpawnPoint;
+    }
     public void ResetSpawnPoint()
     {
         SetSpawnPoint(_originalSpawnPoint);
