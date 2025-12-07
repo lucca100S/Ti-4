@@ -60,6 +60,7 @@ MonoBehaviour:
   _transformationVFX: {fileID: 5701194174051490535}
   _gameplayCanvas: {fileID: 0}
   _startCanvas: {fileID: 2903575433183621911}
+  _debugStart: 0
 --- !u!1 &2229454066720182028
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +480,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: a4f54bfab78653f4e9036c3f087284b7, type: 2}
     - target: {fileID: -4351112666615268166, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b937f4d933904a34aa2db1764f444762, type: 2}
+    - target: {fileID: -2336307747909421985, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b937f4d933904a34aa2db1764f444762, type: 2}
