@@ -22,14 +22,14 @@ void Awake()
 
     sessionProgressionData = SaveHandler.LoadProgression();
 
-    if (!string.IsNullOrEmpty(sessionProgressionData.lastSceneName) &&
+    /* if (!string.IsNullOrEmpty(sessionProgressionData.lastSceneName) &&
         sessionProgressionData.lastSceneName != sceneName)
     {
         Debug.Log($"Última cena: {sessionProgressionData.lastSceneName}, carregando a cena correta...");
         SceneManager.LoadScene(sessionProgressionData.lastSceneName);
         FindAnyObjectByType<MainMenu>().gameObject.SetActive(true);
         return; 
-    }
+    } */
 
     ScanSceneObjects();
     SceneSaveData sceneData = LoadOrCreateScene(foundCollectables, foundCheckpoints, playerSpawnpoint);

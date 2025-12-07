@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// Representa um colet�vel no cen�rio.
-/// Notifica observadores quando � coletado.
+/// Representa um colet vel no cen rio.
+/// Notifica observadores quando   coletado.
 /// </summary>
-public class Collectables : OptionalInteractableObjects, ILoadable
+public class Collectables : OptionalInteractableObjects
 {
     [SerializeField] private float _spinDuration = 1;
     [SerializeField] private float _bounceHeight = 0.5f;
@@ -15,41 +15,50 @@ public class Collectables : OptionalInteractableObjects, ILoadable
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Collider _collider;
 
+    public CollectableType collectableType;
     public CollectableSaveData collectableSaveData;
 
-    private void Start()
+    void Awake()
     {
-        transform.DORotate(new Vector3(0, 360, 0), _spinDuration, RotateMode.FastBeyond360)
-            .SetLoops(-1, LoopType.Restart)
-            .SetEase(Ease.Linear);
-        transform.DOMoveY(transform.position.y + _bounceHeight, _bounceDuration)
-        .SetLoops(-1, LoopType.Yoyo)
-        .SetEase(Ease.InOutSine);
+        collectableSaveData.id = this.gameObject.name;
     }
-
-    private void OnDisable()
-    {
-        transform.DOKill();
-    }
-
     public void LoadData()
     {
-        if(collectableSaveData.isCollected)
+        if (!collectableSaveData.isCollected)
         {
-            this.gameObject.SetActive(false);
+            transform.DORotate(new Vector3(0, 360, 0), _spinDuration, RotateMode.FastBeyond360)
+            .SetLoops(-1, LoopType.Restart)
+            .SetEase(Ease.Linear);
+            transform.DOMoveY(transform.position.y + _bounceHeight, _bounceDuration)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.InOutSine);
+        }
+        else
+        {
+            _collider.enabled = false;
+            _renderer.enabled = false;
         }
     }
 
     public override void Interaction()
     {
         Debug.Log($"[Collectable] Coletado: {this.gameObject.name}");
-        EventBus.Publish(new AddCollectableCountEvent());
+        switch (collectableType)
+        {
+            case CollectableType.Common:
+                EventBus.Publish(new AddCommonCollectableCountEvent());
+                break;
+            case CollectableType.Hidden:
+                EventBus.Publish(new AddHiddenCollectableCountEvent());
+                break;
+        }
         CollectableObservable.Instance?.NotifyListeners(this);
         _collider.enabled = false;
         _renderer.enabled = false;
         _collectEffect.Play();
+        transform.DOKill();
         AudioPlayer.Play(AudioId.CollectablePickUp);
-        Destroy(this.gameObject, 2f);
+        collectableSaveData.isCollected = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,4 +68,9 @@ public class Collectables : OptionalInteractableObjects, ILoadable
             Interaction();
         }
     }
+}
+
+public enum CollectableType
+{
+    Common, Hidden
 }
