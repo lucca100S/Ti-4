@@ -18,6 +18,10 @@ public class Collectables : OptionalInteractableObjects
     public CollectableType collectableType;
     public CollectableSaveData collectableSaveData;
 
+    void Awake()
+    {
+        collectableSaveData.id = this.gameObject.name;
+    }
     public void LoadData()
     {
         if (!collectableSaveData.isCollected)

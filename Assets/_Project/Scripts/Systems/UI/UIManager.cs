@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     public Pause pause;
     public MainMenu mainMenu;
     public HUD hud;
+    public GameConclusion gameConclusion;
+    public Credits finalCredits;
     public List<GameObject> sections = new List<GameObject>();
     public List<CollectableCounterAnimationHandler> collectableCounters = new List<CollectableCounterAnimationHandler>();
     public bool isGamePaused = false;
@@ -47,6 +49,10 @@ public class UIManager : MonoBehaviour
     }
     public void HandleEscPress()
     {
+        if(gameConclusion.isActiveAndEnabled || finalCredits.isActiveAndEnabled)
+        {
+            return;
+        }
         // Se HUD (volume desligado/menus fechados) -> pausa normalmente
         if (!isGamePaused)
         {

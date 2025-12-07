@@ -27,6 +27,7 @@ void Awake()
     {
         Debug.Log($"Última cena: {sessionProgressionData.lastSceneName}, carregando a cena correta...");
         SceneManager.LoadScene(sessionProgressionData.lastSceneName);
+        FindAnyObjectByType<MainMenu>().gameObject.SetActive(true);
         return; 
     }
 
