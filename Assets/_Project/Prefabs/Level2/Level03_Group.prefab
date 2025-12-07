@@ -4623,7 +4623,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 5773
+  m_VersionIndex: 5779
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9142,7 +9142,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 17248
+  m_VersionIndex: 17254
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -13377,7 +13377,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 14740
+  m_VersionIndex: 14746
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -17574,7 +17574,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 17248
+  m_VersionIndex: 17254
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -18830,7 +18830,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7477
+  m_VersionIndex: 7483
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -23061,7 +23061,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 14560
+  m_VersionIndex: 14566
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -30665,6 +30665,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6574368623904588934, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6995845175735940394, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.1573496
@@ -35701,6 +35705,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6574368623904588934, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6995845175735940394, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.55
@@ -35961,7 +35969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7363634379841808644, guid: b86e3c9bf5eb7cd40b346aea2c1bc6b7, type: 3}
       propertyPath: m_VersionIndex
-      value: 5613
+      value: 5619
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36369,7 +36377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7363634379841808644, guid: b86e3c9bf5eb7cd40b346aea2c1bc6b7, type: 3}
       propertyPath: m_VersionIndex
-      value: 5610
+      value: 5616
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37644,6 +37652,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4956420199249339052, guid: b6c25b9829d96bf429916476b31cb04e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5625391119535338745, guid: b6c25b9829d96bf429916476b31cb04e, type: 3}
       propertyPath: m_Name
       value: Island_Group (1)
@@ -38477,6 +38489,10 @@ PrefabInstance:
     - target: {fileID: 6574368623904588934, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
       propertyPath: m_Name
       value: Checkpoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574368623904588934, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6995845175735940394, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40005,6 +40021,10 @@ PrefabInstance:
     - target: {fileID: 6574368623904588934, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
       propertyPath: m_Name
       value: Checkpoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574368623904588934, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6995845175735940394, guid: 4bac4d0125616f840b19ec42b020fbca, type: 3}
       propertyPath: m_LocalPosition.x
