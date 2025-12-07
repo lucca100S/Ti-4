@@ -3429,15 +3429,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2285594205793809601}
+  - {fileID: 4383384966512322742}
+  - {fileID: 8610027946825496390}
+  - {fileID: 5044435639137634808}
   _target: {fileID: 4461126628504018758}
   _rotationSpeed: 10
   _minAngle: {x: 0, y: 0, z: 0}
   _maxAngle: {x: -60, y: 0, z: 0}
   _angleMultiplier: {x: 1, y: 6, z: 1}
-  _angleDampeming: 1.1
+  _angleDampeming: 0.9
   _direction: {x: -1, y: -1, z: 1}
 --- !u!95 &2913127425146378241
 Animator:
@@ -4224,7 +4225,20 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2898202393754989190}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6787821750646097076}
   m_SourcePrefab: {fileID: 100100000, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+--- !u!1 &3996705681388818698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7886369663484367158, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+  m_PrefabInstance: {fileID: 6486632381864230972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5975768863679901656 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8580738455944122396, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+  m_PrefabInstance: {fileID: 6486632381864230972}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6252205854995348845 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
@@ -4252,9 +4266,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6787821750646097076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252205854995348845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ad778540579d14688631c5292f78fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objects:
+  - {fileID: 5975768863679901656}
+  - {fileID: 3996705681388818698}
+  - {fileID: 7170695505032454897}
+  _target: {fileID: 5975768863679901656}
+  _rotationSpeed: 4.7
+  _minAngle: {x: -55, y: 0, z: 0}
+  _maxAngle: {x: -25, y: 0, z: 0}
+  _angleMultiplier: {x: 10000, y: 10000, z: 10000}
+  _angleDampeming: 1.2
+  _direction: {x: 1, y: 1, z: 1}
 --- !u!4 &6741779472211322839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
+  m_PrefabInstance: {fileID: 6486632381864230972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7170695505032454897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5078291980637478195, guid: bc97fd80e34a8c949870e28edebcf927, type: 3}
   m_PrefabInstance: {fileID: 6486632381864230972}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6795744074218323784
@@ -5355,14 +5397,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8428602182597616811}
+      addedObject: {fileID: 9045188100893540114}
   m_SourcePrefab: {fileID: 100100000, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
 --- !u!1 &5948759138022621721 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 74bf93bb85e75184184f39300ae81ed0, type: 3}
   m_PrefabInstance: {fileID: 6795744074218323784}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8428602182597616811
+--- !u!114 &9045188100893540114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5371,20 +5413,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5948759138022621721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c363697e802ff0409784839dac18bba, type: 3}
+  m_Script: {fileID: 11500000, guid: 04ad778540579d14688631c5292f78fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _objects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _target: {fileID: 4461126628504018758}
+  - {fileID: 1437081896742998681}
+  - {fileID: 2545217205453392384}
+  - {fileID: 5885117325518764100}
+  - {fileID: 8858380638826928654}
+  - {fileID: 7159995823311710954}
+  _target: {fileID: 1437081896742998681}
   _rotationSpeed: 4.7
   _minAngle: {x: 15, y: 0, z: 0}
   _maxAngle: {x: 40, y: 0, z: 0}
-  _angleMultiplier: {x: 6, y: 1, z: 1}
+  _angleMultiplier: {x: 10000, y: 10000, z: 10000}
   _angleDampeming: 1.2
   _direction: {x: 1, y: 1, z: 1}
 --- !u!4 &6468836231999576227 stripped
