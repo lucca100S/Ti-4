@@ -381,4 +381,46 @@ public class SaveHandler : MonoBehaviour
         SaveProgression(defaultData);
         Debug.Log("<color=green> SessionProgression resetado com sucesso!</color>");
     }
+
+
+    [ContextMenu("RESETAR TODOS OS SAVES (Cenas + Progressão + Configurações)")]
+    public static void ResetAllSaves()
+    {
+        string basePath = Application.persistentDataPath + "/Saves/";
+
+        // =========================
+        //  APAGA PASTAS COMPLETAS
+        // =========================
+        string scenesPath = basePath + "Scenes/";
+        string progressionPath = basePath + "Progression/";
+
+        bool deletedSomething = false;
+
+        if (Directory.Exists(scenesPath))
+        {
+            Directory.Delete(scenesPath, true);
+            Debug.Log("<color=red>⚠ PASTA DE SCENES apagada.</color>");
+            deletedSomething = true;
+        }
+
+        if (Directory.Exists(progressionPath))
+        {
+            Directory.Delete(progressionPath, true);
+            Debug.Log("<color=red>⚠ PASTA DE PROGRESSÃO apagada.</color>");
+            deletedSomething = true;
+        }
+
+        if (!deletedSomething)
+            Debug.Log("<color=yellow>Nenhuma pasta encontrada. Nenhum save foi apagado.</color>");
+        else
+            Debug.Log("<color=green>✔ TODOS OS SAVES FORAM APAGADOS COM SUCESSO.</color>");
+
+        // =========================
+        //  RECRIA PASTAS PARA EVITAR ERROS
+        // =========================
+        Directory.CreateDirectory(scenesPath);
+        Directory.CreateDirectory(progressionPath);
+        Debug.Log("<color=cyan>Pastas recriadas, sistema limpo e pronto para novo jogo.</color>");
+    }
+
 }

@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 4214720597671180499}
   - component: {fileID: 546518702621629430}
   - component: {fileID: 6489295955240832477}
+  - component: {fileID: 8552112403488649004}
   m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -213,6 +214,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 8552112403488649004}
+        m_TargetAssemblyTypeName: ResetSave, Assembly-CSharp
+        m_MethodName: OnClik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6489295955240832477}
         m_TargetAssemblyTypeName: LoadSceneButton, Assembly-CSharp
         m_MethodName: OnClik
@@ -273,6 +286,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Level1Entrega
+--- !u!114 &8552112403488649004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943185755625698738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb18522887074f47accfe4a8e398eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1767085032416232958
 GameObject:
   m_ObjectHideFlags: 0

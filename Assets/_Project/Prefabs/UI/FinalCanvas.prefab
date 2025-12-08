@@ -15439,23 +15439,19 @@ MonoBehaviour:
       m_Calls: []
   m_text: "<size=250><u><align=\"center\">Funcionalidades</u></size></align>\n\u2022
     M\xFAsica original\n\u2022 M\xFAltiplos idiomas - Local: Tela de Settings ->
-    Aba General -> Aba Language\n\u2022 Sistema de Save e Load: toda vez que o jogador
-    alcan\xE7a um checkpoint, o jogo salva qual foi o checkpoint ativado e quais
-    foram os colet\xE1veis que o jogador coletou. Se o jogador fechar o jogo nesse
-    momento, ao reabr\xED-lo retornar\xE1 com o seu progresso.\n\u2022 Shader de
-    ilumina\xE7\xE3o customizado\n\u2022 Automatiza\xE7\xE3o de cria\xE7\xE3o de
-    build para o jogo por meio do Github\n\u2022 Ferramentas que facilitaram o desenvolvimento
-    dentro da Unity:\n\n\t\u2022 Gerador de mesh procedural - Utilizado para prototipar
-    fases de forma r\xE1pida.\n\r\n\t\u2022 DebugController - Utilizado para agrupar
-    mensagens de debug para poder desativar e ativar grupos de mensagens, deixando
-    o processo de teste mais simples.\n\r\n\t\u2022 ConsoleDebug - Ferramenta que
-    cria comandos por textos para acessar fun\xE7\xF5es direto de uma build ou em
-    Runtime dentro da Unity, utilizado durante o processo de desenvolvimento dos
-    controles do jogador para facilitar a troca de valores e evitar a necessidade
-    de criar build novas para fazer pequenas altera\xE7\xF5es.\n\r\n\t\u2022 Batch
-    Renamer - Ferramenta que permite renomear objetos selecionados, podendo adicionar
-    prefixos, substituir o nome completamente, adicionar sufixos e adicionar uma
-    numera\xE7\xE3o para diferenciar todos os objetos selecionados.\n\r\n\t\u2022
+    Aba General -> Aba Language\n\u2022 Shader de ilumina\xE7\xE3o customizado\n\u2022
+    Automatiza\xE7\xE3o de cria\xE7\xE3o de build para o jogo por meio do Github\n\u2022
+    Ferramentas que facilitaram o desenvolvimento dentro da Unity:\n\t\u2022 Gerador
+    de mesh procedural - Utilizado para prototipar fases de forma r\xE1pida.\n\r\n\t\u2022
+    DebugController - Utilizado para agrupar mensagens de debug para poder desativar
+    e ativar grupos de mensagens, deixando o processo de teste mais simples.\n\r\n\t\u2022
+    ConsoleDebug - Ferramenta que cria comandos por textos para acessar fun\xE7\xF5es
+    direto de uma build ou em Runtime dentro da Unity, utilizado durante o processo
+    de desenvolvimento dos controles do jogador para facilitar a troca de valores
+    e evitar a necessidade de criar build novas para fazer pequenas altera\xE7\xF5es.\n\r\n\t\u2022
+    Batch Renamer - Ferramenta que permite renomear objetos selecionados, podendo
+    adicionar prefixos, substituir o nome completamente, adicionar sufixos e adicionar
+    uma numera\xE7\xE3o para diferenciar todos os objetos selecionados.\n\r\n\t\u2022
     Scene Loader - Ferramenta que facilita a navega\xE7\xE3o entre cenas dentro da
     Unity, permitindo que cada membro do grupo crie um conjunto de atalhos para troca
     entre cenas que est\xE3o atualmente mexendo.\n\r\n\t\u2022 Game Object Replacer
