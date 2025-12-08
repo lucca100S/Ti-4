@@ -15989,10 +15989,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameConclusion
       objectReference: {fileID: 0}
-    - target: {fileID: 353817410368542792, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4515282578284268411, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -16073,30 +16069,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7799724668701339431, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1123.5486
-      objectReference: {fileID: 0}
-    - target: {fileID: 7799724668701339431, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 481.2083
-      objectReference: {fileID: 0}
-    - target: {fileID: 7799724668701339431, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 181
-      objectReference: {fileID: 0}
-    - target: {fileID: 8765427180955574606, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
-      propertyPath: m_text
-      value: OBRIGADO POR JOGAR!
-      objectReference: {fileID: 0}
-    - target: {fileID: 8765427180955574606, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
-      propertyPath: m_fontSize
-      value: 219.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8765427180955574606, guid: 34e3f77e4db080b449db28279b2f42da, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 219.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16118,6 +16090,10 @@ PrefabInstance:
     - target: {fileID: 6567696391804324362, guid: ec416671d92f51e40891f5c96fd6be40, type: 3}
       propertyPath: m_Name
       value: KeymapSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 6567696391804324362, guid: ec416671d92f51e40891f5c96fd6be40, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7200787203574977082, guid: ec416671d92f51e40891f5c96fd6be40, type: 3}
       propertyPath: m_Pivot.x
