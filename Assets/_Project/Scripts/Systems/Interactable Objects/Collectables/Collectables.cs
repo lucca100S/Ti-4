@@ -26,6 +26,7 @@ public class Collectables : OptionalInteractableObjects
     {
         if (!collectableSaveData.isCollected)
         {
+            Debug.Log("AHHHHHHHHHH");
             transform.DORotate(new Vector3(0, 360, 0), _spinDuration, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.Linear);

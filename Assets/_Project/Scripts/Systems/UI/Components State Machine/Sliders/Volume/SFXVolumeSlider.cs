@@ -1,8 +1,9 @@
+using UnityEngine.UI;
 public class SFXVolumeSlider : VolumeSlider<ChangeSFXVolumeEvent>
 {
-    public void OnEnable()
+    public void SetValue(ChangeSFXVolumeEvent changeSFXVolumeEvent)
     {
-        this.Set(AudioManager.Instance.SFXVolume);        
+        this.GetComponent<Slider>().value = changeSFXVolumeEvent.SFXVolume;
     }
     public override void OnVolumeChanged()
     {

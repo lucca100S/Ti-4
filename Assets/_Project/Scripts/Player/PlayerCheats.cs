@@ -5,9 +5,9 @@ namespace Player
 {
     public class PlayerCheats : MonoBehaviour
     {
-        public static readonly string level01Name = "TesteLevel";
-        public static readonly string level02Name = "";
-        public static readonly string level03Name = "";
+        public static readonly string level01Name = "Level1Entrega";
+        public static readonly string level02Name = "LuguFase2";
+        public static readonly string level03Name = "LuguFase3";
 
         [DebugMethod("tp", "Teleports to points in an array")]
         public static void Teleport(int point, PlayerSpawnpoint spawnpoint) =>
@@ -30,8 +30,12 @@ namespace Player
             controller?.ChangeCameraSensitivity(sens);
 
         [DebugMethod("go_to_scene", "Changes scenes")]
-        public static void GoToScene(string sceneName) =>
-            SceneManager.LoadScene(sceneName);
+        public static void GoToScene(string sceneName)
+        {
+            SaveHandler.SaveGameSettings(FindAnyObjectByType<SaveHandler>().gameSettingsData);
+            SceneManager.LoadScene(sceneName);   
+        }
+            
     }
 }
 
