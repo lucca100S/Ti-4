@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
         EventBus.Publish(new GameLanguageChangeEvent(GameLanguages.English));
     }
 
-    void SetCursorState(bool visible, CursorLockMode lockMode)
+    public void SetCursorState(bool visible, CursorLockMode lockMode)
     {
         Cursor.visible = visible;
         Cursor.lockState = lockMode;
