@@ -3245,6 +3245,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4521392334300207757, guid: 1c8f3bc521c3b374abe88d385f0ccae5, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 2016419672}
     - target: {fileID: 5118697059651685095, guid: 1c8f3bc521c3b374abe88d385f0ccae5, type: 3}
       propertyPath: saveHandler
       value: 
@@ -3358,9 +3362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7abbe28edcb4494284962e68826975d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MasterVolume: 1
-  MusicVolume: 1
-  SFXVolume: 1
   AutoDestroyNonLooping: 1
 --- !u!4 &1533658263
 Transform:
@@ -4468,6 +4469,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &2016419672 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 810013788994359655, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+  m_PrefabInstance: {fileID: 1682152550}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d9e104a5be0b2458501e20e5eaf63f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2030714932
 PrefabInstance:
   m_ObjectHideFlags: 0
