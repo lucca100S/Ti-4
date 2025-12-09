@@ -11,18 +11,18 @@ public class CollectableCounterAnimationHandler : MonoBehaviour
     [SerializeField]
     float animationDuration = 1.0f;
     public CollectableCounterHandler collectableCounterHandler;
-    public SaveHandler saveHandler;
+    //public SaveHandler saveHandler;
     public void Start()
     {
         switch (collectableTypeDisplayed)
         {
             case CollectableType.Common:
                 EventBus.Subscribe<AddCommonCollectableCountEvent>(OnAddCommonCollectableCount);
-                collectableCounterHandler.collectableCount = saveHandler.sessionProgressionData.CommonCollectablesCount;
+                collectableCounterHandler.collectableCount = CountCollectables.CollectedNumberByType(CollectableType.Common);
                 break;
             case CollectableType.Hidden:
                 EventBus.Subscribe<AddHiddenCollectableCountEvent>(OnAddHiddenCollectableCount);
-                collectableCounterHandler.collectableCount = saveHandler.sessionProgressionData.HiddenCollectablesCount;
+                collectableCounterHandler.collectableCount = CountCollectables.CollectedNumberByType(CollectableType.Hidden);
                 break;
         }
 

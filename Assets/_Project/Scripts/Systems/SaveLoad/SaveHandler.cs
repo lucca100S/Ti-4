@@ -174,7 +174,7 @@ public class SaveHandler : MonoBehaviour
             if (save != null)
             {
                 col.collectableSaveData.isCollected = save.isCollected;
-                col.LoadData(); // seu método que atualiza a aparência/estado do coletável
+                //col.LoadData(); // seu método que atualiza a aparência/estado do coletável
             }
         }
 

@@ -6,6 +6,10 @@ public class MasterVolumeSlider : VolumeSlider<ChangeMasterVolumeEvent>
     {
         this.GetComponent<Slider>().value = changeMasterVolumeEvent.MasterVolume;
     }
+    void OnEnable()
+    {
+        this.GetComponent<Slider>().value = AudioManager.MasterVolume;
+    }
     public override void OnVolumeChanged()
     {
         EventBus.Publish(new ChangeMasterVolumeEvent(this.Get()));

@@ -18,7 +18,7 @@ public class CheckPoint : OptionalInteractableObjects
         if(other.CompareTag("Player") && !checkPointSaveData.isActivated)
         {
             Interaction();
-            FindAnyObjectByType<SaveHandler>()?.SaveSceneNow();
+            //FindAnyObjectByType<SaveHandler>()?.SaveSceneNow();
         }
     }
 }

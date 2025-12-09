@@ -17,9 +17,9 @@ public class AudioManager : MonoBehaviour
     }
 
     [Header("Global Volumes")]
-    [Range(0f, 1f)] public float MasterVolume = 1f;
-    [Range(0f, 1f)] public float MusicVolume = 1f;
-    [Range(0f, 1f)] public float SFXVolume = 1f;
+    [Range(0f, 1f)] public static float MasterVolume = 1f;
+    [Range(0f, 1f)] public static float MusicVolume = 1f;
+    [Range(0f, 1f)] public static float SFXVolume = 1f;
 
     [Header("Pool / Settings")]
     [Tooltip("If true, non-looping SFX GameObjects will be destroyed after playback ends.")]
@@ -80,19 +80,26 @@ public class AudioManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
 
+    }
+
+    void Start()
+    {
+        EventBus.Publish(new ChangeMasterVolumeEvent(MasterVolume));
+        EventBus.Publish(new ChangeSFXVolumeEvent(SFXVolume));
+        EventBus.Publish(new ChangeMusicVolumeEvent(MusicVolume));
         EventBus.Subscribe<ChangeMasterVolumeEvent>(evt =>
         {
-            Instance.MasterVolume = evt.MasterVolume;
+            MasterVolume = evt.MasterVolume;
             UpdateActiveVolumes();
         });
         EventBus.Subscribe<ChangeMusicVolumeEvent>(evt =>
         {
-            Instance.MusicVolume = evt.MusicVolume;
+            MusicVolume = evt.MusicVolume;
             UpdateActiveVolumes();
         });
         EventBus.Subscribe<ChangeSFXVolumeEvent>(evt =>
         {
-            Instance.SFXVolume = evt.SFXVolume;
+            SFXVolume = evt.SFXVolume;
             UpdateActiveVolumes();
         });
     }

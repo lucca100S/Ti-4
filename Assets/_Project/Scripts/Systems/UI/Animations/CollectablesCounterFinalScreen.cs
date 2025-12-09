@@ -18,10 +18,10 @@ public class CollectablesCounterFinalScreen : MonoBehaviour
         switch (collectableType)
         {
             case CollectableType.Common:
-                collected = SaveHandler.LoadProgression().CommonCollectablesCount;
+                collected = CountCollectables.CollectedNumberByType(CollectableType.Common);
                 break;
             case CollectableType.Hidden:
-                collected = SaveHandler.LoadProgression().HiddenCollectablesCount;
+                collected = CountCollectables.CollectedNumberByType(CollectableType.Hidden);
                 break;
         }
         // Inicializa a animação

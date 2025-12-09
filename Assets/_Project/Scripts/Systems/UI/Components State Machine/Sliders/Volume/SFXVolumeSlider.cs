@@ -5,6 +5,10 @@ public class SFXVolumeSlider : VolumeSlider<ChangeSFXVolumeEvent>
     {
         this.GetComponent<Slider>().value = changeSFXVolumeEvent.SFXVolume;
     }
+        public void OnEnable()
+    {
+        this.GetComponent<Slider>().value = AudioManager.SFXVolume;
+    }
     public override void OnVolumeChanged()
     {
         EventBus.Publish(new ChangeSFXVolumeEvent(this.Get()));
