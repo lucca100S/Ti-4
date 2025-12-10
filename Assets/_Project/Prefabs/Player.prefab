@@ -1035,6 +1035,7 @@ GameObject:
   - component: {fileID: 8304052787321638032}
   - component: {fileID: 819022029859999999}
   - component: {fileID: 3847028952425440306}
+  - component: {fileID: 8531600940530264642}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1145,9 +1146,6 @@ MonoBehaviour:
   _transformInput:
     _bufferTime: 0.1
     _delayTime: 0.1
-  level01Name: 
-  level02Name: 
-  level03Name: 
 --- !u!114 &810013788994359655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,6 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e3a0f98b880f64a9f4f42af3f7fc54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnPoint: {x: 0, y: 0, z: 0}
   _killZoneY: -5
   _teleportPoints:
   - {fileID: 0}
@@ -1308,6 +1307,18 @@ MonoBehaviour:
   _liquidAnimator: {fileID: 2898202393754989190}
   _transformationVFX: {fileID: 7307716902513270716}
   _playerStateMachine: {fileID: 4461126628504018758}
+--- !u!114 &8531600940530264642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112733754245621094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68187577c4ba3af40b00052832580b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3127278459910007175
 GameObject:
   m_ObjectHideFlags: 0
