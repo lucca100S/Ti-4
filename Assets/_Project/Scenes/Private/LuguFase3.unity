@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_047
+      value: Collectables_045
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -191,7 +191,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_074
+      value: Collectables_072
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -251,50 +251,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 810013788994359655, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: _cameraInputs
+      value: 
+      objectReference: {fileID: 1006859198}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.4066179
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 64.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.6054344
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112733754245621094, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 810013788994359655, guid: 0c60669915823a34093853167ddef4ac, type: 3}
       propertyPath: _cameraInputs
       value: 
       objectReference: {fileID: 1006859198}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.4066179
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 64.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.6054344
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2898202393754989190, guid: 0c60669915823a34093853167ddef4ac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -323,22 +331,14 @@ PrefabInstance:
       propertyPath: '_teleportPoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1971184282}
-    - target: {fileID: 3112733754245621094, guid: 0c60669915823a34093853167ddef4ac, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 810013788994359655, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
-      propertyPath: _cameraInputs
-      value: 
-      objectReference: {fileID: 1006859198}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0c60669915823a34093853167ddef4ac, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
 --- !u!4 &236407435 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 866156584237228487, guid: 0c60669915823a34093853167ddef4ac, type: 3}
+  m_CorrespondingSourceObject: {fileID: 866156584237228487, guid: 67088f691f8ad0b4b882a8cd9c9615f6, type: 3}
   m_PrefabInstance: {fileID: 236407434}
   m_PrefabAsset: {fileID: 0}
 --- !u!43 &243801558
@@ -516,7 +516,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_067
+      value: Collectables_065
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalScale.x
@@ -586,7 +586,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_046
+      value: Collectables_044
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -679,7 +679,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_081
+      value: Collectables_079
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -905,7 +905,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_060
+      value: Collectables_058
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalScale.x
@@ -1006,7 +1006,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_078
+      value: Collectables_076
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1068,7 +1068,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_066
+      value: Collectables_064
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1130,7 +1130,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_048
+      value: Collectables_046
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1362,7 +1362,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_072
+      value: Collectables_070
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1424,7 +1424,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_071
+      value: Collectables_069
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1486,7 +1486,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_056
+      value: Collectables_054
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1548,7 +1548,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_053
+      value: Collectables_051
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1610,7 +1610,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_054
+      value: Collectables_052
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1672,7 +1672,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_070
+      value: Collectables_068
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1734,7 +1734,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_064
+      value: Collectables_062
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1796,7 +1796,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_052
+      value: Collectables_050
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1858,7 +1858,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_058
+      value: Collectables_056
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1992,7 +1992,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_049
+      value: Collectables_047
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalScale.x
@@ -2227,7 +2227,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_069
+      value: Collectables_067
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2289,7 +2289,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_079
+      value: Collectables_077
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2441,7 +2441,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_057
+      value: Collectables_055
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2775,7 +2775,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_061
+      value: Collectables_059
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2916,7 +2916,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_059
+      value: Collectables_057
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3114,7 +3114,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_083
+      value: Collectables_001
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3176,7 +3176,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_075
+      value: Collectables_073
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3295,7 +3295,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_062
+      value: Collectables_060
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3522,7 +3522,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_077
+      value: Collectables_075
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3584,7 +3584,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_050
+      value: Collectables_048
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3646,7 +3646,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_073
+      value: Collectables_071
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4236,7 +4236,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_051
+      value: Collectables_049
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalScale.x
@@ -4306,7 +4306,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_082
+      value: Collectables_080
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4533,7 +4533,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_080
+      value: Collectables_078
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4716,7 +4716,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_063
+      value: Collectables_061
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4778,7 +4778,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_076
+      value: Collectables_074
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5195,7 +5195,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_055
+      value: Collectables_053
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalScale.x
@@ -5265,7 +5265,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_068
+      value: Collectables_066
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5327,7 +5327,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1184875885874608064, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_Name
-      value: Collectables_065
+      value: Collectables_063
       objectReference: {fileID: 0}
     - target: {fileID: 3281874451485290492, guid: 0d0213a4e6ec68e49bfc30eed1d466eb, type: 3}
       propertyPath: m_LocalScale.x
@@ -5442,7 +5442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 25174483349399320, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_007
+      value: Collectables_008
       objectReference: {fileID: 0}
     - target: {fileID: 147727504024272131, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5462,39 +5462,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 315645986716995897, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_000
+      value: Collectables_081
       objectReference: {fileID: 0}
     - target: {fileID: 467630059693542124, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_011
+      value: Collectables_012
       objectReference: {fileID: 0}
     - target: {fileID: 505951661996642167, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_002
+      value: Collectables_003
       objectReference: {fileID: 0}
     - target: {fileID: 519787087048953334, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_045
+      value: CollectableRare_03
       objectReference: {fileID: 0}
     - target: {fileID: 639799404817890216, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_032
+      value: Collectables_033
       objectReference: {fileID: 0}
     - target: {fileID: 670131311954468451, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_038
+      value: Collectables_039
+      objectReference: {fileID: 0}
+    - target: {fileID: 714965193390955634, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 714965193390955634, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 743220630011316220, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_004
+      value: Collectables_005
       objectReference: {fileID: 0}
     - target: {fileID: 889400604282617342, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_029
+      value: Collectables_030
       objectReference: {fileID: 0}
     - target: {fileID: 1053659482111306003, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_020
+      value: Collectables_021
       objectReference: {fileID: 0}
     - target: {fileID: 1165035253916434172, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5502,19 +5510,27 @@ PrefabInstance:
       objectReference: {fileID: 1053887024}
     - target: {fileID: 1345919827008762578, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_035
+      value: Collectables_036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577341487417666853, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: _spinDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577341487417666853, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: _bounceDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1720861808540885248, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_042
+      value: Collectables_043
       objectReference: {fileID: 0}
     - target: {fileID: 2277462953002145574, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_028
+      value: Collectables_029
       objectReference: {fileID: 0}
     - target: {fileID: 2373577371645121244, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_010
+      value: Collectables_011
       objectReference: {fileID: 0}
     - target: {fileID: 2706002576917354450, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
@@ -5522,7 +5538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2776527190242982395, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_012
+      value: Collectables_013
       objectReference: {fileID: 0}
     - target: {fileID: 2780464589495053876, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5538,7 +5554,7 @@ PrefabInstance:
       objectReference: {fileID: 1529262319}
     - target: {fileID: 2937162284545948792, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_036
+      value: Collectables_037
       objectReference: {fileID: 0}
     - target: {fileID: 3056185426904872234, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
@@ -5554,15 +5570,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3429523270389104721, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_018
+      value: Collectables_019
       objectReference: {fileID: 0}
     - target: {fileID: 3496416917584256142, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_023
+      value: Collectables_024
       objectReference: {fileID: 0}
     - target: {fileID: 3528404984684391470, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_044
+      value: CollectableRare_01
       objectReference: {fileID: 0}
     - target: {fileID: 3867832963281403228, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5578,7 +5594,7 @@ PrefabInstance:
       objectReference: {fileID: 243801558}
     - target: {fileID: 4028648864125944320, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_003
+      value: Collectables_004
       objectReference: {fileID: 0}
     - target: {fileID: 4091750627517314027, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
@@ -5586,19 +5602,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145575225242985217, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_041
+      value: Collectables_042
       objectReference: {fileID: 0}
     - target: {fileID: 4222119787953976564, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_008
+      value: Collectables_009
       objectReference: {fileID: 0}
     - target: {fileID: 4310974181674963198, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_033
+      value: Collectables_034
       objectReference: {fileID: 0}
     - target: {fileID: 4351105584388441060, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_034
+      value: Collectables_035
       objectReference: {fileID: 0}
     - target: {fileID: 4408436762315953316, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5622,7 +5638,7 @@ PrefabInstance:
       objectReference: {fileID: 2030315205}
     - target: {fileID: 4584447353657411397, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_039
+      value: Collectables_040
       objectReference: {fileID: 0}
     - target: {fileID: 4716831132302396008, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5630,7 +5646,7 @@ PrefabInstance:
       objectReference: {fileID: 2030315205}
     - target: {fileID: 4745377995612044438, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_021
+      value: Collectables_022
       objectReference: {fileID: 0}
     - target: {fileID: 4775286699630187892, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
@@ -5662,11 +5678,19 @@ PrefabInstance:
       objectReference: {fileID: 1053887024}
     - target: {fileID: 5143544739443079145, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_014
+      value: Collectables_015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369090679138808160, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369090679138808160, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 61.4
       objectReference: {fileID: 0}
     - target: {fileID: 5414397261124126164, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_030
+      value: Collectables_031
       objectReference: {fileID: 0}
     - target: {fileID: 5486039179126225412, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5682,19 +5706,27 @@ PrefabInstance:
       objectReference: {fileID: 1457662913}
     - target: {fileID: 5852073328042223424, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_001
+      value: Collectables_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939228279213123671, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: _spinDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939228279213123671, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: _bounceDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6116461435344793491, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_005
+      value: Collectables_006
       objectReference: {fileID: 0}
     - target: {fileID: 6159910670542586927, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_019
+      value: Collectables_020
       objectReference: {fileID: 0}
     - target: {fileID: 6169599859209767141, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_024
+      value: Collectables_025
       objectReference: {fileID: 0}
     - target: {fileID: 6299561238820665132, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: hud
@@ -5710,39 +5742,63 @@ PrefabInstance:
       objectReference: {fileID: 1609842398}
     - target: {fileID: 6367960216523172421, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_031
+      value: Collectables_032
       objectReference: {fileID: 0}
     - target: {fileID: 6614158078384561457, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1457662913}
+    - target: {fileID: 6882418073210636378, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 8.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6882418073210636378, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6882418073210636378, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 8.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6882418073210636378, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6932393574937360836, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
       value: Checkpoint_003
       objectReference: {fileID: 0}
     - target: {fileID: 7050800871013613676, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_037
+      value: Collectables_038
       objectReference: {fileID: 0}
     - target: {fileID: 7144897569956449971, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_027
+      value: Collectables_028
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326704165177264527, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: _spinDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326704165177264527, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
+      propertyPath: _bounceDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7367691510295588207, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_015
+      value: Collectables_016
       objectReference: {fileID: 0}
     - target: {fileID: 7384600627935604002, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_006
+      value: Collectables_007
       objectReference: {fileID: 0}
     - target: {fileID: 7719872325932595957, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_026
+      value: Collectables_027
       objectReference: {fileID: 0}
     - target: {fileID: 7732595519155288384, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_013
+      value: Collectables_014
       objectReference: {fileID: 0}
     - target: {fileID: 7775940487884201728, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5786,7 +5842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7893553799511427361, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_040
+      value: Collectables_041
       objectReference: {fileID: 0}
     - target: {fileID: 8142894888834713711, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5794,11 +5850,11 @@ PrefabInstance:
       objectReference: {fileID: 1991880220}
     - target: {fileID: 8364351083100321072, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_025
+      value: Collectables_026
       objectReference: {fileID: 0}
     - target: {fileID: 8608875592905091420, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_043
+      value: CollectableRare_02
       objectReference: {fileID: 0}
     - target: {fileID: 8717257261880493287, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5810,15 +5866,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8813089870084544150, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_017
+      value: Collectables_018
       objectReference: {fileID: 0}
     - target: {fileID: 8826712901744841513, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_016
+      value: Collectables_017
       objectReference: {fileID: 0}
     - target: {fileID: 8887914631280373778, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_022
+      value: Collectables_023
       objectReference: {fileID: 0}
     - target: {fileID: 8891550841523286156, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Mesh
@@ -5826,7 +5882,7 @@ PrefabInstance:
       objectReference: {fileID: 1529262319}
     - target: {fileID: 9201711349339934400, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
       propertyPath: m_Name
-      value: Collectables_009
+      value: Collectables_010
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 63686988638393375, guid: f9f3559750f79284a87616bdd88bc01b, type: 3}
