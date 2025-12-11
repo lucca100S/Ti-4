@@ -153,6 +153,14 @@ public class AudioManager : MonoBehaviour
             return null;
         }
 
+        if(audio is MusicSO)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+
         // Cria o GameObject e AudioSource
         GameObject go = new GameObject($"Audio_{audio.name}");
         if (spatial && worldPosition.HasValue)
@@ -172,7 +180,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            src.pitch = 1f;
+            src.pitch = 1f; 
         }
 
         // Volume ajustado
